@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "Apartments.Core": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:57764;http://localhost:57767"
+    }
+  }
+}
