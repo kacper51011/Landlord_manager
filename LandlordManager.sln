@@ -15,9 +15,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Landlords.Api", "Services\L
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Landlords.Infrastructure", "Services\Landlords\Landlords.Infrastructure\Landlords.Infrastructure.csproj", "{07E24E87-1D85-4F3C-9E62-5CD2456CED6E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Landlords.Core", "Services\Landlords\Landlords.Core\Landlords.Core.csproj", "{083781EE-2F4D-40F9-B24E-4EA76AAC632E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Landlords.Domain", "Services\Landlords\Landlords.Domain\Landlords.Domain.csproj", "{507E7374-EED3-42CC-A8F6-2DE2CD7AAEB8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Landlords.Domain", "Services\Landlords\Landlords.Domain\Landlords.Domain.csproj", "{507E7374-EED3-42CC-A8F6-2DE2CD7AAEB8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Landlords.Application", "Services\Landlords\Landlords.Application\Landlords.Application.csproj", "{7735FC0C-D8FA-42BC-8D8E-82497F9FBBB5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -49,14 +49,14 @@ Global
 		{07E24E87-1D85-4F3C-9E62-5CD2456CED6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{07E24E87-1D85-4F3C-9E62-5CD2456CED6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{07E24E87-1D85-4F3C-9E62-5CD2456CED6E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{083781EE-2F4D-40F9-B24E-4EA76AAC632E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{083781EE-2F4D-40F9-B24E-4EA76AAC632E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{083781EE-2F4D-40F9-B24E-4EA76AAC632E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{083781EE-2F4D-40F9-B24E-4EA76AAC632E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{507E7374-EED3-42CC-A8F6-2DE2CD7AAEB8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{507E7374-EED3-42CC-A8F6-2DE2CD7AAEB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{507E7374-EED3-42CC-A8F6-2DE2CD7AAEB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{507E7374-EED3-42CC-A8F6-2DE2CD7AAEB8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7735FC0C-D8FA-42BC-8D8E-82497F9FBBB5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7735FC0C-D8FA-42BC-8D8E-82497F9FBBB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7735FC0C-D8FA-42BC-8D8E-82497F9FBBB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7735FC0C-D8FA-42BC-8D8E-82497F9FBBB5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

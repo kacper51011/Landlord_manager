@@ -1,4 +1,4 @@
-﻿namespace Landlords.Core
+﻿namespace Landlords.Application
 {
     public class Class1
     {

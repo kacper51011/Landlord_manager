@@ -7,8 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Db\" />
-    <Folder Include="Repositories\" />
+    <Folder Include="Db\Repositories\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Landlords.Domain\Landlords.Domain.csproj" />
   </ItemGroup>
 
 </Project>
