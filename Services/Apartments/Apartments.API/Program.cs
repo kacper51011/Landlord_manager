@@ -1,6 +1,11 @@
+
+using Apartments.API.Configurations;
+using Apartments.Infrastructure.Db;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.ConfigureOptions<MongoSettingsSetup>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
