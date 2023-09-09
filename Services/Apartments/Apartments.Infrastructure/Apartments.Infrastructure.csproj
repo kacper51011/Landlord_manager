@@ -7,11 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Db\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Apartments.Domain\Apartments.Domain.csproj" />
+    <ProjectReference Include="..\Apartments.API\Apartments.API.csproj" />
+    <ProjectReference Include="..\Apartments.Application\Apartments.Application.csproj" />
   </ItemGroup>
 
 </Project>
