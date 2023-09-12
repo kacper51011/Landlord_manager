@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Apartments.Application.DTOs
+namespace Apartments.Application.Commands.CreateApartment
 {
-    internal class UpdateApartmentDTO
+    public class CreateApartmentCommandHandler
     {
     }
 }

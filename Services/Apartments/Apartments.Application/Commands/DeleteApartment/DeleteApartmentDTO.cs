@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Apartments.Application.DTOs
+namespace Apartments.Application.Commands.DeleteApartment
 {
     internal class DeleteApartmentDTO
     {
