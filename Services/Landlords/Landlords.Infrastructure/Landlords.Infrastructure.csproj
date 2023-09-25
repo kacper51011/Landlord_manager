@@ -7,7 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Db\Repositories\" />
+    <Compile Remove="Db\Repositories\**" />
+    <EmbeddedResource Remove="Db\Repositories\**" />
+    <None Remove="Db\Repositories\**" />
   </ItemGroup>
 
   <ItemGroup>

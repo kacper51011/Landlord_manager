@@ -7,16 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Commands\Login\" />
-    <Folder Include="Commands\SendEmail\" />
-    <Folder Include="Commands\Update\" />
-    <Folder Include="Commands\Register\" />
-    <Folder Include="DTOs\" />
-    <Folder Include="Queries\" />
+    <PackageReference Include="MediatR" Version="12.1.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="MediatR" Version="12.1.1" />
+    <ProjectReference Include="..\Landlords.Domain\Landlords.Domain.csproj" />
   </ItemGroup>
 
 </Project>
