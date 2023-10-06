@@ -1,11 +1,11 @@
-﻿using Apartments.Domain.Entities;
-using MediatR;
+﻿using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Apartments.API.Controllers
+namespace Apartments.API.Controllers.V2
 {
-    [Route("api/v1/[controller]")]
+    [ApiVersion("2.0")]
+    [Route("api/v{version:ApiVersion}/[controller]")]
     [ApiController]
     public class ApartmentsController : ControllerBase
     {
@@ -13,7 +13,7 @@ namespace Apartments.API.Controllers
         public ApartmentsController(IMediator mediator) => _mediator = mediator;
 
         [HttpGet]
-        [Route("/")]
+        [Route("")]
         public async Task GetApartments(string userId)
         {
 
@@ -21,19 +21,19 @@ namespace Apartments.API.Controllers
         }
 
         [HttpPost]
-        [Route("/")]
+        [Route("")]
         public async Task CreateApartment(string userId)
         {
             return;
         }
         [HttpPut]
-        [Route("/")]
+        [Route("")]
         public async Task EditApartment(string userId)
         {
             return;
         }
         [HttpDelete]
-        [Route("/")]
+        [Route("")]
         public async Task DeleteApartment(string userId)
         {
             return;
