@@ -1,15 +1,16 @@
-﻿using System;
+﻿using Apartments.Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Apartments.Domain.Entities
+namespace Apartments.Application.Queries.GetApartments
 {
-    public class Apartment
+    public class GetApartmentsQueryDto
     {
         public string Id { get; set; }
-        public Localization Localization { get; set; }
+        public LocalizationDto Localization { get; set; }
         public string LandlordId { get; set; }
         public List<string> Flatmates { get; set; }
         public List<string> ApartmentProblems { get; set; }
@@ -18,10 +19,10 @@ namespace Apartments.Domain.Entities
         public int Surface { get; set; }
         public string Images { get; set; }
     }
-    public class Localization 
+    public class LocalizationDto
     {
         public double Latitude { get; set; }
         public double Longitude { get; set; }
-    
     }
+
 }

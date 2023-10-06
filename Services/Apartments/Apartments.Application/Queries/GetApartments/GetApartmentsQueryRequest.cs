@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Apartments.Application.Queries.GetApartments
 {
-    internal class GetApartmentDTO
+    internal class GetApartmentsQueryRequest
     {
     }
 }
