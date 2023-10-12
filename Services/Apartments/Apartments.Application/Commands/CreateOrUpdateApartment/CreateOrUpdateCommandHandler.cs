@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Apartments.Application.Commands.DeleteApartment
+namespace Apartments.Application.Commands.CreateOrUpdateApartment
 {
-    internal class DeleteApartmentDTO
+    public class CreateOrUpdateCommandHandler
     {
     }
 }

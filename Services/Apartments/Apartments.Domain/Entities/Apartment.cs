@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Apartments.Application.Queries.GetApartments;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,22 +7,45 @@ using System.Threading.Tasks;
 
 namespace Apartments.Domain.Entities
 {
-    public class Apartment
+    public class Apartment: AggregateRoot
     {
-        public string Id { get; set; }
-        public Localization Localization { get; set; }
-        public string LandlordId { get; set; }
-        public List<string> Flatmates { get; set; }
-        public List<string> ApartmentProblems { get; set; }
-        public string Telephone { get; set; }
-        public string Rooms { get; set; }
-        public int Surface { get; set; }
-        public string Images { get; set; }
+        private Apartment()
+        {
+            
+        }
+        
+        public string LandlordId { get; private set; }
+        public Localization Localization { get; private set; }
+        public SurfaceInfo SurfaceInformation { get; private set; }
+        public string? Telephone { get; private set; }
+
+        public static Apartment CreateApartment(string landlordId, Localization localization, SurfaceInfo surfaceInformation,  string telephone)
+        {
+            
+            var apartment = new Apartment
+            {
+                LandlordId = landlordId,
+                Localization = localization,
+                Telephone = telephone,
+                SurfaceInformation = surfaceInformation
+
+            };
+            apartment.SetCreationDate();
+            apartment.SetLastModifiedDate();
+            return apartment;
+        }
+        public static Apartment UpdateApartment(Apartment apartment, Localization localization, SurfaceInfo surfaceInformation, string telephone)
+        {
+            apartment.Localization = localization;
+            apartment.Telephone = telephone;
+            apartment.SurfaceInformation = surfaceInformation;
+            apartment.SetLastModifiedDate();
+            return apartment;
+        }
+
+        
     }
-    public class Localization 
-    {
-        public double Latitude { get; set; }
-        public double Longitude { get; set; }
+
     
-    }
+    
 }

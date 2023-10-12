@@ -8,6 +8,9 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
 COPY ["Services/Apartments/Apartments.API/Apartments.API.csproj", "Services/Apartments/Apartments.API/"]
+COPY ["Services/Apartments/Apartments.Application/Apartments.Application.csproj", "Services/Apartments/Apartments.Application/"]
+COPY ["Services/Apartments/Apartments.Domain/Apartments.Domain.csproj", "Services/Apartments/Apartments.Domain/"]
+COPY ["Services/Apartments/Apartments.Infrastructure/Apartments.Infrastructure.csproj", "Services/Apartments/Apartments.Infrastructure/"]
 RUN dotnet restore "Services/Apartments/Apartments.API/Apartments.API.csproj"
 COPY . .
 WORKDIR "/src/Services/Apartments/Apartments.API"

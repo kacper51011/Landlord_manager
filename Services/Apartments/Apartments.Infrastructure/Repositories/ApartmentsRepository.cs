@@ -27,24 +27,28 @@ namespace Apartments.Infrastructure.Repositories
                 apartmentsDatabaseSettings.Value.CollectionName);
         }
 
-        public Task<Apartment> CreateApartment(Apartment apartment)
+        public async Task CreateOrUpdateApartment(Apartment apartment)
         {
-            throw new NotImplementedException();
+
+            await _apartmentsCollection.ReplaceOneAsync(x => x.Id == apartment.Id, apartment, new ReplaceOptions()
+            {
+                IsUpsert = true
+            });
+
+            
         }
 
-        public Task<Apartment> DeleteApartment(string landlordId)
+        public async Task DeleteApartment(string landlordId, string apartmentId)
         {
-            throw new NotImplementedException();
+            var builder = Builders<Apartment>.Filter;
+            var filter = builder.Eq(a => a.Id, apartmentId) & builder.Eq(a => a.LandlordId, landlordId);
+
+            await _apartmentsCollection.FindOneAndDeleteAsync(filter);;
         }
 
-        public Task<Apartment> GetApartmentsById(string landlordId)
+        public async Task<List<Apartment>> GetApartmentsByUserId(string landlordId)
         {
-            throw new NotImplementedException();
-        }
-
-        public Task<Apartment> UpdateApartment(Apartment apartment)
-        {
-            throw new NotImplementedException();
+            return await _apartmentsCollection.FindAsync(x => x.LandlordId == landlordId).Result.ToListAsync();
         }
     }
 }

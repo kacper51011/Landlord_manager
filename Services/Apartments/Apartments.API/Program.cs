@@ -1,8 +1,9 @@
-
 using Apartments.API.Configurations;
-using Apartments.API.Options;
+using Apartments.API.Registers;
 using Apartments.Application.Commands.CreateApartment;
+using Apartments.Domain.Interfaces;
 using Apartments.Infrastructure.Db;
+using Apartments.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.AspNetCore.Mvc.Versioning;
@@ -13,32 +14,13 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.ConfigureOptions<MongoSettingsSetup>();
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining(typeof(CreateApartmentCommandHandler)));
 
+builder.Services.AddSingleton<IApartmentsRepository, ApartmentsRepository>();
+
 builder.Services.AddControllers();
 
-builder.Services.AddApiVersioning(cfg =>
-{
-    cfg.DefaultApiVersion = new ApiVersion(1, 0);
-    cfg.AssumeDefaultVersionWhenUnspecified = true;
-    cfg.ReportApiVersions = true;
-    cfg.ApiVersionReader = new UrlSegmentApiVersionReader();
-});
+builder.Services.AddVersioning(builder.Configuration);
 
-
-
-
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-
-builder.Services.AddVersionedApiExplorer(cfg =>
-{
-    cfg.GroupNameFormat = "'v'VVV";
-    cfg.SubstituteApiVersionInUrl = true;
-});
-
-builder.Services.AddSwaggerGen();
-
-builder.Services.ConfigureOptions<ConfigureSwaggerOptions>();
-
-builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwagger(builder.Configuration);
 
 
 var app = builder.Build();
