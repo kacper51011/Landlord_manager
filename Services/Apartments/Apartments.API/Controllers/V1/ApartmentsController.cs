@@ -5,6 +5,7 @@ using Apartments.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
 
 namespace Apartments.API.Controllers.V1
 {
@@ -35,23 +36,22 @@ namespace Apartments.API.Controllers.V1
         }
 
         [HttpPost]
-        [Route("")]
-        public async Task<IActionResult> CreateOrUpdateApartment(string userId, ApartmentDto dto)
+        [Route("create")]
+        public async Task<IActionResult> CreateOrUpdateApartment([FromBody]ApartmentDto dto)
         {
             try
             {
-                var command = new CreateOrUpdateCommand(userId, dto);
-                var isSuccess = await _mediator.Send(command);
+                var command = new CreateOrUpdateApartmentCommand(dto);
+                await _mediator.Send(command);
 
-                if(!isSuccess)
-                {
-                    return BadRequest();
-                }
+
                 return Ok();
-            }
-            catch (Exception)
-            {
 
+
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
                 return StatusCode(500);
             }
         }

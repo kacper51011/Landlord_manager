@@ -14,10 +14,10 @@ namespace Apartments.API.Controllers.V2
 
         [HttpGet]
         [Route("")]
-        public async Task GetApartments(string userId)
+        public async Task<IActionResult> GetApartments(string userId)
         {
 
-            return;
+            return Ok("asd");
         }
 
         [HttpPost]
