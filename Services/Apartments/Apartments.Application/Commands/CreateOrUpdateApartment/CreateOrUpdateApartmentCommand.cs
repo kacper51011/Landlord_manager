@@ -1,5 +1,5 @@
-﻿using Amazon.Runtime.Internal;
-using Apartments.Application.Dtos;
+﻿using Apartments.Application.Dtos;
+using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Apartments.Application.Commands.CreateOrUpdateApartment
 {
-    public record CreateOrUpdateCommand(string userId, ApartmentDto dto) : IRequest
+    public record CreateOrUpdateApartmentCommand(ApartmentDto dto) : IRequest
     {
     }
 }

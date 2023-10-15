@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Apartments.Application.Commands.DeleteApartment
 {
-    public record DeleteApartmentCommand(string userId, string id) : IRequest<bool>
+    public record DeleteApartmentCommand(string userId, string apartmentId) : IRequest<bool>
     {
     }
 }

@@ -34,16 +34,20 @@ namespace Apartments.Infrastructure.Repositories
             {
                 IsUpsert = true
             });
-
-            
+   
         }
 
         public async Task DeleteApartment(string landlordId, string apartmentId)
         {
             var builder = Builders<Apartment>.Filter;
-            var filter = builder.Eq(a => a.Id, apartmentId) & builder.Eq(a => a.LandlordId, landlordId);
+            var filter = builder.Eq(a => a.apartmentId, apartmentId) & builder.Eq(a => a.LandlordId, landlordId);
 
             await _apartmentsCollection.FindOneAndDeleteAsync(filter);;
+        }
+
+        public async Task<Apartment> GetApartmentById(string apartmentId)
+        {
+            return await _apartmentsCollection.FindAsync(x => x.apartmentId.Equals(apartmentId)).Result.FirstAsync();
         }
 
         public async Task<List<Apartment>> GetApartmentsByUserId(string landlordId)
