@@ -11,16 +11,32 @@ namespace Apartments.Application.Queries.GetApartments
 {
     public class GetApartmentsQueryHandler: IRequestHandler<GetApartmentsQuery, List<ApartmentDto>>
     {
-        private readonly IApartmentsRepository _repository;
+        private readonly IApartmentsRepository _apartmentsRepository;
 
-        public GetApartmentsQueryHandler(IApartmentsRepository repository)
+        public GetApartmentsQueryHandler(IApartmentsRepository apartmentsRepository)
         {
-            _repository = repository;
+            _apartmentsRepository = apartmentsRepository;
         }
 
-        public Task<List<ApartmentDto>> Handle(GetApartmentsQuery request, CancellationToken cancellationToken)
+        public async Task<List<ApartmentDto>> Handle(GetApartmentsQuery request, CancellationToken cancellationToken)
         {
-throw new NotImplementedException();
+            try
+            {
+                List<ApartmentDto> list = new List<ApartmentDto>();
+                var apartments = await _apartmentsRepository.GetApartmentsByUserId(request.userId);
+
+                for (var i = 0; i < apartments.Count; i++)
+                {
+                    ApartmentDto dto = new ApartmentDto() { apartmentId = apartments[i].Id, LandlordId = apartments[i].LandlordId, Area= apartments[i].Area, Latitude = apartments[i].Latitude, Longitude = apartments[i].Longitude, RoomsNumber= apartments[i].RoomsNumber, Telephone = apartments[i].Telephone };
+                    list.Add(dto);
+                }
+                return list;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
         }
     }
 }
