@@ -16,11 +16,18 @@ namespace Apartments.Application.Commands.DeleteApartment
             _repository = repository;
             
         }
-
-        public Task<bool> Handle(DeleteApartmentCommand request, CancellationToken cancellationToken)
+        public bool Handle(DeleteApartmentCommand request, CancellationToken cancellationToken)
         {
+            try
+            {
+                _repository.DeleteApartment(request.userId,request.id);
+                return true;
+            }
+            catch (Exception)
+            {
 
-throw new NotImplementedException();
+                return false;
+            }
         }
     }
-    }
+}

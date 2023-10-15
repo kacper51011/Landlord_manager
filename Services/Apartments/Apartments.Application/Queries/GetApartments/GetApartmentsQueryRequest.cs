@@ -1,4 +1,5 @@
-﻿using Apartments.Application.Dtos;
+﻿
+using Apartments.Application.Dtos;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Apartments.Application.Queries.GetApartments
 {
-    public record GetApartmentsQuery(string userId) : IRequest<List<ApartmentDto>>
+    public record GetApartmentsQueryRequest() : IRequest<List<ApartmentDto>>
     {
     }
 }

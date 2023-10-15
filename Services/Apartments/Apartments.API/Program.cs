@@ -1,6 +1,6 @@
 using Apartments.API.Configurations;
 using Apartments.API.Registers;
-using Apartments.Application.Commands.CreateOrUpdateApartment;
+using Apartments.Application.Commands.CreateApartment;
 using Apartments.Domain.Interfaces;
 using Apartments.Infrastructure.Db;
 using Apartments.Infrastructure.Repositories;
@@ -12,7 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.ConfigureOptions<MongoSettingsSetup>();
-builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining(typeof(CreateOrUpdateApartmentCommandHandler)));
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining(typeof(CreateApartmentCommandHandler)));
 
 builder.Services.AddSingleton<IApartmentsRepository, ApartmentsRepository>();
 
