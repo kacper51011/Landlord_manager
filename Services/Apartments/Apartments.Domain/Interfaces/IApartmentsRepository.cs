@@ -12,6 +12,7 @@ namespace Apartments.Domain.Interfaces
         public Task<List<Apartment>> GetApartmentsByUserId(string landlordId);
         public Task CreateOrUpdateApartment(Apartment apartment);
         public Task DeleteApartment(string landlordId, string apartmentId);
+        public Task<Apartment> GetApartmentById(string apartmentId);
 
 
     }

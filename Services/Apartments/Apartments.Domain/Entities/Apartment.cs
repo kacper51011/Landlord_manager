@@ -1,4 +1,6 @@
 ﻿using Apartments.Application.Queries.GetApartments;
+using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Bson;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,38 +11,43 @@ namespace Apartments.Domain.Entities
 {
     public class Apartment: AggregateRoot
     {
-        private Apartment()
-        {
-            
-        }
-        
+        public string apartmentId { get; private set; }
         public string LandlordId { get; private set; }
-        public Localization Localization { get; private set; }
-        public SurfaceInfo SurfaceInformation { get; private set; }
-        public string? Telephone { get; private set; }
+        public double Latitude { get; private set; }
+        public double Longitude { get; private set; }
+        public int RoomsNumber { get; private set; }
+        public int Area { get; private set; }
+        public string Telephone { get; private set; }
 
-        public static Apartment CreateApartment(string landlordId, Localization localization, SurfaceInfo surfaceInformation,  string telephone)
+        public static Apartment CreateApartment(string landlordId, double latitude, double longitude, int roomsNumber, int area,  string telephone)
         {
-            
+
             var apartment = new Apartment
             {
+                apartmentId = Guid.NewGuid().ToString(),
                 LandlordId = landlordId,
-                Localization = localization,
+                Latitude = latitude,
+                Longitude = longitude,
+                RoomsNumber = roomsNumber,
+                Area = area,
                 Telephone = telephone,
-                SurfaceInformation = surfaceInformation
+                
 
             };
             apartment.SetCreationDate();
             apartment.SetLastModifiedDate();
             return apartment;
         }
-        public static Apartment UpdateApartment(Apartment apartment, Localization localization, SurfaceInfo surfaceInformation, string telephone)
+        public Apartment UpdateApartment(string landlordId, double latitude, double longitude, int roomsNumber, int area, string telephone)
         {
-            apartment.Localization = localization;
-            apartment.Telephone = telephone;
-            apartment.SurfaceInformation = surfaceInformation;
-            apartment.SetLastModifiedDate();
-            return apartment;
+            LandlordId = landlordId;
+            Latitude = latitude;
+            Longitude = longitude;
+            RoomsNumber = roomsNumber;
+            Area = area;
+            Telephone = telephone;
+            SetLastModifiedDate();
+            return this;
         }
 
         
