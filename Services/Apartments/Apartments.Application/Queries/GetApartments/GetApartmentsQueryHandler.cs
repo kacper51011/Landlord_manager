@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Apartments.Application.Queries.GetApartments
 {
-    public class GetApartmentsQueryHandler: IRequestHandler<GetApartmentsQueryRequest, List<ApartmentDto>>
+    public class GetApartmentsQueryHandler: IRequestHandler<GetApartmentsQuery, List<ApartmentDto>>
     {
         private readonly IApartmentsRepository _repository;
 
@@ -18,9 +18,9 @@ namespace Apartments.Application.Queries.GetApartments
             _repository = repository;
         }
 
-        public Task<List<ApartmentDto>> Handle(GetApartmentsQueryRequest request, CancellationToken cancellationToken)
+        public Task<List<ApartmentDto>> Handle(GetApartmentsQuery request, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+throw new NotImplementedException();
         }
     }
 }
