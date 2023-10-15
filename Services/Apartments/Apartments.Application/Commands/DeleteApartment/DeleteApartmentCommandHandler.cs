@@ -10,10 +10,10 @@ namespace Apartments.Application.Commands.DeleteApartment
 {
     public class DeleteApartmentCommandHandler : IRequestHandler<DeleteApartmentCommand, bool>
     {
-        private readonly IApartmentsRepository _repository;
-        public DeleteApartmentCommandHandler(IApartmentsRepository repository)
+        private readonly IApartmentsRepository _apartmentsRepository;
+        public DeleteApartmentCommandHandler(IApartmentsRepository apartmentsRepository)
         {
-            _repository = repository;
+            _apartmentsRepository = apartmentsRepository;
             
         }
 
@@ -21,7 +21,15 @@ namespace Apartments.Application.Commands.DeleteApartment
         {
             try
             {
-
+                var apartment = _apartmentsRepository.GetApartmentByIdAndLandlordId(request.userId, request.apartmentId);
+                if (apartment == null)
+                {
+                    return false;
+                } else
+                {
+                   await _apartmentsRepository.DeleteApartment(request.apartmentId);
+                    return true;
+                }
             }
             catch (Exception ex)
             {

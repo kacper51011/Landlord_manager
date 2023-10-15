@@ -37,10 +37,8 @@ namespace Apartments.Infrastructure.Repositories
    
         }
 
-        public async Task DeleteApartment(string landlordId, string apartmentId)
+        public async Task DeleteApartment(string apartmentId)
         {
-            var builder = Builders<Apartment>.Filter;
-            var filter = builder.Eq(a => a.apartmentId, apartmentId) & builder.Eq(a => a.LandlordId, landlordId);
 
             await _apartmentsCollection.FindOneAndDeleteAsync(apartmentId);;
         }
