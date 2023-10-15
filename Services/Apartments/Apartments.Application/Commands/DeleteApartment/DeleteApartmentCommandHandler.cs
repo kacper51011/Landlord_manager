@@ -17,10 +17,19 @@ namespace Apartments.Application.Commands.DeleteApartment
             
         }
 
-        public Task<bool> Handle(DeleteApartmentCommand request, CancellationToken cancellationToken)
+        public async Task<bool> Handle(DeleteApartmentCommand request, CancellationToken cancellationToken)
         {
+            try
+            {
 
-throw new NotImplementedException();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+
         }
-    }
+}
     }

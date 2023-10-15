@@ -42,7 +42,17 @@ namespace Apartments.Infrastructure.Repositories
             var builder = Builders<Apartment>.Filter;
             var filter = builder.Eq(a => a.apartmentId, apartmentId) & builder.Eq(a => a.LandlordId, landlordId);
 
-            await _apartmentsCollection.FindOneAndDeleteAsync(filter);;
+            await _apartmentsCollection.FindOneAndDeleteAsync(apartmentId);;
+        }
+
+        public async Task<Apartment> GetApartmentByIdAndLandlordId(string landlordId, string apartmentId)
+        {
+            var builder = Builders<Apartment>.Filter;
+            var filter = builder.Eq(a => a.apartmentId, apartmentId) & builder.Eq(a => a.LandlordId, landlordId);
+
+            return await _apartmentsCollection.FindAsync(filter).Result.FirstAsync();
+
+
         }
 
         public async Task<Apartment> GetApartmentById(string apartmentId)
