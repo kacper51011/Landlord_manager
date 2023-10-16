@@ -25,11 +25,10 @@ namespace Apartments.Application.Commands.DeleteApartment
                 if (apartment == null)
                 {
                     return false;
-                } else
-                {
-                   await _apartmentsRepository.DeleteApartment(request.apartmentId);
-                    return true;
                 }
+                await _apartmentsRepository.DeleteApartment(request.apartmentId);
+                return true;
+                
             }
             catch (Exception ex)
             {

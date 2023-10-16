@@ -40,7 +40,7 @@ namespace Apartments.Infrastructure.Repositories
         public async Task DeleteApartment(string apartmentId)
         {
 
-            await _apartmentsCollection.FindOneAndDeleteAsync(apartmentId);;
+            await _apartmentsCollection.FindOneAndDeleteAsync(x=> x.ApartmentId == apartmentId);
         }
 
         public async Task<Apartment> GetApartmentByIdAndLandlordId(string landlordId, string apartmentId)

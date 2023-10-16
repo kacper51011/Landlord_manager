@@ -21,7 +21,18 @@ namespace Apartments.Application.Queries.GetApartment
 
         public async Task<ApartmentDto> Handle(GetApartmentQuery request, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var apartment = await _apartmentsRepository.GetApartmentByIdAndLandlordId(request.landlordId, request.apartmentId);
+                return new ApartmentDto { ApartmentId = apartment.ApartmentId, LandlordId = apartment.LandlordId, Area = apartment.Area, Latitude = apartment.Latitude, Longitude = apartment.Longitude, RoomsNumber = apartment.RoomsNumber, Telephone = apartment.Telephone };
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
         }
     }
 }

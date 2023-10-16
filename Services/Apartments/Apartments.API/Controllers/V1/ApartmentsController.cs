@@ -23,7 +23,7 @@ namespace Apartments.API.Controllers.V1
         }
 
         [HttpGet]
-        [Route("/{landlordId}")]
+        [Route("/")]
         public async Task<IActionResult> GetApartments(string landlordId)
         {
             try
@@ -81,6 +81,8 @@ namespace Apartments.API.Controllers.V1
                 return StatusCode(500);
             }
         }
+        [HttpGet]
+        [Route("apartment/")]
         public async Task<IActionResult> GetApartment(string landlordId, string apartmentId)
         {
             try
