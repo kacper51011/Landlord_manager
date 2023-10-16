@@ -23,31 +23,34 @@ namespace Apartments.Application.Commands.CreateOrUpdateApartment
             try
             {
 
-                
-                if (request.dto.apartmentId == null)
+
+                if (request.dto.ApartmentId == null)
                 {
                     var apartment = Apartment.CreateApartment(request.dto.LandlordId, request.dto.Latitude, request.dto.Longitude, request.dto.RoomsNumber, request.dto.Area, request.dto.Telephone);
                     await _apartmentsRepository.CreateOrUpdateApartment(apartment);
-                } else
+                }
+                else
                 {
-                    var apartment = await _apartmentsRepository.GetApartmentById(request.dto.apartmentId);
-                    if (apartment != null)
+                    var apartment = await _apartmentsRepository.GetApartmentById(request.dto.ApartmentId);
+                    if (apartment == null)
                     {
-                        apartment.UpdateApartment(request.dto.LandlordId, request.dto.Latitude, request.dto.Longitude, request.dto.RoomsNumber, request.dto.Area, request.dto.Telephone);
+                        apartment = Apartment.CreateApartment(request.dto.LandlordId, request.dto.Latitude, request.dto.Longitude, request.dto.RoomsNumber, request.dto.Area, request.dto.Telephone);
+                        await _apartmentsRepository.CreateOrUpdateApartment(apartment);
 
                     }
                     else
                     {
-                       apartment = Apartment.CreateApartment(request.dto.LandlordId, request.dto.Latitude, request.dto.Longitude, request.dto.RoomsNumber, request.dto.Area, request.dto.Telephone);
-
+                        apartment.UpdateApartment(request.dto.LandlordId, request.dto.Latitude, request.dto.Longitude, request.dto.RoomsNumber, request.dto.Area, request.dto.Telephone);
+                        await _apartmentsRepository.CreateOrUpdateApartment(apartment);
                     }
-                    await _apartmentsRepository.CreateOrUpdateApartment(apartment);
+
+                    return;
                 };
 
-               
 
-               
-                
+
+
+
             }
             catch (Exception ex)
             {

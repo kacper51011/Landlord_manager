@@ -1,4 +1,4 @@
-﻿using Apartments.Application.Queries.GetApartments;
+﻿
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Bson;
 using System;
@@ -11,7 +11,7 @@ namespace Apartments.Domain.Entities
 {
     public class Apartment: AggregateRoot
     {
-        public string apartmentId { get; private set; }
+        public string ApartmentId { get; private set; }
         public string LandlordId { get; private set; }
         public double Latitude { get; private set; }
         public double Longitude { get; private set; }
@@ -24,7 +24,7 @@ namespace Apartments.Domain.Entities
 
             var apartment = new Apartment
             {
-                apartmentId = Guid.NewGuid().ToString(),
+                ApartmentId = Guid.NewGuid().ToString(),
                 LandlordId = landlordId,
                 Latitude = latitude,
                 Longitude = longitude,

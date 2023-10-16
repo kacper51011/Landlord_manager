@@ -21,7 +21,7 @@ namespace Apartments.Application.Commands.DeleteApartment
         {
             try
             {
-                var apartment = _apartmentsRepository.GetApartmentByIdAndLandlordId(request.userId, request.apartmentId);
+                var apartment = _apartmentsRepository.GetApartmentByIdAndLandlordId(request.landlordId, request.apartmentId);
                 if (apartment == null)
                 {
                     return false;

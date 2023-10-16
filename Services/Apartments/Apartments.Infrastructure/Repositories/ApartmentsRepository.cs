@@ -30,7 +30,7 @@ namespace Apartments.Infrastructure.Repositories
         public async Task CreateOrUpdateApartment(Apartment apartment)
         {
 
-            await _apartmentsCollection.ReplaceOneAsync(x => x.Id == apartment.Id, apartment, new ReplaceOptions()
+            await _apartmentsCollection.ReplaceOneAsync(x => x.ApartmentId == apartment.ApartmentId, apartment, new ReplaceOptions()
             {
                 IsUpsert = true
             });
@@ -46,7 +46,7 @@ namespace Apartments.Infrastructure.Repositories
         public async Task<Apartment> GetApartmentByIdAndLandlordId(string landlordId, string apartmentId)
         {
             var builder = Builders<Apartment>.Filter;
-            var filter = builder.Eq(a => a.apartmentId, apartmentId) & builder.Eq(a => a.LandlordId, landlordId);
+            var filter = builder.Eq(a => a.ApartmentId, apartmentId) & builder.Eq(a => a.LandlordId, landlordId);
 
             return await _apartmentsCollection.FindAsync(filter).Result.FirstAsync();
 
@@ -55,7 +55,16 @@ namespace Apartments.Infrastructure.Repositories
 
         public async Task<Apartment> GetApartmentById(string apartmentId)
         {
-            return await _apartmentsCollection.FindAsync(x => x.apartmentId.Equals(apartmentId)).Result.FirstAsync();
+            try
+            {
+                return await _apartmentsCollection.FindAsync(x => x.ApartmentId == apartmentId).Result.FirstAsync();
+            }
+            catch (Exception)
+            {
+
+                return null;
+            }
+
         }
 
         public async Task<List<Apartment>> GetApartmentsByUserId(string landlordId)

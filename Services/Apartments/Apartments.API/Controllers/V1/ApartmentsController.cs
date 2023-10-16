@@ -1,6 +1,8 @@
 ﻿using Apartments.Application.Commands.CreateOrUpdateApartment;
 using Apartments.Application.Commands.DeleteApartment;
 using Apartments.Application.Dtos;
+using Apartments.Application.Queries.GetApartment;
+using Apartments.Application.Queries.GetApartments;
 using Apartments.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -21,12 +23,14 @@ namespace Apartments.API.Controllers.V1
         }
 
         [HttpGet]
-        [Route("")]
-        public async Task GetApartments(string userId)
+        [Route("/{landlordId}")]
+        public async Task<IActionResult> GetApartments(string landlordId)
         {
             try
             {
-                
+                var query = new GetApartmentsQuery(landlordId);
+                var response = await _mediator.Send(query);
+                return Ok(response);
             }
             catch (Exception)
             {
@@ -57,11 +61,11 @@ namespace Apartments.API.Controllers.V1
         }
         [HttpDelete]
         [Route("")]
-        public async Task<IActionResult> DeleteApartment(string userId, string id)
+        public async Task<IActionResult> DeleteApartment(string landlordId, string id)
         {
             try
             {
-                var command = new DeleteApartmentCommand(userId, id);
+                var command = new DeleteApartmentCommand(landlordId, id);
                 var isSuccess = await _mediator.Send(command);
 
                 if (!isSuccess)
@@ -70,10 +74,26 @@ namespace Apartments.API.Controllers.V1
                 }
                 return Ok();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                throw;
+                Debug.WriteLine(ex);
+                return StatusCode(500);
+            }
+        }
+        public async Task<IActionResult> GetApartment(string landlordId, string apartmentId)
+        {
+            try
+            {
+                var query = new GetApartmentQuery(landlordId, apartmentId);
+                var response = await _mediator.Send(query);
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+
+                Debug.WriteLine(ex);
+                return StatusCode(500);
             }
         }
 
