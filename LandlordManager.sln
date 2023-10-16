@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33627.172
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Apartments.API", "Services\Apartments\Apartments.API\Apartments.API.csproj", "{BFA0EE56-F448-49BF-BD9A-F94692BF0D6E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Apartments.API", "Services\Apartments\Apartments.API\Apartments.API.csproj", "{BFA0EE56-F448-49BF-BD9A-F94692BF0D6E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Apartments.Domain", "Services\Apartments\Apartments.Domain\Apartments.Domain.csproj", "{C0AB54CA-4C96-46BD-B55E-9AD878528BC7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Apartments.Domain", "Services\Apartments\Apartments.Domain\Apartments.Domain.csproj", "{C0AB54CA-4C96-46BD-B55E-9AD878528BC7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Apartments.Infrastructure", "Services\Apartments\Apartments.Infrastructure\Apartments.Infrastructure.csproj", "{9C835DF7-A90F-410D-A035-D3177D4BAF80}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Apartments.Infrastructure", "Services\Apartments\Apartments.Infrastructure\Apartments.Infrastructure.csproj", "{9C835DF7-A90F-410D-A035-D3177D4BAF80}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Apartments.Core", "Services\Apartments\Apartments.Core\Apartments.Core.csproj", "{AB9FA772-C052-4F96-8E61-8CA667C57E63}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Apartments.Application", "Services\Apartments\Apartments.Application\Apartments.Application.csproj", "{7D78704C-B2ED-43C3-9EA9-08ACE8AA2E65}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{25F1AD23-89AA-4A7C-8BEB-223CAA9FE60D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +31,14 @@ Global
 		{9C835DF7-A90F-410D-A035-D3177D4BAF80}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9C835DF7-A90F-410D-A035-D3177D4BAF80}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9C835DF7-A90F-410D-A035-D3177D4BAF80}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AB9FA772-C052-4F96-8E61-8CA667C57E63}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AB9FA772-C052-4F96-8E61-8CA667C57E63}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AB9FA772-C052-4F96-8E61-8CA667C57E63}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AB9FA772-C052-4F96-8E61-8CA667C57E63}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D78704C-B2ED-43C3-9EA9-08ACE8AA2E65}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D78704C-B2ED-43C3-9EA9-08ACE8AA2E65}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D78704C-B2ED-43C3-9EA9-08ACE8AA2E65}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D78704C-B2ED-43C3-9EA9-08ACE8AA2E65}.Release|Any CPU.Build.0 = Release|Any CPU
+		{25F1AD23-89AA-4A7C-8BEB-223CAA9FE60D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{25F1AD23-89AA-4A7C-8BEB-223CAA9FE60D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{25F1AD23-89AA-4A7C-8BEB-223CAA9FE60D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{25F1AD23-89AA-4A7C-8BEB-223CAA9FE60D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
