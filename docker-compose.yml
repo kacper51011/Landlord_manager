@@ -1,11 +1,11 @@
 version: '3.4'
 
 services:
-  apartments.api:
-    image: ${DOCKER_REGISTRY-}apartmentsapi
-    build:
-      context: .
-      dockerfile: Services/Apartments/Apartments.API/Dockerfile
+  #apartments.api:
+  #  image: ${DOCKER_REGISTRY-}apartmentsapi
+  #  build:
+  #    context: .
+  #    dockerfile: Services/Apartments/Apartments.API/Dockerfile
       
   mongo:
     image: mongo
