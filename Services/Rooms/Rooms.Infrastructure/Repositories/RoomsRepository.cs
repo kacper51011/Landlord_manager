@@ -25,29 +25,43 @@ namespace Rooms.Infrastructure.Repositories
             _roomsCollection = mongoDatabase.GetCollection<Room>(
                 roomsDatabaseSettings.Value.CollectionName);
         }
-        public Task CreateOrUpdateRoom(Room room)
+        public async Task CreateOrUpdateRoom(Room room)
         {
-            
+            await _roomsCollection.ReplaceOneAsync(x => x.RoomId == room.RoomId, room, new ReplaceOptions()
+            {
+                IsUpsert = true
+            });
         }
 
-        public Task DeleteApartment(string apartmentId)
+        public async Task DeleteRoom(string roomId)
         {
-            throw new NotImplementedException();
+            await _roomsCollection.FindOneAndDeleteAsync(x => x.RoomId == roomId);
         }
 
-        public Task<Room> GetApartmentById(string apartmentId)
+        public async Task<Room> GetRoomById(string roomId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return await _roomsCollection.FindAsync(x => x.RoomId == roomId).Result.FirstAsync();
+            }
+            catch (Exception)
+            {
+
+                return null;
+            }
         }
 
-        public Task<Room> GetRoomByIdAndLandlordId(string landlordId, string apartmentId)
+        public async Task<Room> GetRoomByIdAndLandlordId(string landlordId, string roomId)
         {
-            throw new NotImplementedException();
+            var builder = Builders<Room>.Filter;
+            var filter = builder.Eq(a => a.RoomId, roomId) & builder.Eq(a => a.LandlordId, landlordId);
+
+            return await _roomsCollection.FindAsync(filter).Result.FirstAsync();
         }
 
-        public Task<List<Room>> GetRoomsByApartmentId(string apartmentId)
+        public async Task<List<Room>> GetRoomsByApartmentId(string apartmentId)
         {
-            throw new NotImplementedException();
+            return await _roomsCollection.FindAsync(x => x.ApartmentId == apartmentId).Result.ToListAsync();
         }
     }
 }
