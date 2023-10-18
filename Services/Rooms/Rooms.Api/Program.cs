@@ -1,6 +1,12 @@
+using Rooms.Domain.Interfaces;
+using Rooms.Infrastructure.Repositories;
+using Rooms.Infrastructure.Settings;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.Configure<MongoSettings>(builder.Configuration.GetSection("MongoDB"));
+builder.Services.AddSingleton<IRoomsRepository, RoomsRepository>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
