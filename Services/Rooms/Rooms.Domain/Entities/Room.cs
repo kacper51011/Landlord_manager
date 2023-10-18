@@ -11,6 +11,7 @@ namespace Rooms.Domain.Entities
         private Room() { }
         public string RoomId { get; private set; }
         public string ApartmentId { get; private set; }
+        public string LandlordId { get; private set; }
         public string Name { get; private set; }
         public int Surface { get; private set; }
         public string AnglesCoordinates { get; private set; }
@@ -18,12 +19,13 @@ namespace Rooms.Domain.Entities
         public int CurrentTenantsNumber { get; private set; }
         public int MonthlyRent { get; private set; }
 
-        public static Room CreateRoom(string apartmentId, string name, int surface, string anglesCoordinates, int maxTenantsNumber, int currentTenantsNumber, int monthlyRent)
+        public static Room CreateRoom(string apartmentId, string landlordId, string name, int surface, string anglesCoordinates, int maxTenantsNumber, int currentTenantsNumber, int monthlyRent)
         {
             Room room = new Room()
             {
                 RoomId = Guid.NewGuid().ToString(),
                 ApartmentId = apartmentId,
+                LandlordId = landlordId,
                 Name = name,
                 Surface = surface,
                 AnglesCoordinates = anglesCoordinates,
