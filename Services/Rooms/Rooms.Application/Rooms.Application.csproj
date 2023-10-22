@@ -6,4 +6,10 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Commands\DeleteRoom\" />
+    <Folder Include="Commands\DeleteAllRooms\" />
+    <Folder Include="Queries\GetRooms\" />
+  </ItemGroup>
+
 </Project>
