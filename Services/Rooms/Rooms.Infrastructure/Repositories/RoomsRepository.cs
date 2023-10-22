@@ -33,6 +33,11 @@ namespace Rooms.Infrastructure.Repositories
             });
         }
 
+        public async Task DeleteAllRoomsInApartment(string apartmentId)
+        {
+           await _roomsCollection.DeleteManyAsync(x => x.ApartmentId == apartmentId);
+        }
+
         public async Task DeleteRoom(string roomId)
         {
             await _roomsCollection.FindOneAndDeleteAsync(x => x.RoomId == roomId);
