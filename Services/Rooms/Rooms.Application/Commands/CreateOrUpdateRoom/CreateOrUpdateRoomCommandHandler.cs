@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Rooms.Application.Commands.CreateOrUpdateRoom
 {
-    internal class CreateOrUpdateRoomCommandHandler
+    public class CreateOrUpdateRoomCommandHandler
     {
     }
 }
