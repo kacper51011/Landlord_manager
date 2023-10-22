@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Commands\DeleteRoom\" />
     <Folder Include="Queries\GetRooms\" />
   </ItemGroup>
 
