@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Rooms.Application.Queries.GetRooms
 {
-    internal class GetRoomsQueryHandler
+    public class GetRoomsQueryHandler
     {
     }
 }
