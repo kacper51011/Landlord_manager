@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Rooms.Api.Controllers
@@ -7,5 +8,16 @@ namespace Rooms.Api.Controllers
     [ApiController]
     public class RoomsController : ControllerBase
     {
+        private readonly IMediator _mediator;
+        public RoomsController(IMediator mediator)
+        {
+            _mediator = mediator;
+        }
+        [HttpGet]
+        [Route("/{apartmentId}")]
+        public async Task<IActionResult> GetApartmentRooms(string apartmentId)
+        {
+
+        }
     }
 }

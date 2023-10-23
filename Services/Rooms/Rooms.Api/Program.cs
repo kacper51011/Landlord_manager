@@ -1,3 +1,4 @@
+using Rooms.Application.Commands.CreateOrUpdateRoom;
 using Rooms.Domain.Interfaces;
 using Rooms.Infrastructure.Repositories;
 using Rooms.Infrastructure.Settings;
