@@ -8,14 +8,14 @@ namespace Rooms.Application.Dto
 {
     public class RoomDto
     {
-        public string? RoomId { get; private set; }
-        public string ApartmentId { get; private set; }
-        public string LandlordId { get; private set; }
-        public string Name { get; private set; }
-        public int Surface { get; private set; }
-        public string AnglesCoordinates { get; private set; }
-        public int MaxTenantsNumber { get; private set; }
-        public int CurrentTenantsNumber { get; private set; }
-        public int MonthlyRent { get; private set; }
+        public string? RoomId { get; set; }
+        public string ApartmentId { get; set; }
+        public string LandlordId { get; set; }
+        public string Name { get; set; }
+        public int Surface { get; set; }
+        public string AnglesCoordinates { get; set; }
+        public int MaxTenantsNumber { get; set; }
+        public int CurrentTenantsNumber { get; set; }
+        public int MonthlyRent { get; set; }
     }
 }
