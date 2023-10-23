@@ -18,6 +18,8 @@ namespace Rooms.Application.Queries.GetRooms
         }
         public async Task<List<RoomDto>> Handle(GetRoomsQuery request, CancellationToken cancellationToken)
         {
+            try
+            {
             var response = await _roomsRepository.GetRoomsByApartmentId(request.apartmentId);
             
             List<RoomDto> result = new List<RoomDto>();
@@ -29,6 +31,13 @@ namespace Rooms.Application.Queries.GetRooms
                 result.Add(roomDto);
             }
             return result;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
             
             
         }
