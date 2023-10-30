@@ -14,4 +14,10 @@
     <ProjectReference Include="..\Apartments.Domain\Apartments.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Contracts\" />
+    <Folder Include="Consumers\" />
+    <Folder Include="Publishers\" />
+  </ItemGroup>
+
 </Project>

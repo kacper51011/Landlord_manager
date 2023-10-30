@@ -6,6 +6,8 @@ services:
     build:
      context: .
      dockerfile: Services/Apartments/Apartments.API/Dockerfile
+    ports:
+    - 1000:1000
 
   mongo:
     image: mongo
@@ -43,6 +45,8 @@ services:
     build:
       context: .
       dockerfile: Services/Rooms/Rooms.Api/Dockerfile
+    ports:
+    - 1001:1001
 
 volumes:
   local:
