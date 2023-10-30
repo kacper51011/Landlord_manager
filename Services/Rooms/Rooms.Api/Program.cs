@@ -1,4 +1,5 @@
 using MassTransit;
+using MassTransit.DependencyInjection;
 using Rooms.Application.Commands.CreateOrUpdateRoom;
 using Rooms.Application.Settings;
 using Rooms.Domain.Interfaces;
@@ -11,6 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.Configure<MongoSettings>(builder.Configuration.GetSection("MongoDB"));
 builder.Services.Configure<RabbitMQSettings>(builder.Configuration.GetSection("RabbitMQ"));
 
+
 builder.Services.AddSingleton<IRoomsRepository, RoomsRepository>();
 
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining(typeof(CreateOrUpdateRoomCommandHandler)));
@@ -18,10 +20,17 @@ builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining(ty
 builder.Services.AddMassTransit(cfg =>
 {
     cfg.SetDefaultEndpointNameFormatter();
+    
 
     cfg.UsingRabbitMq((context, configuration) =>
     {
-
+        
+        configuration.Host(builder.Configuration["RabbitMQ:HostName"], "/", h =>
+        { 
+            h.Username(builder.Configuration["RabbitMQ:UserName"]);
+            h.Password(builder.Configuration["RabbitMQ:Password"]);
+        });
+        configuration.ConfigureEndpoints(context);
     });
 });
 

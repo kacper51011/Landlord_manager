@@ -9,6 +9,7 @@ using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.AspNetCore.Mvc.Versioning;
+using Microsoft.Extensions.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,6 +28,12 @@ builder.Services.AddMassTransit(cfg =>
     cfg.UsingRabbitMq((context, configuration) =>
     {
 
+        configuration.Host(builder.Configuration["RabbitMQ:HostName"], "/", h =>
+        {
+            h.Username(builder.Configuration["RabbitMQ:UserName"]);
+            h.Password(builder.Configuration["RabbitMQ:Password"]);
+        });
+        configuration.ConfigureEndpoints(context);
     });
 });
 
