@@ -13,6 +13,16 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Apartments.Application", "S
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{25F1AD23-89AA-4A7C-8BEB-223CAA9FE60D}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Apartments", "Apartments", "{B8403B6A-9CC4-4F2E-B1BB-D69F9E88A562}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rooms.Api", "Services\Rooms\Rooms.Api\Rooms.Api.csproj", "{D91EF265-DD64-45C6-9B2D-2CFA54DE789C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rooms.Application", "Services\Rooms\Rooms.Application\Rooms.Application.csproj", "{B09178C0-457D-4E6F-88E0-E78A397F8121}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rooms.Infrastructure", "Services\Rooms\Rooms.Infrastructure\Rooms.Infrastructure.csproj", "{3CABD95E-8B3A-4DBE-B07B-F27FAA7020F2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rooms.Domain", "Services\Rooms\Rooms.Domain\Rooms.Domain.csproj", "{E1C67EDE-C1DD-43AD-B9F6-0BD64B12D8F8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,9 +49,31 @@ Global
 		{25F1AD23-89AA-4A7C-8BEB-223CAA9FE60D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{25F1AD23-89AA-4A7C-8BEB-223CAA9FE60D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{25F1AD23-89AA-4A7C-8BEB-223CAA9FE60D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D91EF265-DD64-45C6-9B2D-2CFA54DE789C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D91EF265-DD64-45C6-9B2D-2CFA54DE789C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D91EF265-DD64-45C6-9B2D-2CFA54DE789C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D91EF265-DD64-45C6-9B2D-2CFA54DE789C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B09178C0-457D-4E6F-88E0-E78A397F8121}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B09178C0-457D-4E6F-88E0-E78A397F8121}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B09178C0-457D-4E6F-88E0-E78A397F8121}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B09178C0-457D-4E6F-88E0-E78A397F8121}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3CABD95E-8B3A-4DBE-B07B-F27FAA7020F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3CABD95E-8B3A-4DBE-B07B-F27FAA7020F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3CABD95E-8B3A-4DBE-B07B-F27FAA7020F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3CABD95E-8B3A-4DBE-B07B-F27FAA7020F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E1C67EDE-C1DD-43AD-B9F6-0BD64B12D8F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E1C67EDE-C1DD-43AD-B9F6-0BD64B12D8F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E1C67EDE-C1DD-43AD-B9F6-0BD64B12D8F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E1C67EDE-C1DD-43AD-B9F6-0BD64B12D8F8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{BFA0EE56-F448-49BF-BD9A-F94692BF0D6E} = {B8403B6A-9CC4-4F2E-B1BB-D69F9E88A562}
+		{C0AB54CA-4C96-46BD-B55E-9AD878528BC7} = {B8403B6A-9CC4-4F2E-B1BB-D69F9E88A562}
+		{9C835DF7-A90F-410D-A035-D3177D4BAF80} = {B8403B6A-9CC4-4F2E-B1BB-D69F9E88A562}
+		{7D78704C-B2ED-43C3-9EA9-08ACE8AA2E65} = {B8403B6A-9CC4-4F2E-B1BB-D69F9E88A562}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {83ECAA8C-B444-4862-B164-ABC177648439}
