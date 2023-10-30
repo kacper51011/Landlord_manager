@@ -1,9 +1,11 @@
 using Apartments.API.Configurations;
 using Apartments.API.Registers;
 using Apartments.Application.Commands.CreateOrUpdateApartment;
+using Apartments.Application.Settings;
 using Apartments.Domain.Interfaces;
 using Apartments.Infrastructure.Db;
 using Apartments.Infrastructure.Repositories;
+using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.AspNetCore.Mvc.Versioning;
@@ -12,9 +14,21 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.ConfigureOptions<MongoSettingsSetup>();
+builder.Services.Configure<RabbitMQSettings>(builder.Configuration.GetSection("RabbitMQ"));
+
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining(typeof(CreateOrUpdateApartmentCommandHandler)));
 
 builder.Services.AddSingleton<IApartmentsRepository, ApartmentsRepository>();
+
+builder.Services.AddMassTransit(cfg =>
+{
+    cfg.SetDefaultEndpointNameFormatter();
+
+    cfg.UsingRabbitMq((context, configuration) =>
+    {
+
+    });
+});
 
 builder.Services.AddControllers();
 
