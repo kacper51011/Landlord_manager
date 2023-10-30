@@ -14,7 +14,7 @@ namespace Rooms.Domain.Interfaces
         public Task<Room> GetRoomByIdAndLandlordId(string landlordId, string roomId);
         public Task DeleteRoom(string roomId);
 
-        public Task DeleteAllRoomsInApartment(string apartmentId);
+        public Task DeleteAllRoomsInApartment(string landlordId, string apartmentId);
         public Task<Room> GetRoomById(string roomId);
     }
 }

@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Rooms.Application.Commands.CreateOrUpdateRoom;
+using Rooms.Application.Commands.DeleteAllRooms;
+using Rooms.Application.Commands.DeleteRoom;
 using Rooms.Application.Dto;
 using Rooms.Application.Queries.GetRooms;
 
@@ -36,7 +38,6 @@ namespace Rooms.Api.Controllers
         }
         [HttpPost]
         [Route("Create")]
-
         public async Task<IActionResult> CreateOrUpdateRoom(RoomDto roomDto)
         {
             try
@@ -44,6 +45,40 @@ namespace Rooms.Api.Controllers
                 var command = new CreateOrUpdateRoomCommand(roomDto);
                 await _mediator.Send(command);
                 return Ok();
+            }
+            catch (Exception ex)
+            {
+
+                return StatusCode(500, ex.Message);
+            }
+        }
+        [HttpDelete]
+        [Route("{roomId}")]
+        public async Task<IActionResult> DeleteRoom(string landlordId, string roomId)
+        {
+            try
+            {
+                var query = new DeleteRoomCommand(landlordId, roomId);
+                await _mediator.Send(query);
+                return Ok();
+
+            }
+            catch (Exception ex)
+            {
+
+                return StatusCode(500, ex.Message);
+            }
+        }
+        [HttpDelete]
+        [Route("{apartmentId}")]
+        public async Task<IActionResult> DeleteAllRoomsInApartment(string landlordId, string apartmentId)
+        {
+            try
+            {
+                var query = new DeleteAllRoomsCommand(landlordId, apartmentId);
+                await _mediator.Send(query);
+                return Ok();
+
             }
             catch (Exception ex)
             {

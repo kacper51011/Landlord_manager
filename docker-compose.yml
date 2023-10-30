@@ -25,6 +25,8 @@ services:
       ME_CONFIG_MONGODB_ADMINUSERNAME: root
       ME_CONFIG_MONGODB_ADMINPASSWORD: example
       ME_CONFIG_MONGODB_URL: mongodb://root:example@mongo:27017/
+    volumes:
+      - local:/data/db
 
   rabbitmq:
     image: rabbitmq:management
@@ -42,9 +44,8 @@ services:
       context: .
       dockerfile: Services/Rooms/Rooms.Api/Dockerfile
 
-networks:
-  default:
-    driver: bridge
+volumes:
+  local:
 
 
 
