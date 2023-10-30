@@ -18,7 +18,7 @@ namespace Rooms.Api.Controllers
         }
 
         [HttpGet]
-        [Route("/{apartmentId}")]
+        [Route("{apartmentId}")]
         public async Task<IActionResult> GetApartmentRooms(string apartmentId)
         {
             try
@@ -35,7 +35,7 @@ namespace Rooms.Api.Controllers
             }
         }
         [HttpPost]
-        [Route("/Create")]
+        [Route("Create")]
 
         public async Task<IActionResult> CreateOrUpdateRoom(RoomDto roomDto)
         {

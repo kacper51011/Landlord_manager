@@ -23,7 +23,7 @@ namespace Apartments.API.Controllers.V1
         }
 
         [HttpGet]
-        [Route("/{landlordId}")]
+        [Route("{landlordId}")]
         public async Task<IActionResult> GetApartments(string landlordId)
         {
             try

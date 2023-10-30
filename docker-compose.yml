@@ -1,12 +1,12 @@
 version: '3.4'
 
 services:
-  #apartments.api:
-  #  image: ${DOCKER_REGISTRY-}apartmentsapi
-  #  build:
-  #    context: .
-  #    dockerfile: Services/Apartments/Apartments.API/Dockerfile
-      
+  apartments.api:
+    image: ${DOCKER_REGISTRY-}apartmentsapi
+    build:
+     context: .
+     dockerfile: Services/Apartments/Apartments.API/Dockerfile
+
   mongo:
     image: mongo
     restart: always
@@ -36,8 +36,15 @@ services:
       - "5672:5672"
       - "15672:15672"
 
+  rooms.api:
+    image: ${DOCKER_REGISTRY-}roomsapi
+    build:
+      context: .
+      dockerfile: Services/Rooms/Rooms.Api/Dockerfile
+
 networks:
   default:
     driver: bridge
+
 
 
