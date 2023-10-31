@@ -1,6 +1,6 @@
-﻿using MassTransit;
+﻿using Contracts;
+using MassTransit;
 using MediatR;
-using Rooms.Application.Contracts;
 using Rooms.Application.Dto;
 using Rooms.Domain.Entities;
 using Rooms.Domain.Interfaces;
@@ -30,7 +30,7 @@ namespace Rooms.Application.Commands.CreateOrUpdateRoom
                 {
                     Room room = Room.CreateRoom(x.ApartmentId, x.LandlordId, x.Name, x.Surface, x.AnglesCoordinates, x.MaxTenantsNumber, x.CurrentTenantsNumber, x.MonthlyRent);
                     await _roomsRepository.CreateOrUpdateRoom(room);
-                    await _publishEndpoint.Publish(new RoomCreatedMessage { apartmentId = room.ApartmentId });
+                    await _publishEndpoint.Publish(new RoomCreatedEvent { apartmentId = room.ApartmentId });
                     return;
                 } else
                 {
@@ -39,7 +39,7 @@ namespace Rooms.Application.Commands.CreateOrUpdateRoom
                     {
                         room = Room.CreateRoom(x.ApartmentId, x.LandlordId, x.Name, x.Surface, x.AnglesCoordinates, x.MaxTenantsNumber, x.CurrentTenantsNumber, x.MonthlyRent);
                         await _roomsRepository.CreateOrUpdateRoom(room);
-                        await _publishEndpoint.Publish<RoomCreatedMessage>(new RoomCreatedMessage { apartmentId = room.ApartmentId });
+                        await _publishEndpoint.Publish(new RoomCreatedEvent { apartmentId = room.ApartmentId });
 
                     } else
                     {

@@ -1,5 +1,5 @@
-﻿using Apartments.Application.Contracts;
-using Apartments.Domain.Interfaces;
+﻿using Apartments.Domain.Interfaces;
+using Contracts;
 using MassTransit;
 using System;
 using System.Collections.Generic;
@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Apartments.Application.Consumers
 {
-    public class RoomDeletedConsumer : IConsumer<RoomDeletedMessage>
+    public class RoomDeletedConsumer : IConsumer<RoomDeletedEvent>
     {
         private IApartmentsRepository _apartmentsRepository;
 
@@ -19,7 +19,7 @@ namespace Apartments.Application.Consumers
         }
 
 
-        public async Task Consume(ConsumeContext<RoomDeletedMessage> context)
+        public async Task Consume(ConsumeContext<RoomDeletedEvent> context)
         {
             var apartment = await _apartmentsRepository.GetApartmentById(context.Message.apartmentId);
             if (apartment == null)
