@@ -54,11 +54,11 @@ namespace Rooms.Api.Controllers
         }
         [HttpDelete]
         [Route("{roomId}")]
-        public async Task<IActionResult> DeleteRoom(string landlordId, string roomId)
+        public async Task<IActionResult> DeleteRoom(string landlordId, string apartmentId, string roomId)
         {
             try
             {
-                var query = new DeleteRoomCommand(landlordId, roomId);
+                var query = new DeleteRoomCommand(landlordId, apartmentId, roomId);
                 await _mediator.Send(query);
                 return Ok();
 
