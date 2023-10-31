@@ -1,4 +1,6 @@
-﻿using MediatR;
+﻿using MassTransit;
+using MediatR;
+using Rooms.Application.Contracts;
 using Rooms.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -11,9 +13,11 @@ namespace Rooms.Application.Commands.DeleteRoom
     public class DeleteRoomCommandHandler : IRequestHandler<DeleteRoomCommand>
     {
         private readonly IRoomsRepository _roomRepository;
-        public DeleteRoomCommandHandler(IRoomsRepository roomRepository)
+        private readonly IPublishEndpoint _publishEndpoint;
+        public DeleteRoomCommandHandler(IRoomsRepository roomRepository, IPublishEndpoint publishEndpoint)
         {
             _roomRepository = roomRepository;
+            _publishEndpoint = publishEndpoint;
         }
         public async Task Handle(DeleteRoomCommand request, CancellationToken cancellationToken)
         {
@@ -25,6 +29,7 @@ namespace Rooms.Application.Commands.DeleteRoom
             else
             {
                 await _roomRepository.DeleteRoom(request.roomId);
+                await _publishEndpoint.Publish(new RoomDeletedMessage { apartmentId = request.apartmentId });
             }
 
         }

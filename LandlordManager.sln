@@ -25,6 +25,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rooms.Domain", "Services\Ro
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Rooms", "Rooms", "{3894CD59-C6EA-46C2-94F2-9494CAFBF076}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contracts", "Services\Contracts\Contracts.csproj", "{1C07384E-60E3-4CED-A548-BFE11D492397}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -67,6 +69,10 @@ Global
 		{E1C67EDE-C1DD-43AD-B9F6-0BD64B12D8F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E1C67EDE-C1DD-43AD-B9F6-0BD64B12D8F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E1C67EDE-C1DD-43AD-B9F6-0BD64B12D8F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C07384E-60E3-4CED-A548-BFE11D492397}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C07384E-60E3-4CED-A548-BFE11D492397}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C07384E-60E3-4CED-A548-BFE11D492397}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C07384E-60E3-4CED-A548-BFE11D492397}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

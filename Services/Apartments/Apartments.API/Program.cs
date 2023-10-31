@@ -1,6 +1,7 @@
 using Apartments.API.Configurations;
 using Apartments.API.Registers;
 using Apartments.Application.Commands.CreateOrUpdateApartment;
+using Apartments.Application.Consumers;
 using Apartments.Application.Settings;
 using Apartments.Domain.Interfaces;
 using Apartments.Infrastructure.Db;
@@ -25,6 +26,9 @@ builder.Services.AddMassTransit(cfg =>
 {
     cfg.SetDefaultEndpointNameFormatter();
 
+    cfg.AddConsumer<RoomCreatedConsumer>();
+    cfg.AddConsumer<RoomDeletedConsumer>();
+
     cfg.UsingRabbitMq((context, configuration) =>
     {
 
@@ -34,6 +38,8 @@ builder.Services.AddMassTransit(cfg =>
             h.Password(builder.Configuration["RabbitMQ:Password"]);
         });
         configuration.ConfigureEndpoints(context);
+
+
     });
 });
 

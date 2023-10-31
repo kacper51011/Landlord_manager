@@ -16,7 +16,7 @@ namespace Rooms.Application.Commands.CreateOrUpdateRoom
     {
         private readonly IRoomsRepository _roomsRepository;
         private readonly IPublishEndpoint _publishEndpoint;
-        public CreateOrUpdateRoomCommandHandler(IRoomsRepository roomsRepository, IPublishEndpoint publishEndpoint)
+        public CreateOrUpdateRoomCommandHandler(IRoomsRepository roomsRepository, IBus publishEndpoint)
         {
             _roomsRepository = roomsRepository;
             _publishEndpoint = publishEndpoint;
@@ -30,7 +30,7 @@ namespace Rooms.Application.Commands.CreateOrUpdateRoom
                 {
                     Room room = Room.CreateRoom(x.ApartmentId, x.LandlordId, x.Name, x.Surface, x.AnglesCoordinates, x.MaxTenantsNumber, x.CurrentTenantsNumber, x.MonthlyRent);
                     await _roomsRepository.CreateOrUpdateRoom(room);
-                    await _publishEndpoint.Publish(new RoomCreatedEvent { apartmentId = room.ApartmentId });
+                    await _publishEndpoint.Publish(new RoomCreatedMessage { apartmentId = room.ApartmentId });
                     return;
                 } else
                 {
@@ -39,7 +39,7 @@ namespace Rooms.Application.Commands.CreateOrUpdateRoom
                     {
                         room = Room.CreateRoom(x.ApartmentId, x.LandlordId, x.Name, x.Surface, x.AnglesCoordinates, x.MaxTenantsNumber, x.CurrentTenantsNumber, x.MonthlyRent);
                         await _roomsRepository.CreateOrUpdateRoom(room);
-                        await _publishEndpoint.Publish(new RoomCreatedEvent { apartmentId = room.ApartmentId });
+                        await _publishEndpoint.Publish<RoomCreatedMessage>(new RoomCreatedMessage { apartmentId = room.ApartmentId });
 
                     } else
                     {

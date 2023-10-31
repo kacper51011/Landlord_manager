@@ -7,7 +7,8 @@ services:
      context: .
      dockerfile: Services/Apartments/Apartments.API/Dockerfile
     ports:
-    - 1000:1000
+    - 8000:8000
+    - 8001:8001
 
   mongo:
     image: mongo
@@ -46,7 +47,8 @@ services:
       context: .
       dockerfile: Services/Rooms/Rooms.Api/Dockerfile
     ports:
-    - 1001:1001
+    - 8002:8002
+    - 8003:8003
 
 volumes:
   local:
