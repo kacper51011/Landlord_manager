@@ -15,6 +15,6 @@ namespace Tenants.Domain.Interfaces
         public Task DeleteTenant(string tenantId);
 
         public Task DeleteAllTenantsInRoom(string RoomId);
-        public Task<Tenant> GetTenantById(string roomId);
+        public Task<Tenant> GetTenantById(string tenantId);
     }
 }

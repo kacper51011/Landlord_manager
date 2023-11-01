@@ -16,14 +16,11 @@ namespace Rooms.Infrastructure.Repositories
         private IMongoCollection<Room> _roomsCollection;
         public RoomsRepository(IOptions<MongoSettings> roomsDatabaseSettings)
         {
-            var mongoClient = new MongoClient(
-    roomsDatabaseSettings.Value.ConnectionString);
+            var mongoClient = new MongoClient(roomsDatabaseSettings.Value.ConnectionString);
 
-            var mongoDatabase = mongoClient.GetDatabase(
-                roomsDatabaseSettings.Value.DatabaseName);
+            var mongoDatabase = mongoClient.GetDatabase(roomsDatabaseSettings.Value.DatabaseName);
 
-            _roomsCollection = mongoDatabase.GetCollection<Room>(
-                roomsDatabaseSettings.Value.CollectionName);
+            _roomsCollection = mongoDatabase.GetCollection<Room>(roomsDatabaseSettings.Value.CollectionName);
         }
         public async Task CreateOrUpdateRoom(Room room)
         {
