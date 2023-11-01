@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Tenants.Domain.Entities;
 using Tenants.Domain.Interfaces;
+using Tenants.Infrastructure.Settings;
 
 namespace Tenants.Infrastructure.Repositories
 {

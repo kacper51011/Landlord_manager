@@ -1,5 +1,5 @@
 ﻿using Apartments.Domain.Interfaces;
-using Contracts;
+using Contracts.RoomsServiceEvents;
 using MassTransit;
 using System;
 using System.Collections.Generic;
