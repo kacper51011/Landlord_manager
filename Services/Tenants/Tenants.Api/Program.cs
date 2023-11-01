@@ -1,6 +1,15 @@
+using Tenants.Domain.Interfaces;
+using Tenants.Infrastructure.Repositories;
+using Tenants.Infrastructure.Settings;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+builder.Services.AddSingleton<ITenantsRepository, TenantsRepository>();
+
+builder.Services.Configure<MongoSettings>(builder.Configuration.GetSection("MongoDB"));
+//builder.Services.Configure<RabbitMQSettings>(builder.Configuration.GetSection("RabbitMQ"));
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
