@@ -1,3 +1,4 @@
+using MassTransit;
 using Tenants.Domain.Interfaces;
 using Tenants.Infrastructure.Repositories;
 using Tenants.Infrastructure.Settings;
@@ -10,6 +11,28 @@ builder.Services.AddSingleton<ITenantsRepository, TenantsRepository>();
 
 builder.Services.Configure<MongoSettings>(builder.Configuration.GetSection("MongoDB"));
 //builder.Services.Configure<RabbitMQSettings>(builder.Configuration.GetSection("RabbitMQ"));
+
+
+//builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining(typeof(CreateOrUpdateRoomCommandHandler)));
+
+builder.Services.AddMassTransit(cfg =>
+{
+    cfg.SetDefaultEndpointNameFormatter();
+
+
+    cfg.UsingRabbitMq((context, configuration) =>
+    {
+
+        configuration.Host(builder.Configuration["RabbitMQ:HostName"], "/", h =>
+        {
+
+            h.Username(builder.Configuration["RabbitMQ:UserName"]);
+            h.Password(builder.Configuration["RabbitMQ:Password"]);
+        });
+
+        configuration.ConfigureEndpoints(context);
+    });
+});
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
