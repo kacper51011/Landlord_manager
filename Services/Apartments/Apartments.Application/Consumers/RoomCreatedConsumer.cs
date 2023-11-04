@@ -11,7 +11,7 @@ namespace Apartments.Application.Consumers
 {
     public class RoomCreatedConsumer : IConsumer<RoomCreatedEvent>
     {
-        private IApartmentsRepository _apartmentsRepository;
+        private readonly IApartmentsRepository _apartmentsRepository;
 
         public RoomCreatedConsumer(IApartmentsRepository apartmentsRepository)
         {

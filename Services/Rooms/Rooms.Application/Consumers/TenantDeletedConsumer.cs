@@ -1,0 +1,17 @@
+﻿using MassTransit;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Rooms.Application.Consumers
+{
+    public class TenantDeletedConsumer : IConsumer<TenantDeletedConsumer>
+    {
+        public async Task Consume(ConsumeContext<TenantDeletedConsumer> context)
+        {
+            throw new NotImplementedException();
+        }
+    }
+}
