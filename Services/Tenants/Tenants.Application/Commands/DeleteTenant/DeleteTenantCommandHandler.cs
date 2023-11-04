@@ -1,4 +1,5 @@
-﻿using MassTransit;
+﻿using Contracts.TenantsServiceEvents;
+using MassTransit;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -22,12 +23,20 @@ namespace Tenants.Application.Commands.DeleteTenant
         {
             try
             {
-
+                var tenant = await _tenantsRepository.GetTenantById(request.tenantId);
+                if (tenant == null)
+                {
+                    return false;
+                }
+                await _tenantsRepository.DeleteTenant(tenant.TenantId);
+                await _publishEndpoint.Publish(new TenantDeletedEvent { RoomId = request.roomId });
+                return true;
+                
             }
             catch (Exception)
             {
 
-                throw;
+                return false;
             }
         }
     }
