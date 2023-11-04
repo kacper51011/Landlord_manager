@@ -1,4 +1,6 @@
-﻿using MassTransit;
+﻿using Contracts.TenantsServiceEvents;
+using MassTransit;
+using Rooms.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,11 +9,31 @@ using System.Threading.Tasks;
 
 namespace Rooms.Application.Consumers
 {
-    public class TenantDeletedConsumer : IConsumer<TenantDeletedConsumer>
+    public class TenantDeletedConsumer : IConsumer<TenantDeletedEvent>
     {
-        public async Task Consume(ConsumeContext<TenantDeletedConsumer> context)
+        private readonly IRoomsRepository _roomsRepository;
+
+        public TenantDeletedConsumer(IRoomsRepository roomsRepository)
         {
-            throw new NotImplementedException();
+            _roomsRepository = roomsRepository;
+        }
+        public async Task Consume(ConsumeContext<TenantDeletedEvent> context)
+        {
+            try
+            {
+                var room = await _roomsRepository.GetRoomById(context.Message.RoomId);
+                if (room == null)
+                {
+                    return;
+                }
+                room.DecrementTenantNumber();
+                await _roomsRepository.CreateOrUpdateRoom(room);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
     }
 }

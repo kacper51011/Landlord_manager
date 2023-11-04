@@ -23,7 +23,7 @@ namespace Rooms.Application.Consumers
         {
             try
             {
-                var room = await _roomsRepository.GetRoomById(context.Message.roomId);
+                var room = await _roomsRepository.GetRoomById(context.Message.RoomId);
                 if (room == null)
                 {
                     return;

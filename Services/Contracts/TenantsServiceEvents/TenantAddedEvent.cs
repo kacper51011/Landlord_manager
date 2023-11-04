@@ -8,6 +8,6 @@ namespace Contracts.TenantsServiceEvents
 {
     public record TenantAddedEvent
     {
-        public string roomId { get; set; }
+        public string RoomId { get; set; }
     }
 }
