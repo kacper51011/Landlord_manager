@@ -1,4 +1,5 @@
 ﻿using Contracts;
+using Contracts.RoomsServiceEvents;
 using MassTransit;
 using MediatR;
 using Rooms.Domain.Interfaces;
