@@ -2,7 +2,10 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using Tenants.Application.Commands.CreateOrUpdateTenant;
+using Tenants.Application.Commands.DeleteTenant;
 using Tenants.Application.Dtos;
+using Tenants.Application.Queries.GetTenants;
 
 namespace Tenants.Api.Controllers
 {
@@ -22,7 +25,7 @@ namespace Tenants.Api.Controllers
         {
             try
             {
-                var query = new GetTenantsQuery(roomId);
+                var query = new GetTenantsByRoomIdQuery(roomId);
                 var response = await _mediator.Send(query);
                 return Ok(response);
             }
@@ -35,7 +38,7 @@ namespace Tenants.Api.Controllers
 
         [HttpPost]
         [Route("create")]
-        public async Task<IActionResult> CreateOrUpdateApartment([FromBody] TenantDto dto)
+        public async Task<IActionResult> CreateOrUpdateTenant([FromBody] TenantDto dto)
         {
             try
             {
@@ -54,12 +57,12 @@ namespace Tenants.Api.Controllers
             }
         }
         [HttpDelete]
-        [Route("")]
-        public async Task<IActionResult> DeleteApartment(string landlordId, string id)
+        [Route("delete")]
+        public async Task<IActionResult> DeleteTenant(string roomId, string tenantId)
         {
             try
             {
-                var command = new DeleteTenantCommand(landlordId, id);
+                var command = new DeleteTenantCommand(roomId, tenantId);
                 var isSuccess = await _mediator.Send(command);
 
                 if (!isSuccess)

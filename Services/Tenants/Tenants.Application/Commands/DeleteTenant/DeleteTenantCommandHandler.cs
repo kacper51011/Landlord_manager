@@ -1,0 +1,34 @@
+﻿using MassTransit;
+using MediatR;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Tenants.Domain.Interfaces;
+
+namespace Tenants.Application.Commands.DeleteTenant
+{
+    public class DeleteTenantCommandHandler : IRequestHandler<DeleteTenantCommand, bool>
+    {
+        private readonly ITenantsRepository _tenantsRepository;
+        private readonly IPublishEndpoint _publishEndpoint;
+        public DeleteTenantCommandHandler(ITenantsRepository tenantsRepository, IPublishEndpoint publishEndpoint)
+        {
+            _tenantsRepository = tenantsRepository;
+            _publishEndpoint = publishEndpoint;
+        }
+        public async Task<bool> Handle(DeleteTenantCommand request, CancellationToken cancellationToken)
+        {
+            try
+            {
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+    }
+}
