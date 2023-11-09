@@ -32,6 +32,7 @@ namespace Tenants.Application.Commands.DeleteAllTenantsInRoom
                 foreach (var tenant in tenants)
                 {
                    await _tenantsRepository.DeleteTenant(tenant.TenantId);
+                   _logger.LogDebug($"tenant with Id {tenant.TenantId} deleted");
                 }
 
 			}
