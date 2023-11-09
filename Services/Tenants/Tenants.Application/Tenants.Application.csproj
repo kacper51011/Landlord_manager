@@ -7,13 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Mapster" Version="7.4.0" />
     <PackageReference Include="MassTransit" Version="8.1.1" />
     <PackageReference Include="MediatR" Version="12.1.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\Contracts\Contracts.csproj" />
-    <ProjectReference Include="..\Apartments.Domain\Apartments.Domain.csproj" />
+    <ProjectReference Include="..\Tenants.Domain\Tenants.Domain.csproj" />
   </ItemGroup>
 
 </Project>

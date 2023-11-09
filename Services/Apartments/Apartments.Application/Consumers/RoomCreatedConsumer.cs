@@ -1,5 +1,5 @@
 ﻿using Apartments.Domain.Interfaces;
-using Contracts;
+using Contracts.RoomsServiceEvents;
 using MassTransit;
 using System;
 using System.Collections.Generic;
@@ -11,7 +11,7 @@ namespace Apartments.Application.Consumers
 {
     public class RoomCreatedConsumer : IConsumer<RoomCreatedEvent>
     {
-        private IApartmentsRepository _apartmentsRepository;
+        private readonly IApartmentsRepository _apartmentsRepository;
 
         public RoomCreatedConsumer(IApartmentsRepository apartmentsRepository)
         {
@@ -21,7 +21,7 @@ namespace Apartments.Application.Consumers
 
         public async Task Consume(ConsumeContext<RoomCreatedEvent> context)
         {
-            var apartment = await _apartmentsRepository.GetApartmentById(context.Message.apartmentId);
+            var apartment = await _apartmentsRepository.GetApartmentById(context.Message.ApartmentId);
             if (apartment == null)
             {
                 return;

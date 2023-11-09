@@ -1,4 +1,5 @@
 ﻿using Contracts;
+using Contracts.RoomsServiceEvents;
 using MassTransit;
 using MediatR;
 using Rooms.Domain.Interfaces;
@@ -29,7 +30,7 @@ namespace Rooms.Application.Commands.DeleteRoom
             else
             {
                 await _roomRepository.DeleteRoom(request.roomId);
-                await _publishEndpoint.Publish(new RoomDeletedEvent { apartmentId = request.apartmentId });
+                await _publishEndpoint.Publish(new RoomDeletedEvent { ApartmentId = request.apartmentId, RoomId= request.roomId });
             }
 
         }
