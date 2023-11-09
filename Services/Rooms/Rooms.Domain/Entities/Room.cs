@@ -37,7 +37,7 @@ namespace Rooms.Domain.Entities
             room.SetLastModifiedDate();
             return room;
         }
-        public Room UpdateRoom(string name, int surface, string anglesCoordinates, int maxTenantsNumber, int currentTenantsNumber, int monthlyRent)
+        public void UpdateRoom(string name, int surface, string anglesCoordinates, int maxTenantsNumber, int currentTenantsNumber, int monthlyRent)
         {
             Name = name;
             Surface = surface;
@@ -46,7 +46,17 @@ namespace Rooms.Domain.Entities
             CurrentTenantsNumber = currentTenantsNumber;
             MonthlyRent = monthlyRent;
             SetLastModifiedDate();
-            return this;
         }
+
+        public void IncrementTenantNumber()
+        {
+            CurrentTenantsNumber += 1;
+        }
+
+        public void DecrementTenantNumber()
+        {
+            CurrentTenantsNumber -= 1;
+        }
+
     }
 }
