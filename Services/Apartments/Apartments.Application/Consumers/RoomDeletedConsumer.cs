@@ -21,7 +21,7 @@ namespace Apartments.Application.Consumers
 
         public async Task Consume(ConsumeContext<RoomDeletedEvent> context)
         {
-            var apartment = await _apartmentsRepository.GetApartmentById(context.Message.apartmentId);
+            var apartment = await _apartmentsRepository.GetApartmentById(context.Message.ApartmentId);
             if (apartment == null)
             {
                 return;
