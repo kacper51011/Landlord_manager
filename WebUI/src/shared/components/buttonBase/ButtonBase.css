@@ -1,0 +1,78 @@
+.dark {
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 500;
+    text-align: center;
+    text-decoration: none;
+    user-select: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    transition: background-color 0.3s, color 0.3s;
+    background-color: #424242; /* Kolor tła - ciemny odcień szarości */
+    color: #ffffff; /* Kolor tekstu - biały */
+    cursor: pointer;
+    border: none;
+    outline: none;
+}
+
+.dark:hover {
+    background-color: #616161; /* Zmiana koloru tła po najechaniu kursorem */
+  }
+  
+.dark:active {
+    background-color: #212121; /* Zmiana koloru tła po wciśnięciu przycisku */
+  }
+
+.light {
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 500;
+    text-align: center;
+    text-decoration: none;
+    user-select: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    transition: background-color 0.3s, color 0.3s;
+    background-color: #ffffff; /* Kolor tła - biały */
+    color: #212121; /* Kolor tekstu - ciemny odcień szarości */
+    cursor: pointer;
+    border: 1px solid #e0e0e0; /* Dodanie subtelnej ramki */
+    outline: none;
+  }
+  
+  .light:hover {
+    background-color: #f5f5f5; /* Zmiana koloru tła po najechaniu kursorem */
+  }
+  
+  .light:active {
+    background-color: #e0e0e0; /* Zmiana koloru tła po wciśnięciu przycisku */
+  }
+
+
+
+
+
+.rounded {
+    border-radius: 1rem;
+}
+
+.sharp {
+    border-radius: 0.2rem;
+}
+
+.large {
+    min-width: 7rem;
+    min-height: 3rem;
+}
+
+.medium {
+    min-width: 5.5rem;
+    min-height: 2.5rem;
+}
+
+.small {
+    min-width: 4rem;
+    min-height: 1.5rem;
+}
+
+
