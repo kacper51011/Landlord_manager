@@ -1,4 +1,4 @@
-.dark {
+.button-dark {
     display: inline-block;
     font-size: 14px;
     font-weight: 500;
@@ -15,15 +15,15 @@
     outline: none;
 }
 
-.dark:hover {
+.button-dark:hover {
     background-color: #616161; /* Zmiana koloru tła po najechaniu kursorem */
   }
   
-.dark:active {
+.button-dark:active {
     background-color: #212121; /* Zmiana koloru tła po wciśnięciu przycisku */
   }
 
-.light {
+.button-light {
     display: inline-block;
     font-size: 14px;
     font-weight: 500;
@@ -40,11 +40,11 @@
     outline: none;
   }
   
-  .light:hover {
+  .button-light:hover {
     background-color: #f5f5f5; /* Zmiana koloru tła po najechaniu kursorem */
   }
   
-  .light:active {
+  .button-light:active {
     background-color: #e0e0e0; /* Zmiana koloru tła po wciśnięciu przycisku */
   }
 
@@ -52,27 +52,30 @@
 
 
 
-.rounded {
+.button-rounded {
     border-radius: 1rem;
 }
 
-.sharp {
+.button-sharp {
     border-radius: 0.2rem;
 }
 
-.large {
+.button-large {
     min-width: 7rem;
     min-height: 3rem;
+    font-size: 1rem;
 }
 
-.medium {
+.button-medium {
     min-width: 5.5rem;
     min-height: 2.5rem;
+    font-size: 0.8rem;
 }
 
-.small {
+.button-small {
     min-width: 4rem;
     min-height: 1.5rem;
+    font-size: 0.65rem;
 }
 
 
