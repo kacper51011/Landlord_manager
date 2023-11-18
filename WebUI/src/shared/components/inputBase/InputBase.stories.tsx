@@ -1,29 +1,29 @@
 import { Meta, StoryObj } from "@storybook/react";
-import { ButtonBase } from "./ButtonBase";
+import { InputBase } from "./InputBase";
 
 const meta = {
-  title: "Example/ButtonBase",
-  component: ButtonBase,
+  title: "Example/InputBase",
+  component: InputBase,
   // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/react/writing-docs/autodocs
   tags: ["autodocs"],
   parameters: {
     // More on how to position stories at: https://storybook.js.org/docs/react/configure/story-layout
     layout: "centered",
   },
-} satisfies Meta<typeof ButtonBase>;
+} satisfies Meta<typeof InputBase>;
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const WithoutProps: Story = {
   args: {
-    label: "No props",
+    placeholder: "Default",
   },
 };
 
 export const Light: Story = {
   args: {
     mode: "light",
-    label: "Light",
+    placeholder: "Light",
     borders: "rounded",
     size: "medium",
   },
@@ -32,7 +32,7 @@ export const Light: Story = {
 export const Dark: Story = {
   args: {
     mode: "dark",
-    label: "Dark",
+    placeholder: "Dark",
     borders: "rounded",
     size: "medium",
   },
@@ -41,7 +41,7 @@ export const Dark: Story = {
 export const Large: Story = {
   args: {
     mode: "light",
-    label: "ButtonBase",
+    placeholder: "ButtonBase",
     borders: "rounded",
     size: "large",
   },
@@ -50,7 +50,7 @@ export const Large: Story = {
 export const Small: Story = {
   args: {
     mode: "light",
-    label: "ButtonBase",
+    placeholder: "ButtonBase",
     borders: "rounded",
     size: "small",
   },

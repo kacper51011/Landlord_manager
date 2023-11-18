@@ -10,7 +10,7 @@ export const ButtonBase = ({
   ...props
 }: ButtonBaseProps) => {
   return (
-    <button className={`${mode} ${size} ${borders}`} {...props}>
+    <button className={`button-${mode} button-${size} button-${borders}`} {...props}>
       {children || label}
     </button>
   );

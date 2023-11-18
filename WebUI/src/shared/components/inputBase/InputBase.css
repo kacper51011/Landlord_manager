@@ -1,0 +1,56 @@
+.input-light {
+    border: 1px solid #e0e0e0; /* Kolor ramki - subtelny odcień szarości */
+    border-radius: 4px;
+    background-color: #ffffff; /* Kolor tła - biały */
+    color: #212121; /* Kolor tekstu - ciemny odcień szarości */
+    outline: none;
+    transition: border-color 0.3s;
+  }
+  
+  .input-light:hover, .light:focus {
+    border-color: #2196F3; /* Zmiana koloru ramki po najechaniu lub skoncentrowaniu */
+  }
+  
+  /* Stylizacja pola input Material Design z ciemnym tłem */
+  .input-dark {
+    border: 2px solid #ffffff; /* Kolor ramki - ciemny odcień szarości */
+    border-radius: 4px;
+    background-color: #424242; /* Kolor tła - ciemny odcień szarości */
+    color: #ffffff; /* Kolor tekstu - biały */
+    outline: none;
+    transition: border-color 0.3s;
+  }
+  
+  .input-dark:hover, .input-dark:focus {
+    border-color: #ffffff; /* Zmiana koloru ramki po najechaniu lub skoncentrowaniu */
+  }
+
+  .input-sharp{
+    border-radius: 0rem
+  }
+
+  .input-round{
+    border-radius: 1rem
+  }
+
+  .input-large{
+    width: 9rem;
+    height: 1rem;
+    font-size: 1rem;
+    padding: 0.6rem 0.25rem;
+
+  }
+
+  .input-medium{
+    width: 7rem;
+    height: 0.8rem;
+    font-size: 0.8rem;
+    padding: 0.5rem 0.175rem;
+  }
+
+  .input-small{
+    width: 6rem;
+    height: 0.7rem;
+    font-size: 0.8rem;
+    padding: 0.4rem 0.15rem;
+  }
