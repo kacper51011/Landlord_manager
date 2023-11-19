@@ -15,7 +15,6 @@ namespace Apartments.Domain.Entities
         public string LandlordId { get; private set; }
         public double Latitude { get; private set; }
         public double Longitude { get; private set; }
-        public int RoomsNumber { get; private set; }
         public int Area { get; private set; }
         public string Telephone { get; private set; }
 
@@ -28,7 +27,6 @@ namespace Apartments.Domain.Entities
                 LandlordId = landlordId,
                 Latitude = latitude,
                 Longitude = longitude,
-                RoomsNumber = 0,
                 Area = area,
                 Telephone = telephone,
                 
@@ -43,21 +41,10 @@ namespace Apartments.Domain.Entities
             LandlordId = landlordId;
             Latitude = latitude;
             Longitude = longitude;
-            RoomsNumber = roomsNumber;
             Area = area;
             Telephone = telephone;
             SetLastModifiedDate();
             return this;
-        }
-
-        public void IncreaseRoomNumber()
-        {
-            RoomsNumber += 1;
-        }
-
-        public void DecreaseRoomNumber()
-        {
-            RoomsNumber -= 1;
         }
 
         

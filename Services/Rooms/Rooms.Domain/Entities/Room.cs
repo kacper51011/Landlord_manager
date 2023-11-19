@@ -15,9 +15,6 @@ namespace Rooms.Domain.Entities
         public string Name { get; private set; }
         public int Surface { get; private set; }
         public string AnglesCoordinates { get; private set; }
-        public int MaxTenantsNumber { get; private set; }
-        public int CurrentTenantsNumber { get; private set; }
-        public int MonthlyRent { get; private set; }
 
         public static Room CreateRoom(string apartmentId, string landlordId, string name, int surface, string anglesCoordinates, int maxTenantsNumber, int currentTenantsNumber, int monthlyRent)
         {
@@ -29,9 +26,6 @@ namespace Rooms.Domain.Entities
                 Name = name,
                 Surface = surface,
                 AnglesCoordinates = anglesCoordinates,
-                MaxTenantsNumber = maxTenantsNumber,
-                CurrentTenantsNumber = currentTenantsNumber,
-                MonthlyRent = monthlyRent
             };
             room.SetCreationDate();
             room.SetLastModifiedDate();
@@ -42,21 +36,9 @@ namespace Rooms.Domain.Entities
             Name = name;
             Surface = surface;
             AnglesCoordinates = anglesCoordinates;
-            MaxTenantsNumber = maxTenantsNumber;
-            CurrentTenantsNumber = currentTenantsNumber;
-            MonthlyRent = monthlyRent;
             SetLastModifiedDate();
         }
 
-        public void IncrementTenantNumber()
-        {
-            CurrentTenantsNumber += 1;
-        }
-
-        public void DecrementTenantNumber()
-        {
-            CurrentTenantsNumber -= 1;
-        }
 
     }
 }
