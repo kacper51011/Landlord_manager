@@ -1,6 +1,7 @@
 using MassTransit;
 using MassTransit.DependencyInjection;
 using Rooms.Application.Commands.CreateOrUpdateRoom;
+using Rooms.Application.Consumers;
 using Rooms.Application.Settings;
 using Rooms.Domain.Interfaces;
 using Rooms.Infrastructure.Repositories;
@@ -20,7 +21,8 @@ builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining(ty
 builder.Services.AddMassTransit(cfg =>
 {
     cfg.SetDefaultEndpointNameFormatter();
-    
+
+    cfg.AddConsumer<TenantCheckConsumer>();
 
     cfg.UsingRabbitMq((context, configuration) =>
     {
