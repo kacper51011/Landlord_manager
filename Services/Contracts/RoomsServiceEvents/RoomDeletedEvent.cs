@@ -8,7 +8,6 @@ namespace Contracts.RoomsServiceEvents
 {
     public record RoomDeletedEvent
     {
-        public string ApartmentId { get; set; }
-        public string RoomId { get; set; }
+        public string TenantId { get; set; }
     }
 }
