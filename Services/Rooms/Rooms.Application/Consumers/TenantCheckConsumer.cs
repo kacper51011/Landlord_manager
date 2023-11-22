@@ -33,12 +33,12 @@ namespace Rooms.Application.Consumers
                 var room = await _roomsRepository.GetRoomById(context.Message.RoomId);
                 if (room != null)
                 {
-                    _logger.LogInformation($"pokój lokatora o id {context.Message.TenantId} wciąż istnieje");
+                    _logger.LogInformation($"room of tenant with id {context.Message.TenantId} is still here");
                     return;
                 }
                 if (room == null)
                 {
-                    _logger.LogInformation($"pokój lokatora o id został usunięty, wysłanie na kolejkę prośbę o usunięcie lokatora");
+                    _logger.LogInformation($"room of tenant with id {context.Message.TenantId} was deleted, sending message on a queue");
                     await _publishEndpoint.Publish(new RoomDeletedEvent { TenantId = context.Message.TenantId });
 
                 }
