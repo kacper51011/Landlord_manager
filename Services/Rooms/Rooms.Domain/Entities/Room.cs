@@ -15,6 +15,7 @@ namespace Rooms.Domain.Entities
         public string Name { get; private set; }
         public int Surface { get; private set; }
         public string AnglesCoordinates { get; private set; }
+        public DateTime LastCheckedDate { get; private set; }
 
         public static Room CreateRoom(string apartmentId, string landlordId, string name, int surface, string anglesCoordinates, int maxTenantsNumber, int currentTenantsNumber, int monthlyRent)
         {
@@ -23,6 +24,7 @@ namespace Rooms.Domain.Entities
                 RoomId = Guid.NewGuid().ToString(),
                 ApartmentId = apartmentId,
                 LandlordId = landlordId,
+                LastCheckedDate = DateTime.UtcNow,
                 Name = name,
                 Surface = surface,
                 AnglesCoordinates = anglesCoordinates,
@@ -31,6 +33,12 @@ namespace Rooms.Domain.Entities
             room.SetLastModifiedDate();
             return room;
         }
+
+        public void SetLastCheckedDate()       
+        {
+            LastCheckedDate = DateTime.UtcNow;
+        }
+
         public void UpdateRoom(string name, int surface, string anglesCoordinates, int maxTenantsNumber, int currentTenantsNumber, int monthlyRent)
         {
             Name = name;
