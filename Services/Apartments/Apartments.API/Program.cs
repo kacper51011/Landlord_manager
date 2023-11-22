@@ -26,8 +26,7 @@ builder.Services.AddMassTransit(cfg =>
 {
     cfg.SetDefaultEndpointNameFormatter();
 
-    cfg.AddConsumer<RoomCreatedConsumer>();
-    cfg.AddConsumer<RoomDeletedConsumer>();
+    cfg.AddConsumer<RoomCheckedConsumer>();
 
     cfg.UsingRabbitMq((context, configuration) =>
     {

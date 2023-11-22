@@ -12,14 +12,14 @@ using System.Threading.Tasks;
 
 namespace Rooms.Application.Consumers
 {
-    public class TenantCheckConsumer : IConsumer<TenantCheckedEvent>
+    public class TenantCheckedConsumer : IConsumer<TenantCheckedEvent>
     {
         IRoomsRepository _roomsRepository;
-        ILogger<TenantCheckConsumer> _logger;
+        ILogger<TenantCheckedConsumer> _logger;
         IPublishEndpoint _publishEndpoint;
 
 
-        public TenantCheckConsumer(IRoomsRepository roomsRepository, ILogger<TenantCheckConsumer> logger, IPublishEndpoint endpoint)
+        public TenantCheckedConsumer(IRoomsRepository roomsRepository, ILogger<TenantCheckedConsumer> logger, IPublishEndpoint endpoint)
         {
             _roomsRepository = roomsRepository;
             _logger = logger;
@@ -36,12 +36,11 @@ namespace Rooms.Application.Consumers
                     _logger.LogInformation($"room of tenant with id {context.Message.TenantId} is still here");
                     return;
                 }
-                if (room == null)
-                {
-                    _logger.LogInformation($"room of tenant with id {context.Message.TenantId} was deleted, sending message on a queue");
-                    await _publishEndpoint.Publish(new RoomDeletedEvent { TenantId = context.Message.TenantId });
 
-                }
+                _logger.LogInformation($"room of tenant with id {context.Message.TenantId} was deleted, sending message on a queue");
+                await _publishEndpoint.Publish(new RoomDeletedEvent { TenantId = context.Message.TenantId });
+
+ 
             }
             catch (Exception ex)
             {

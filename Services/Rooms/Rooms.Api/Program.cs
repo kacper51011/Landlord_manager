@@ -4,6 +4,7 @@ using Quartz;
 using Rooms.Application.Commands.CreateOrUpdateRoom;
 using Rooms.Application.Consumers;
 using Rooms.Application.Settings;
+using Rooms.Application.Worker;
 using Rooms.Domain.Interfaces;
 using Rooms.Infrastructure.Repositories;
 using Rooms.Infrastructure.Settings;
@@ -40,7 +41,7 @@ builder.Services.AddMassTransit(cfg =>
 {
     cfg.SetDefaultEndpointNameFormatter();
 
-    cfg.AddConsumer<TenantCheckConsumer>();
+    cfg.AddConsumer<TenantCheckedConsumer>();
 
     cfg.UsingRabbitMq((context, configuration) =>
     {

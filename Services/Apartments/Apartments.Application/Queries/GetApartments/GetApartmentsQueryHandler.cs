@@ -27,7 +27,7 @@ namespace Apartments.Application.Queries.GetApartments
 
                 for (var i = 0; i < apartments.Count; i++)
                 {
-                    ApartmentDto dto = new ApartmentDto() { ApartmentId = apartments[i].ApartmentId, LandlordId = apartments[i].LandlordId, Area= apartments[i].Area, Latitude = apartments[i].Latitude, Longitude = apartments[i].Longitude, RoomsNumber= apartments[i].RoomsNumber, Telephone = apartments[i].Telephone };
+                    ApartmentDto dto = new ApartmentDto() { ApartmentId = apartments[i].ApartmentId, LandlordId = apartments[i].LandlordId, Area= apartments[i].Area, Latitude = apartments[i].Latitude, Longitude = apartments[i].Longitude, Telephone = apartments[i].Telephone };
                     list.Add(dto);
                 }
                 return list;

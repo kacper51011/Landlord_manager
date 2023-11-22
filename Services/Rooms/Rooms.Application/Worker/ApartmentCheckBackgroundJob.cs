@@ -1,5 +1,4 @@
 ﻿using Contracts.RoomsServiceEvents;
-using Contracts.RoomssServiceEvents;
 using MassTransit;
 using Microsoft.Extensions.Logging;
 using Quartz;
