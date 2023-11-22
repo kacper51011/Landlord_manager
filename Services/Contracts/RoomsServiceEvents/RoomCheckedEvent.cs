@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Contracts.ApartmentsServiceEvents
+namespace Contracts.RoomsServiceEvents
 {
-    public record ApartmentDeletedEvent
+    public record RoomCheckedEvent
     {
+        public string ApartmentId { get; set; }
         public string RoomId { get; set; }
     }
 }
