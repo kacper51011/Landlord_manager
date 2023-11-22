@@ -1,5 +1,6 @@
 using MassTransit;
 using MassTransit.DependencyInjection;
+using Quartz;
 using Rooms.Application.Commands.CreateOrUpdateRoom;
 using Rooms.Application.Consumers;
 using Rooms.Application.Settings;
@@ -17,6 +18,23 @@ builder.Services.Configure<RabbitMQSettings>(builder.Configuration.GetSection("R
 builder.Services.AddSingleton<IRoomsRepository, RoomsRepository>();
 
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining(typeof(CreateOrUpdateRoomCommandHandler)));
+
+builder.Services.AddQuartz(options =>
+{
+    var jobKey = JobKey.Create(nameof(ApartmentCheckBackgroundJob));
+
+    options
+    .AddJob<ApartmentCheckBackgroundJob>(jobKey)
+    .AddTrigger(trigger =>
+    {
+        trigger.ForJob(jobKey).WithSimpleSchedule(schedule => schedule.WithIntervalInMinutes(1).RepeatForever());
+    });
+});
+
+builder.Services.AddQuartzHostedService(options =>
+{
+    options.WaitForJobsToComplete = true;
+});
 
 builder.Services.AddMassTransit(cfg =>
 {
