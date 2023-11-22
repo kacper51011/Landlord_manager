@@ -17,8 +17,8 @@ namespace Tenants.Application.Dtos
         public bool IsWorking { get; set; }
         public string Email { get; set; }
         public int Rent { get; set; }
-        public DateOnly ContractStart { get; set; }
-        public DateOnly ContractEnd { get; set; }
+        public DateTime ContractStart { get; set; }
+        public DateTime ContractEnd { get; set; }
         public string Telephone { get; set; }
     }
 }

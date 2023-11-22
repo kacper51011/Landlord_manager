@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Options;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
@@ -31,6 +32,8 @@ namespace Tenants.Infrastructure.Repositories
             });
         }
 
+        
+
         public Task DeleteAllTenantsInRoom(string roomId)
         {
             throw new NotImplementedException();
@@ -44,6 +47,22 @@ namespace Tenants.Infrastructure.Repositories
         public async Task<Tenant> GetTenantById(string tenantId)
         {
             return await _tenantCollection.FindAsync(x => x.TenantId == tenantId).Result.FirstAsync();
+        }
+
+        public async Task<List<Tenant>> GetOldestCheckedTenants()
+        {
+
+            var builder = Builders<Tenant>.Filter;
+
+            var filter = builder.Lte(x => x.LastCheckedDate, DateTime.UtcNow);
+
+            var options = new FindOptions<Tenant>()
+            {
+                Sort = Builders<Tenant>.Sort.Descending(x => x.LastCheckedDate),
+                BatchSize = 5,
+            };
+
+            return await _tenantCollection.FindAsync(filter, options).Result.ToListAsync();
         }
 
         public async Task<Tenant> GetTenantByIdAndRoomId(string tenantId, string roomId)

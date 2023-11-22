@@ -18,12 +18,15 @@ namespace Tenants.Domain.Entities
         public bool IsWorking { get; private set; }
         public string Email { get; private set; }
         public int Rent { get; private set; }
-        public DateOnly ContractStart { get; private set; }
-        public DateOnly ContractEnd { get; private set; }
+        public DateTime ContractStart { get; private set; }
+        public DateTime ContractEnd { get; private set; }
         public string Telephone { get; private set; }
 
-        private Tenant(string roomId, string firstName, string lastName, int age, bool isStudying, bool isWorking, string email, int rent, DateOnly contractStart, DateOnly contractEnd, string telephone)
+        public DateTime LastCheckedDate { get; private set; }
+
+        private Tenant(string tenantId, string roomId, string firstName, string lastName, int age, bool isStudying, bool isWorking, string email, int rent, DateTime contractStart, DateTime contractEnd, string telephone)
         {
+            TenantId = tenantId;
             RoomId = roomId;
             FirstName = firstName;
             LastName = lastName;
@@ -36,12 +39,12 @@ namespace Tenants.Domain.Entities
             ContractEnd = contractEnd;
             Telephone = telephone;
         }
-        public static Tenant Create(string roomId, string firstName, string lastName, int age, bool isStudying, bool isWorking, string email, int rent, DateOnly contractStart, DateOnly contractEnd, string telephone)
+        public static Tenant Create(string roomId, string firstName, string lastName, int age, bool isStudying, bool isWorking, string email, int rent, DateTime contractStart, DateTime contractEnd, string telephone)
         {
-            Tenant tenant = new Tenant(roomId, firstName, lastName, age, isStudying, isWorking, email, rent, contractStart, contractEnd, telephone);
-            tenant.TenantId = Guid.NewGuid().ToString();
+            Tenant tenant = new Tenant(Guid.NewGuid().ToString(), roomId, firstName, lastName, age, isStudying, isWorking, email, rent, contractStart, contractEnd, telephone);
             tenant.SetCreationDate();
             tenant.SetLastModifiedDate();
+            tenant.SetLastCheckedDate();
             return tenant;
         }
 
@@ -58,6 +61,11 @@ namespace Tenants.Domain.Entities
             ContractEnd = tenant.ContractEnd;
             Telephone = tenant.Telephone;
             SetLastModifiedDate();
+        }
+
+        public void SetLastCheckedDate()
+        {
+            LastCheckedDate = DateTime.UtcNow;
         }
 
 

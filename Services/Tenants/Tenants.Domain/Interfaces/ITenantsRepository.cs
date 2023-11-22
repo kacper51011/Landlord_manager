@@ -10,6 +10,7 @@ namespace Tenants.Domain.Interfaces
     public interface ITenantsRepository
     {
         public Task<List<Tenant>> GetTenantsByRoomId(string roomId);
+        public Task<List<Tenant>> GetOldestCheckedTenants();
         public Task CreateOrUpdateTenant(Tenant tenant);
         public Task<Tenant> GetTenantByIdAndRoomId(string tenantId, string roomId);
         public Task DeleteTenant(string tenantId);
