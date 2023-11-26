@@ -44,6 +44,7 @@ namespace Tenants.Domain.Entities
             Tenant tenant = new Tenant(Guid.NewGuid().ToString(), roomId, firstName, lastName, age, isStudying, isWorking, email, rent, contractStart, contractEnd, telephone);
             tenant.SetCreationDate();
             tenant.SetLastModifiedDate();
+            tenant.IncrementVersion();
             tenant.SetLastCheckedDate();
             return tenant;
         }
@@ -60,6 +61,7 @@ namespace Tenants.Domain.Entities
             ContractStart = tenant.ContractStart;
             ContractEnd = tenant.ContractEnd;
             Telephone = tenant.Telephone;
+            IncrementVersion();
             SetLastModifiedDate();
         }
 

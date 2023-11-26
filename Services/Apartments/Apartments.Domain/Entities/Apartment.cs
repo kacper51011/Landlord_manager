@@ -18,7 +18,7 @@ namespace Apartments.Domain.Entities
         public int Area { get; private set; }
         public string Telephone { get; private set; }
 
-        public static Apartment CreateApartment(string landlordId, double latitude, double longitude, int roomsNumber, int area,  string telephone)
+        public static Apartment CreateApartment(string landlordId, double latitude, double longitude, int area,  string telephone)
         {
 
             var apartment = new Apartment
@@ -34,9 +34,10 @@ namespace Apartments.Domain.Entities
             };
             apartment.SetCreationDate();
             apartment.SetLastModifiedDate();
+            apartment.IncrementVersion();
             return apartment;
         }
-        public Apartment UpdateApartment(string landlordId, double latitude, double longitude, int roomsNumber, int area, string telephone)
+        public Apartment UpdateApartment(string landlordId, double latitude, double longitude, int area, string telephone)
         {
             LandlordId = landlordId;
             Latitude = latitude;
@@ -44,6 +45,7 @@ namespace Apartments.Domain.Entities
             Area = area;
             Telephone = telephone;
             SetLastModifiedDate();
+            IncrementVersion();
             return this;
         }
 

@@ -31,6 +31,8 @@ namespace Rooms.Domain.Entities
             };
             room.SetCreationDate();
             room.SetLastModifiedDate();
+            room.SetLastCheckedDate();
+            room.IncrementVersion();
             return room;
         }
 
@@ -44,6 +46,7 @@ namespace Rooms.Domain.Entities
             Name = name;
             Surface = surface;
             AnglesCoordinates = anglesCoordinates;
+            IncrementVersion();
             SetLastModifiedDate();
         }
 

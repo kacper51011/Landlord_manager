@@ -15,8 +15,10 @@ namespace Tenants.Domain
         public ObjectId Id { get; set; }
         public DateTime CreationDate { get; private set; }
         public DateTime LastModifiedDate { get; private set; }
+        public int Version { get; private set; }
 
         public void SetCreationDate() { CreationDate = DateTime.Now; }
         public void SetLastModifiedDate() { LastModifiedDate = DateTime.Now; }
+        public void IncrementVersion() { Version++; }
     }
 }
