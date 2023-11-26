@@ -43,32 +43,59 @@
 .stat-col-light-red{
     background: rgb(244,67,54);
     background: linear-gradient(0deg, rgba(244,67,54,1) 60%, rgba(239,154,154,1) 100%);
-
 }
+.stat-col-light-red:hover {
+    cursor: pointer;
+    background: #E53935;
+}
+
 .stat-col-dark-red{
     background: rgb(211,47,47);
     background: linear-gradient(0deg, rgba(211,47,47,1) 60%, rgba(239,83,80,1) 100%);
-
+}
+.stat-col-dark-red:hover {
+    cursor: pointer;
+    background: #C62828;
 }
 
 
 .stat-col-light-blue{
     background: rgb(3,169,244);
     background: linear-gradient(0deg, rgba(3,169,244,1) 60%, rgba(129,212,250,1) 100%);
-}  
+}
+.stat-col-light-blue:hover {
+    cursor: pointer;
+    background: #1E88E5;
+}
+
 .stat-col-dark-blue{
     background: rgb(25,118,210);
     background: linear-gradient(0deg, rgba(25,118,210,1) 60%, rgba(33,150,243,1) 100%);
 }  
+.stat-col-dark-blue:hover {
+    cursor: pointer;
+    background: #1565C0;
+}
 
 
 .stat-col-light-green{
     background: rgb(76,175,80);
     background: linear-gradient(0deg, rgba(76,175,80,1) 60%, rgba(165,214,167,1) 100%);
 }
+
+.stat-col-light-green:hover {
+    cursor: pointer;
+    background: #43A047;
+}
+
 .stat-col-dark-green{
     background: rgb(56,142,60);
     background: linear-gradient(0deg, rgba(56,142,60,1) 60%, rgba(76,175,80,1) 100%);
+}
+
+.stat-col-dark-green:hover {
+    cursor: pointer;
+    background: #2E7D32;
 }
 
 
