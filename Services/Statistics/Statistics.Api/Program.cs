@@ -1,5 +1,8 @@
 using Quartz;
 using Statistics.Application.Settings;
+using Statistics.Application.Workers.Apartments;
+using Statistics.Application.Workers.Rooms;
+using Statistics.Application.Workers.Tenants;
 using Statistics.Infrastructure.Settings;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,7 +14,9 @@ builder.Services.Configure<RabbitMQSettings>(builder.Configuration.GetSection("R
 
 builder.Services.AddQuartz(options =>
 {
-    //var jobKey = JobKey.Create(nameof(RoomCheckBackgroundJob));
+    var apartmentsJob = JobKey.Create(nameof(ApartmentsHourStatisticsJob));
+    var roomsJob = JobKey.Create(nameof(RoomsHourStatisticsJob));
+    var tenantsJob = JobKey.Create(nameof(TenantsHourStatisticsJob));
 
     //options
     //.AddJob<RoomCheckBackgroundJob>(jobKey)
