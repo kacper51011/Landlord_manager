@@ -13,7 +13,10 @@ namespace Statistics.Domain.Entities
         public DateTime StatisticsStart { get; private set; }
         public DateTime StatisticsEnd { get; private set; }
         public int ApartmentsCreated { get; private set; }
+        public bool IsApartmentsCreatedProcessed { get; private set; }
         public int ApartmentsUpdated { get; private set; }
+        public bool IsApartmentsUpdatedProcessed { get; private set; }
         public int MostApartmentsOwnedByUser { get; private set; }
+        public bool IsMostApartmentsOwnedByUserProcessed { get; private set; }
     }
 }

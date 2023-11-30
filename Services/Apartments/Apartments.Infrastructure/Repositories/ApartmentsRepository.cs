@@ -2,10 +2,12 @@
 using Apartments.Domain.Interfaces;
 using Apartments.Infrastructure.Db;
 using Microsoft.Extensions.Options;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -37,6 +39,35 @@ namespace Apartments.Infrastructure.Repositories
    
         }
 
+        public async Task<int> GetMostApartmentsOwnedByOneUser()
+        {
+            var aggregation = _apartmentsCollection.Aggregate()
+            .Group(
+                key => key.LandlordId,
+                group => new
+                {
+                    LandlordId = group.Key,
+                    IloscObiektów = group.Count()
+                }
+                ).SortBy(x => x.IloscObiektów);
+            var result = await aggregation.ToListAsync();
+            return result[0].IloscObiektów;
+        }
+        public async Task<List<Apartment>> GetUpdatedApartments()
+        {
+            var builder = Builders<Apartment>.Filter;
+            var filter = builder.Gt(a => a.Version, 1) & builder.Where(x => x.IsUpdateSubmitted == false);
+            //var update = Builders<Apartment>.Update.Set(x => x.IsUpdateSubmitted, true).Set(x => x.LastModifiedDate, DateTime.UtcNow);
+            return await _apartmentsCollection.FindAsync(filter).Result.ToListAsync();
+        }
+        public async Task<List<Apartment>> GetCreatedApartments(DateTime? startDate, DateTime? endDate)
+        {
+            //filter for number of created apartments from start - end date
+            var builder = Builders<Apartment>.Filter;
+            var filter = builder.Gte(a => a.CreationDate, startDate) & builder.Lt(a => a.CreationDate, endDate);
+            
+            return await _apartmentsCollection.FindAsync(filter).Result.ToListAsync();
+        }
         public async Task DeleteApartment(string apartmentId)
         {
 

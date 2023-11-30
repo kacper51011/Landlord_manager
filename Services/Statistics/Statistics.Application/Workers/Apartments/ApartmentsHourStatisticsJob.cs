@@ -9,6 +9,7 @@ namespace Statistics.Application.Workers.Apartments
 {
     public class ApartmentsHourStatisticsJob : IJob
     {
+
         public Task Execute(IJobExecutionContext context)
         {
             throw new NotImplementedException();
