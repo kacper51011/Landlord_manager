@@ -15,6 +15,13 @@ namespace Apartments.Domain.Interfaces
         public Task DeleteApartment(string apartmentId);
         public Task<Apartment> GetApartmentById(string apartmentId);
 
+        //Statistics
+        public Task<int> GetMostApartmentsOwnedByOneUser();
+
+        public Task<List<Apartment>> GetUpdatedApartments();
+        public Task<List<Apartment>> GetCreatedApartments(DateTime startDate, DateTime endDate);
+
+
 
     }
 }

@@ -60,7 +60,7 @@ namespace Apartments.Infrastructure.Repositories
             //var update = Builders<Apartment>.Update.Set(x => x.IsUpdateSubmitted, true).Set(x => x.LastModifiedDate, DateTime.UtcNow);
             return await _apartmentsCollection.FindAsync(filter).Result.ToListAsync();
         }
-        public async Task<List<Apartment>> GetCreatedApartments(DateTime? startDate, DateTime? endDate)
+        public async Task<List<Apartment>> GetCreatedApartments(DateTime startDate, DateTime endDate)
         {
             //filter for number of created apartments from start - end date
             var builder = Builders<Apartment>.Filter;
