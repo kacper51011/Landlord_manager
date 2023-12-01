@@ -6,11 +6,8 @@ using System.Threading.Tasks;
 
 namespace Contracts.StatisticsMessages.Apartments
 {
-    public record GetApartmentsStatisticsRequest
-    {
-    }
-
-    public record GetApartmentsStatisticsResponse
-    {
-    }
+    public record ApartmentsStatisticsMessage
+        {
+            
+        }
 }

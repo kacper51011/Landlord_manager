@@ -16,10 +16,10 @@ namespace Apartments.Domain.Interfaces
         public Task<Apartment> GetApartmentById(string apartmentId);
 
         //Statistics
-        public Task<int> GetMostApartmentsOwnedByOneUser();
+        public Task<int> GetMostApartmentsOwnedByOneUserCount();
 
-        public Task<List<Apartment>> GetUpdatedApartments();
-        public Task<List<Apartment>> GetCreatedApartments(DateTime startDate, DateTime endDate);
+        public Task<int> GetUpdatedApartmentsCount();
+        public Task<int> GetCreatedApartmentsCount(DateTime startDate, DateTime endDate);
 
 
 

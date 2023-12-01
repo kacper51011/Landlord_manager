@@ -39,7 +39,7 @@ namespace Apartments.Infrastructure.Repositories
    
         }
 
-        public async Task<int> GetMostApartmentsOwnedByOneUser()
+        public async Task<int> GetMostApartmentsOwnedByOneUserCount()
         {
             var aggregation = _apartmentsCollection.Aggregate()
             .Group(
@@ -51,22 +51,37 @@ namespace Apartments.Infrastructure.Repositories
                 }
                 ).SortBy(x => x.IloscObiektów);
             var result = await aggregation.ToListAsync();
+            if (result == null)
+            {
+                throw new Exception("problem with GetMostApartmentsOwnedByOneUser");
+            }
             return result[0].IloscObiektów;
         }
-        public async Task<List<Apartment>> GetUpdatedApartments()
+        public async Task<int> GetUpdatedApartmentsCount()
         {
             var builder = Builders<Apartment>.Filter;
             var filter = builder.Gt(a => a.Version, 1) & builder.Where(x => x.IsUpdateSubmitted == false);
             //var update = Builders<Apartment>.Update.Set(x => x.IsUpdateSubmitted, true).Set(x => x.LastModifiedDate, DateTime.UtcNow);
-            return await _apartmentsCollection.FindAsync(filter).Result.ToListAsync();
+            var result = await _apartmentsCollection.FindAsync(filter);
+            if (result == null)
+            {
+                throw new Exception("problem with GetUpdatedApartments");
+            }
+            return result.ToList().Count();
         }
-        public async Task<List<Apartment>> GetCreatedApartments(DateTime startDate, DateTime endDate)
+        public async Task<int> GetCreatedApartmentsCount(DateTime startDate, DateTime endDate)
         {
             //filter for number of created apartments from start - end date
             var builder = Builders<Apartment>.Filter;
             var filter = builder.Gte(a => a.CreationDate, startDate) & builder.Lt(a => a.CreationDate, endDate);
             
-            return await _apartmentsCollection.FindAsync(filter).Result.ToListAsync();
+            var result = await _apartmentsCollection.FindAsync(filter).Result.ToListAsync();
+            if(result == null)
+            {
+                throw new Exception("problem with GetCreatedApartments");
+            }
+            return result.Count();
+
         }
         public async Task DeleteApartment(string apartmentId)
         {
