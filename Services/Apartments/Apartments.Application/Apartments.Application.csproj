@@ -17,4 +17,8 @@
     <ProjectReference Include="..\Apartments.Domain\Apartments.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Workers\" />
+  </ItemGroup>
+
 </Project>

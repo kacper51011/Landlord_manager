@@ -8,9 +8,9 @@ namespace Apartments.Domain
 {
     public class ApartmentsHourStatistics: AggregateRoot
     {
-        private ApartmentsHourStatistics(string idFromStatistics, DateTime start, DateTime end)
+        private ApartmentsHourStatistics(DateTime start, DateTime end)
         {
-            ApartmentsStatisticsId = idFromStatistics;
+            ApartmentsStatisticsId = Guid.NewGuid().ToString();
             StatisticsStart = start;
             StatisticsEnd = end;
             ApartmentsCreated = 0;
@@ -19,6 +19,7 @@ namespace Apartments.Domain
             IsApartmentsUpdatedProcessed = false;
             MostApartmentsOwnedByUser = 0;
             IsMostApartmentsOwnedByUserProcessed = false;
+            IsSendToStatisticsService = false;
         }
 
         public string ApartmentsStatisticsId { get; private set; }
@@ -30,12 +31,12 @@ namespace Apartments.Domain
         public bool IsApartmentsUpdatedProcessed { get; private set; }
         public int MostApartmentsOwnedByUser { get; private set; }
         public bool IsMostApartmentsOwnedByUserProcessed { get; private set; }
-        public bool IsSavedByStatisticsService { get; private set; }
+        public bool IsSendToStatisticsService { get; private set; }
 
 
-        public ApartmentsHourStatistics Create(string idFromStatistics, DateTime statisticsStart, DateTime statisticsEnd)
+        public ApartmentsHourStatistics Create( DateTime statisticsStart, DateTime statisticsEnd)
         {
-            return new ApartmentsHourStatistics(idFromStatistics, statisticsStart, statisticsEnd);
+            return new ApartmentsHourStatistics( statisticsStart, statisticsEnd);
         }
 
         public void ProcessApartmentsCreatedCount(int apartmentsCreated)

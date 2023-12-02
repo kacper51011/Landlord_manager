@@ -11,9 +11,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="MassTransit" Version="8.1.1" />
     <PackageReference Include="Quartz" Version="3.8.0" />
     <PackageReference Include="Quartz.Extensions.DependencyInjection" Version="3.8.0" />
     <PackageReference Include="Quartz.Extensions.Hosting" Version="3.8.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Contracts\Contracts.csproj" />
+    <ProjectReference Include="..\Statistics.Domain\Statistics.Domain.csproj" />
   </ItemGroup>
 
 </Project>

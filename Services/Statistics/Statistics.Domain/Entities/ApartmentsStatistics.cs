@@ -8,50 +8,37 @@ namespace Statistics.Domain.Entities
 {
     public class ApartmentsStatistics : AggregateRoot
     {
-        private ApartmentsStatistics(DateTime start, DateTime end)
+        private ApartmentsStatistics(DateTime start, DateTime end, string scope)
         {
             ApartmentsStatisticsId = Guid.NewGuid().ToString();
             StatisticsStart = start;
             StatisticsEnd = end;
             ApartmentsCreated = 0;
-            IsApartmentsCreatedProcessed = false;
             ApartmentsUpdated = 0;
-            IsApartmentsUpdatedProcessed = false;
             MostApartmentsOwnedByUser = 0;
-            IsMostApartmentsOwnedByUserProcessed = false;
+            Scope = scope;
         }
 
         public string ApartmentsStatisticsId { get; private set; }
         public DateTime StatisticsStart { get; private set; }
         public DateTime StatisticsEnd { get; private set; }
         public int ApartmentsCreated { get; private set; }
-        public bool IsApartmentsCreatedProcessed { get; private set; }
         public int ApartmentsUpdated { get; private set; }
-        public bool IsApartmentsUpdatedProcessed { get; private set; }
         public int MostApartmentsOwnedByUser { get; private set; }
-        public bool IsMostApartmentsOwnedByUserProcessed { get; private set; }
+        public bool IsFullyProcessed { get; private set; }
+        public string Scope { get; private set; }
 
 
-        public ApartmentsStatistics Create(DateTime statisticsStart, DateTime statisticsEnd)
+        public static ApartmentsStatistics CreateEmpty(DateTime statisticsStart, DateTime statisticsEnd, string scope)
         {
-            return new ApartmentsStatistics(statisticsStart, statisticsEnd);
+            return new ApartmentsStatistics(statisticsStart, statisticsEnd, scope);
         }
 
-        public void ProcessApartmentsCreatedCount(int apartmentsCreated)
+        public void Update(ApartmentsStatistics statistics)
         {
-            ApartmentsCreated = apartmentsCreated;
-            IsApartmentsCreatedProcessed = true;
-        }
-
-        public void ProcessApartmentsUpdatedCount(int apartmentsUpdated)
-        {
-            ApartmentsUpdated = apartmentsUpdated;
-            IsApartmentsUpdatedProcessed = true;
-        }
-        public void ProcessMostApartmentsOwnedByUser(int apartmentsOwnedByUser)
-        {
-            MostApartmentsOwnedByUser = apartmentsOwnedByUser;
-            IsMostApartmentsOwnedByUserProcessed = true;
+            ApartmentsCreated = statistics.ApartmentsCreated;
+            ApartmentsUpdated = statistics.ApartmentsUpdated;
+            MostApartmentsOwnedByUser = statistics.MostApartmentsOwnedByUser;
         }
 
 
