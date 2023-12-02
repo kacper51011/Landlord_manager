@@ -1,5 +1,9 @@
 ﻿using Apartments.Domain;
+using Apartments.Domain.Entities;
 using Apartments.Domain.Interfaces;
+using Apartments.Infrastructure.Db;
+using Microsoft.Extensions.Options;
+using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,18 +14,31 @@ namespace Apartments.Infrastructure.Repositories
 {
     public class ApartmentsStatisticsRepository : IApartmentsStatisticsRepository
     {
-        public ApartmentsStatisticsRepository()
+        private IMongoCollection<ApartmentsHourStatistics> _apartmentsStatisticsCollection;
+        public ApartmentsStatisticsRepository(IOptions<MongoSettings> apartmentsDatabaseSettings)
         {
-            
+            var mongoClient = new MongoClient(
+    apartmentsDatabaseSettings.Value.ConnectionString);
+
+            var mongoDatabase = mongoClient.GetDatabase(
+                apartmentsDatabaseSettings.Value.DatabaseName);
+
+            _apartmentsStatisticsCollection = mongoDatabase.GetCollection<ApartmentsHourStatistics>(
+                apartmentsDatabaseSettings.Value.CollectionStatisticsName);
+
         }
-        public Task CreateOrUpdateApartmentStatistics(ApartmentsHourStatistics apartment)
+        public async Task CreateOrUpdateApartmentStatistics(ApartmentsHourStatistics apartmentsStatistics)
         {
-            throw new NotImplementedException();
+            await _apartmentsStatisticsCollection.ReplaceOneAsync(x => x.ApartmentsStatisticsId == apartmentsStatistics.ApartmentsStatisticsId, apartmentsStatistics, new ReplaceOptions()
+            {
+                IsUpsert = true
+            });
         }
 
-        public Task<ApartmentsHourStatistics> GetApartmentStatisticsById(string apartmentStatisticsId)
+        public async Task<ApartmentsHourStatistics> GetApartmentStatisticsById(string apartmentStatisticsId)
         {
-            throw new NotImplementedException();
+            return await _apartmentsStatisticsCollection.FindAsync(x => x.ApartmentsStatisticsId == apartmentStatisticsId).Result.FirstAsync();
+
         }
     }
 }
