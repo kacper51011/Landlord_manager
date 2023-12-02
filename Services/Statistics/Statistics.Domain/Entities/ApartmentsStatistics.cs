@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Statistics.Domain.Entities
 {
-    public class ApartmentsStatistics: AggregateRoot
+    public class ApartmentsStatistics : AggregateRoot
     {
         private ApartmentsStatistics(DateTime start, DateTime end)
         {
@@ -19,8 +19,8 @@ namespace Statistics.Domain.Entities
             IsApartmentsUpdatedProcessed = false;
             MostApartmentsOwnedByUser = 0;
             IsMostApartmentsOwnedByUserProcessed = false;
+        }
 
-    }
         public string ApartmentsStatisticsId { get; private set; }
         public DateTime StatisticsStart { get; private set; }
         public DateTime StatisticsEnd { get; private set; }
@@ -31,11 +31,29 @@ namespace Statistics.Domain.Entities
         public int MostApartmentsOwnedByUser { get; private set; }
         public bool IsMostApartmentsOwnedByUserProcessed { get; private set; }
 
-    public ApartmentsStatistics Create(DateTime statisticsStart, DateTime statisticsEnd)
-    {
-        return new ApartmentsStatistics(statisticsStart, statisticsEnd);
-    }
-    }
+
+        public ApartmentsStatistics Create(DateTime statisticsStart, DateTime statisticsEnd)
+        {
+            return new ApartmentsStatistics(statisticsStart, statisticsEnd);
+        }
+
+        public void ProcessApartmentsCreatedCount(int apartmentsCreated)
+        {
+            ApartmentsCreated = apartmentsCreated;
+            IsApartmentsCreatedProcessed = true;
+        }
+
+        public void ProcessApartmentsUpdatedCount(int apartmentsUpdated)
+        {
+            ApartmentsUpdated = apartmentsUpdated;
+            IsApartmentsUpdatedProcessed = true;
+        }
+        public void ProcessMostApartmentsOwnedByUser(int apartmentsOwnedByUser)
+        {
+            MostApartmentsOwnedByUser = apartmentsOwnedByUser;
+            IsMostApartmentsOwnedByUserProcessed = true;
+        }
 
 
+    }
 }

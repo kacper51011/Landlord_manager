@@ -10,11 +10,11 @@ namespace Apartments.Domain.Interfaces
     public interface IApartmentsRepository
     {
         public Task<List<Apartment>> GetApartmentsByUserId(string landlordId);
-        public Task CreateOrUpdateApartment(Apartment apartment);
+
         public  Task<Apartment> GetApartmentByIdAndLandlordId(string landlordId, string apartmentId);
         public Task DeleteApartment(string apartmentId);
         public Task<Apartment> GetApartmentById(string apartmentId);
-
+        public Task CreateOrUpdateApartment(Apartment apartment);
         //Statistics
         public Task<int> GetMostApartmentsOwnedByOneUserCount();
 
