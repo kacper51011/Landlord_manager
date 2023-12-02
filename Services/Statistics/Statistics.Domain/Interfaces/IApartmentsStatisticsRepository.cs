@@ -11,5 +11,6 @@ namespace Statistics.Domain.Interfaces
     {
         public Task<ApartmentsStatistics> GetApartmentStatisticsById(string apartmentStatisticsId);
         public Task CreateOrUpdateApartmentStatistics(ApartmentsStatistics apartment);
+        public Task<List<ApartmentsStatistics>> GetNotProcessedStatistics();
     }
 }

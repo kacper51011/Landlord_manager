@@ -1,4 +1,5 @@
-﻿using MassTransit;
+﻿using Contracts.StatisticsMessages.Apartments;
+using MassTransit;
 using Microsoft.Extensions.Logging;
 using Quartz;
 using Statistics.Domain.Interfaces;
@@ -24,13 +25,34 @@ namespace Statistics.Application.Workers.Apartments
 
         public async Task Execute(IJobExecutionContext context)
         {
-            var unprocessedApartmentsStatistics = await _apartmentsStatisticsRepository.GetNotProcessedStatistics();
-
-            if(unprocessedApartmentsStatistics == null)
+            try
             {
-                _logger.LogInformation("No apartmentsStatistics to publish, every is processed already");
-                return;
+                var unprocessedApartmentsStatistics = await _apartmentsStatisticsRepository.GetNotProcessedStatistics();
+
+                if(unprocessedApartmentsStatistics == null)
+                {
+                    _logger.LogInformation("No apartmentsStatistics to publish, every is processed already");
+                    return;
+                }
+                foreach(var statistic in  unprocessedApartmentsStatistics)
+                {
+                    await _publishEndpoint.Publish(new ApartmentsStatisticsMessage()
+                    {
+                        StatisticsId= statistic.ApartmentsStatisticsId,
+                        StatisticsStart = statistic.StatisticsStart,
+                        StatisticsEnd = statistic.StatisticsEnd
+                    });
+                    _logger.LogInformation($"ApartmentsStatistics with Id {statistic.ApartmentsStatisticsId}");
+                }
+
             }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+            
         }
     }
 }

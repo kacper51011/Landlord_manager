@@ -18,7 +18,7 @@ namespace Apartments.Domain.Entities
         public double Longitude { get; private set; }
         public int Area { get; private set; }
         public string Telephone { get; private set; }
-        public bool IsUpdateSubmitted { get; private set; }
+        public List<DateTime> UpdateDates{ get; private set; }
 
         public static Apartment CreateApartment(string landlordId, double latitude, double longitude, int area,  string telephone)
         {
@@ -31,12 +31,12 @@ namespace Apartments.Domain.Entities
                 Longitude = longitude,
                 Area = area,
                 Telephone = telephone,
+                UpdateDates = new List<DateTime>()
                 
 
             };
             apartment.SetCreationDate();
             apartment.SetLastModifiedDate();
-            apartment.SetIsCheckedByStatistics(false);
             apartment.IncrementVersion();
             return apartment;
         }
@@ -48,14 +48,14 @@ namespace Apartments.Domain.Entities
             Area = area;
             Telephone = telephone;
             SetLastModifiedDate();
-            SetIsCheckedByStatistics(false);
+            SetNewUpdateDate();
             IncrementVersion();
             return this;
         }
 
-        public void SetIsCheckedByStatistics(bool isCheckedByStatistics)
+        public void SetNewUpdateDate()
         {
-            IsUpdateSubmitted = isCheckedByStatistics;
+            UpdateDates.Add(DateTime.UtcNow);
         }
         
     }

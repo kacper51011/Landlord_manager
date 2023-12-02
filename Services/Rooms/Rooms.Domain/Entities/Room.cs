@@ -15,6 +15,7 @@ namespace Rooms.Domain.Entities
         public string Name { get; private set; }
         public int Surface { get; private set; }
         public string AnglesCoordinates { get; private set; }
+        public List<DateTime> UpdateDates { get; private set; }
         public DateTime LastCheckedDate { get; private set; }
 
         public static Room CreateRoom(string apartmentId, string landlordId, string name, int surface, string anglesCoordinates, int maxTenantsNumber, int currentTenantsNumber, int monthlyRent)
@@ -35,19 +36,24 @@ namespace Rooms.Domain.Entities
             room.IncrementVersion();
             return room;
         }
+        public void UpdateRoom(string name, int surface, string anglesCoordinates, int maxTenantsNumber, int currentTenantsNumber, int monthlyRent)
+        {
+            Name = name;
+            Surface = surface;
+            AnglesCoordinates = anglesCoordinates;
+            SetNewUpdateDate();
+            IncrementVersion();
+            SetLastModifiedDate();
+        }
 
         public void SetLastCheckedDate()       
         {
             LastCheckedDate = DateTime.UtcNow;
         }
 
-        public void UpdateRoom(string name, int surface, string anglesCoordinates, int maxTenantsNumber, int currentTenantsNumber, int monthlyRent)
+        public void SetNewUpdateDate()
         {
-            Name = name;
-            Surface = surface;
-            AnglesCoordinates = anglesCoordinates;
-            IncrementVersion();
-            SetLastModifiedDate();
+            UpdateDates.Add(DateTime.UtcNow);
         }
 
 

@@ -21,6 +21,7 @@ namespace Tenants.Domain.Entities
         public DateTime ContractStart { get; private set; }
         public DateTime ContractEnd { get; private set; }
         public string Telephone { get; private set; }
+        public List<DateTime> UpdateDates { get; private set; }
 
         public DateTime LastCheckedDate { get; private set; }
 
@@ -38,6 +39,7 @@ namespace Tenants.Domain.Entities
             ContractStart = contractStart;
             ContractEnd = contractEnd;
             Telephone = telephone;
+            UpdateDates = new List<DateTime>();
         }
         public static Tenant Create(string roomId, string firstName, string lastName, int age, bool isStudying, bool isWorking, string email, int rent, DateTime contractStart, DateTime contractEnd, string telephone)
         {
@@ -61,6 +63,7 @@ namespace Tenants.Domain.Entities
             ContractStart = tenant.ContractStart;
             ContractEnd = tenant.ContractEnd;
             Telephone = tenant.Telephone;
+            SetNewUpdateDate();
             IncrementVersion();
             SetLastModifiedDate();
         }
@@ -69,7 +72,10 @@ namespace Tenants.Domain.Entities
         {
             LastCheckedDate = DateTime.UtcNow;
         }
-
+        public void SetNewUpdateDate()
+        {
+            UpdateDates.Add(DateTime.UtcNow);
+        }
 
     }
 }
