@@ -57,16 +57,14 @@ namespace Apartments.Infrastructure.Repositories
             }
             return result[0].IloscObiektów;
         }
-        public async Task<int> GetUpdatedApartmentsCount()
+        public async Task<int> GetUpdatedApartmentsCount(DateTime startDate, DateTime endDate)
         {
             var builder = Builders<Apartment>.Filter;
-            var filter = builder.Gt(a => a.Version, 1) & builder.Where(x => x.IsUpdateSubmitted == false);
-            //var update = Builders<Apartment>.Update.Set(x => x.IsUpdateSubmitted, true).Set(x => x.LastModifiedDate, DateTime.UtcNow);
-            var result = await _apartmentsCollection.FindAsync(filter);
-            if (result == null)
-            {
-                throw new Exception("problem with GetUpdatedApartments");
-            }
+            var dateRangeFilter = builder.Gte(a => a.UpdateDates.Min(), startDate) & builder.Lte(a => a.UpdateDates.Max(), endDate);
+            var versionFilter = builder.Gt(a => a.Version, 1);
+            var combinedFilter = versionFilter & dateRangeFilter;
+            var result = await _apartmentsCollection.FindAsync(combinedFilter);
+
             return result.ToList().Count();
         }
         public async Task<int> GetCreatedApartmentsCount(DateTime startDate, DateTime endDate)
