@@ -20,6 +20,10 @@ namespace Statistics.Domain.Entities
         }
 
         public string ApartmentsStatisticsId { get; private set; }
+        public int Year { get; private set; }
+        public int? Month { get; private set; }
+        public int? Day { get; private set; }
+        public int? Hour { get; private set; }
         public DateTime StatisticsStart { get; private set; }
         public DateTime StatisticsEnd { get; private set; }
         public int ApartmentsCreated { get; private set; }
@@ -39,6 +43,42 @@ namespace Statistics.Domain.Entities
             ApartmentsCreated = statistics.ApartmentsCreated;
             ApartmentsUpdated = statistics.ApartmentsUpdated;
             MostApartmentsOwnedByUser = statistics.MostApartmentsOwnedByUser;
+        }
+
+        public void SetHourStatisticsInformations(DateTime statisticsStart)
+        {
+            Year = statisticsStart.Year;
+            Month = statisticsStart.Month;
+            Day = statisticsStart.Day;
+            Hour = statisticsStart.Hour;
+            Scope = "Hour";
+
+        }
+        public void SetDayStatisticsInformations(DateTime statisticsStart)
+        {
+            Year = statisticsStart.Year;
+            Month = statisticsStart.Month;
+            Day = statisticsStart.Day;
+            Hour = null;
+            Scope = "Day";
+        }
+
+        public void SetMonthStatisticsInformations(DateTime statisticsStart)
+        {
+            Year = statisticsStart.Year;
+            Month = statisticsStart.Month;
+            Day = null;
+            Hour = null;
+            Scope = "Month";
+        }
+
+        public void SetYearStatisticsInformations(DateTime statisticsStart)
+        {
+            Year = statisticsStart.Year;
+            Month = null;
+            Day = null;
+            Hour = null;
+            Scope = "Year";
         }
 
 
