@@ -17,6 +17,7 @@ namespace Statistics.Domain.Entities
             ApartmentsUpdated = 0;
             MostApartmentsOwnedByUser = 0;
             Scope = scope;
+            IsFullyProcessed = false;
         }
 
         public string ApartmentsStatisticsId { get; private set; }
