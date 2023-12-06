@@ -8,11 +8,11 @@ namespace Statistics.Api.Controllers
     [ApiController]
     public class StatisticsController : ControllerBase
     {
-        [HttpGet]
-        public async Task<ActionResult<StatisticsResponseDto>> GetStatistics(CreateHourStatisticsRequestDto statisticsRequestDto)
-        {
+        //[HttpGet]
+        //public async Task<ActionResult<StatisticsResponseDto>> GetStatistics(CreateHourStatisticsRequestDto statisticsRequestDto)
+        //{
 
-        }
+        //}
         [HttpPost]
         [Route("CreateHourStatisticsManually")]
         public async Task<ActionResult> CreateHourStatistics(CreateHourStatisticsRequestDto statisticsRequestDto)
@@ -20,16 +20,16 @@ namespace Statistics.Api.Controllers
 
         }
         [Route("CreateDayStatisticsManually")]
-        public async Task<ActionResult> CreateDayStatistics(CreateHourStatisticsRequestDto statisticsRequestDto)
+        public async Task<ActionResult> CreateDayStatistics(CreateDayStatisticsRequestDto statisticsRequestDto)
         {
 
         }
         [Route("CreateMonthStatisticsManually")]
-        public async Task<ActionResult> CreateMonthStatistics(CreateHourStatisticsRequestDto statisticsRequestDto)
+        public async Task<ActionResult> CreateMonthStatistics(CreateMonthStatisticsRequestDto statisticsRequestDto)
         {
         }
         [Route("CreateYearStatisticsManually")]
-        public async Task<ActionResult> CreateYearStatistics(CreateHourStatisticsRequestDto statisticsRequestDto)
+        public async Task<ActionResult> CreateYearStatistics(CreateYearStatisticsRequestDto statisticsRequestDto)
         {
 
         }
