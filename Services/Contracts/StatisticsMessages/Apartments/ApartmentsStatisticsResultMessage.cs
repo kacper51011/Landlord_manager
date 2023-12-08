@@ -11,5 +11,9 @@ namespace Contracts.StatisticsMessages.Apartments
         public int ApartmentsCreated { get; set; }
         public int ApartmentsUpdated { get; set; }
         public int MostApartmentsOwnedByUser { get; set; }
+        public int Year { get; set; }
+        public int? Month { get; set; }
+        public int? Day { get; set; }
+        public int? Hour { get; set; }
     }
 }
