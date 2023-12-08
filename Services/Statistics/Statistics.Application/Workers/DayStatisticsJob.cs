@@ -7,19 +7,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Statistics.Application.Workers
 {
-    public class HourStatisticsJob : IJob
+    public class DayStatisticsJob: IJob
     {
-        private readonly ILogger<HourStatisticsJob> _logger;
+        private readonly ILogger<DayStatisticsJob> _logger;
         private readonly IPublishEndpoint _publishEndpoint;
-        public HourStatisticsJob(ILogger<HourStatisticsJob> logger, IPublishEndpoint publishEndpoint)
+        public DayStatisticsJob(ILogger<DayStatisticsJob> logger, IPublishEndpoint publishEndpoint)
         {
             _logger = logger;
             _publishEndpoint = publishEndpoint;
-            
+
         }
         public async Task Execute(IJobExecutionContext context)
         {
@@ -27,13 +26,13 @@ namespace Statistics.Application.Workers
             {
                 //gets perfect values from planned hour of job start, no matter how much time later it actually starts
                 var date = context.ScheduledFireTimeUtc.Value;
-                await _publishEndpoint.Publish(new StatisticHourMessage { Year= date.Year, Day=date.Day, Month= date.Month, Hour= date.Hour});
-                _logger.LogInformation($"Hour message send for {date}");
+                await _publishEndpoint.Publish(new StatisticDayMessage { Year = date.Year,Month = date.Month, Day = date.Day });
+                _logger.LogInformation($"Day message send for {date}");
                 return;
             }
             catch (Exception)
             {
-                _logger.LogError($"Something went wrong when sending Hour message for {context.ScheduledFireTimeUtc.Value}");
+                _logger.LogError($"Something went wrong when sending Day message for {context.ScheduledFireTimeUtc.Value}");
                 throw;
             }
         }
