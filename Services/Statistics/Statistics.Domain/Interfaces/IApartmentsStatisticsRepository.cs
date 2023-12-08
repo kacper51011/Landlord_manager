@@ -18,7 +18,7 @@ namespace Statistics.Domain.Interfaces
         public Task<ApartmentsStatistics> GetApartmentDayStatistics(int year, int month, int day);
         public Task<ApartmentsStatistics> GetApartmentMonthStatistics(int year, int month);
         public Task<ApartmentsStatistics> GetApartmentYearStatistics(int year);
-        public Task<ApartmentsStatistics> GetApartmentAnyStatistics(int year, int? month, int? day, int? hour)
+        public Task<ApartmentsStatistics> GetApartmentAnyStatistics(int year, int? month, int? day, int? hour);
 
 
 
