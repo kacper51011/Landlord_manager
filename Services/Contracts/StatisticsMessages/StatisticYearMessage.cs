@@ -6,11 +6,8 @@ using System.Threading.Tasks;
 
 namespace Contracts.StatisticsMessages
 {
-    public record RequestStatisticsMessage
+    public record StatisticYearMessage
     {
-        public DateTime TimeStart {  get; set; }
-
-        public DateTime TimeEnd { get; set; }
-
+        public int Year { get; set; }
     }
 }
