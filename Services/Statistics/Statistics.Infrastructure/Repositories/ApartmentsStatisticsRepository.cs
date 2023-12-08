@@ -44,7 +44,7 @@ namespace Statistics.Infrastructure.Repositories
         {
 
             var builder = Builders<ApartmentsStatistics>.Filter;
-            var yearFilter = builder.Eq(a => a.Year, year);
+            var yearFilter = builder.Eq(a => a.Year.Value, year);
             var nullFilter = builder.Eq(a => a.Month, null) & builder.Eq(a => a.Day, null) & builder.Eq(a => a.Hour, null);
             var combinedFilter = yearFilter & nullFilter;
 
@@ -57,7 +57,7 @@ namespace Statistics.Infrastructure.Repositories
         public async Task<ApartmentsStatistics> GetApartmentMonthStatistics(int year, int month)
         {
             var builder = Builders<ApartmentsStatistics>.Filter;
-            var monthFilter = builder.Eq(a => a.Year, year) & builder.Eq(a => a.Month, month);
+            var monthFilter = builder.Eq(a => a.Year.Value, year) & builder.Eq(a => a.Month.Value, month);
             var nullFilter = builder.Eq(a => a.Day, null) & builder.Eq(a => a.Hour, null);
             var combinedFilter = monthFilter & nullFilter;
 
@@ -69,7 +69,7 @@ namespace Statistics.Infrastructure.Repositories
         public async Task<ApartmentsStatistics> GetApartmentDayStatistics(int year, int month, int day)
         {
             var builder = Builders<ApartmentsStatistics>.Filter;
-            var dayFilter = builder.Eq(a => a.Year, year) & builder.Eq(a => a.Month, month) & builder.Eq(a => a.Day, day);
+            var dayFilter = builder.Eq(a => a.Year.Value, year) & builder.Eq(a => a.Month.Value, month) & builder.Eq(a => a.Day.Value, day);
             var nullFilter = builder.Eq(a => a.Hour, null);
             var combinedFilter = dayFilter & nullFilter;
 
@@ -80,13 +80,24 @@ namespace Statistics.Infrastructure.Repositories
         public async Task<ApartmentsStatistics> GetApartmentHourStatistics(int year, int month, int day, int hour)
         {
             var builder = Builders<ApartmentsStatistics>.Filter;
-            var dayFilter = builder.Eq(a => a.Year, year) & builder.Eq(a => a.Month, month) & builder.Eq(a => a.Day, day) & builder.Eq(a => a.Hour, hour);
+            var dayFilter = builder.Eq(a => a.Year.Value, year) & builder.Eq(a => a.Month.Value, month) & builder.Eq(a => a.Day.Value, day) & builder.Eq(a => a.Hour.Value, hour);
             var combinedFilter = dayFilter;
 
             var result = await _apartmentsStatisticsCollection.FindAsync(combinedFilter).Result.FirstAsync();
 
             return result;
         }
+        public async Task<ApartmentsStatistics> GetApartmentAnyStatistics(int year, int? month, int? day, int? hour)
+        {
+            var builder = Builders<ApartmentsStatistics>.Filter;
+            var anyFilter = builder.Eq(a => a.Year.Value, year) & builder.Eq(a => a.Month.Value, month) & builder.Eq(a => a.Day.Value, day) & builder.Eq(a => a.Hour.Value, hour);
+            var combinedFilter = anyFilter;
+
+            var result = await _apartmentsStatisticsCollection.FindAsync(combinedFilter).Result.FirstAsync();
+
+            return result;
+        }
+
 
         public Task<List<ApartmentsStatistics>> GetNotProcessedStatistics()
         {
