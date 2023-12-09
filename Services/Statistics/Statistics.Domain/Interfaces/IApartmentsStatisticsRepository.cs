@@ -10,7 +10,7 @@ namespace Statistics.Domain.Interfaces
     public interface IApartmentsStatisticsRepository
     {
         public Task<ApartmentsStatistics> GetApartmentStatisticsById(string apartmentStatisticsId);
-        public Task CreateOrUpdateApartmentStatistics(ApartmentsStatistics apartment);
+        public Task CreateOrUpdateApartmentStatistics(ApartmentsStatistics apartmentStatistics);
         public Task<List<ApartmentsStatistics>> GetNotProcessedStatistics();
 
         //gets
