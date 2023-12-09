@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <Folder Include="Consumers\Tenants\" />
-    <Folder Include="Consumers\Rooms\" />
     <Folder Include="Queries\" />
   </ItemGroup>
 
