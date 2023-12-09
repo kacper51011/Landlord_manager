@@ -22,7 +22,24 @@ namespace Statistics.Application.Consumers.Apartments
         }
         public async Task Consume(ConsumeContext<ApartmentsStatisticsResultMessage> context)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var statistic = await _apartmentsStatisticsRepository.GetApartmentAnyStatistics(context.Message.Year, context.Message.Month, context.Message.Day, context.Message.Hour);
+                if (statistic == null)
+                {
+                    throw new ArgumentNullException();
+                }
+                statistic.SetStatistics(context.Message.ApartmentsCreated, context.Message.ApartmentsUpdated, context.Message.MostApartmentsOwnedByUser);
+                await _apartmentsStatisticsRepository.CreateOrUpdateApartmentStatistics(statistic);
+                _logger.LogInformation($"updated statistic with id {statistic.ApartmentsStatisticsId}");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Updating with result failed");
+
+                throw ex;
+            }
+
         }
     }
 }
