@@ -11,5 +11,6 @@ namespace Statistics.Infrastructure.Settings
         public string ConnectionString { get; set; } = null!;
         public string DatabaseName { get; set; } = null!;
         public string ApartmentsCollectionName { get; set; } = null!;
+        public string RoomsCollectionName { get; set; } = null!;
     }
 }
