@@ -31,15 +31,20 @@ namespace Statistics.Application.Commands.Rooms.CreateHourStatistics
                 if (data != null)
                 {
                     throw new DuplicateNameException("Statistic already exists");
+                    
                 }
                 var statistic = RoomsStatistics.CreateAsHourStatisticsInformations(request.RequestDto.Year, request.RequestDto.Month, request.RequestDto.Day, request.RequestDto.Hour);
                 await _repository.CreateOrUpdateRoomsStatistics(statistic);
                 return;
             }
+            catch(DuplicateNameException ex)
+            {
+                _logger.LogWarning(400, ex, ex.Message);
+            }
             catch (Exception ex)
             {
 
-                throw ex;
+                _logger.LogWarning(500, ex, "CreateRoomHourStatisticsCommandHandler failed");
             }
 
         }

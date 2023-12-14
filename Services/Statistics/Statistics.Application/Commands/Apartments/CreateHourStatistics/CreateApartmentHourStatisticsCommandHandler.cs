@@ -35,10 +35,14 @@ namespace Statistics.Application.Commands.Apartments.CreateHourStatistics
 
 
             }
+            catch (DuplicateNameException ex)
+            {
+                _logger.LogWarning(400, ex, ex.Message);
+            }
             catch (Exception ex)
             {
 
-                throw ex;
+                _logger.LogWarning(500, ex, "CreateApartmentHourStatisticsCommand failed");
             }
 
         }

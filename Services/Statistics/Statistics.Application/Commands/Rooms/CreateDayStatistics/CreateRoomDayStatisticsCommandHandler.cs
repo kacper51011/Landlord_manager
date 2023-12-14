@@ -34,10 +34,14 @@ namespace Statistics.Application.Commands.Rooms.CreateDayStatistics
                 await _repository.CreateOrUpdateRoomsStatistics(statistic);
                 return;
             }
+            catch (DuplicateNameException ex)
+            {
+                _logger.LogWarning(400, ex, ex.Message);
+            }
             catch (Exception ex)
             {
 
-                throw ex;
+                _logger.LogWarning(500, ex, "CreateRoomDayStatisticsCommandHandler failed");
             }
 
         }

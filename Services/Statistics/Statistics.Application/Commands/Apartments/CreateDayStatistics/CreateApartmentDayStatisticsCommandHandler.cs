@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.Extensions.Logging;
+using Statistics.Application.Commands.Rooms.CreateDayStatistics;
 using Statistics.Domain.Entities;
 using Statistics.Domain.Interfaces;
 using System;
@@ -34,10 +35,14 @@ namespace Statistics.Application.Commands.Apartments.CreateDayStatistics
                 await _repository.CreateOrUpdateApartmentStatistics(statistic);
                 return;
             }
+            catch (DuplicateNameException ex)
+            {
+                _logger.LogWarning(400, ex, ex.Message);
+            }
             catch (Exception ex)
             {
 
-                throw ex;
+                _logger.LogWarning(500, ex, "CreateApartmentDayStatisticsCommand failed");
             }
 
         }

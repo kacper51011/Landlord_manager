@@ -36,10 +36,14 @@ namespace Statistics.Application.Commands.Apartments.CreateYearStatistics
 
 
             }
+            catch (DuplicateNameException ex)
+            {
+                _logger.LogWarning(400, ex, ex.Message);
+            }
             catch (Exception ex)
             {
 
-                throw ex;
+                _logger.LogWarning(500, ex, "CreateApartmentYearStatisticsCommand failed");
             }
 
         }
