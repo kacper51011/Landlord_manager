@@ -6,6 +6,7 @@ using Statistics.Domain.Entities;
 using Statistics.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,18 +30,21 @@ namespace Statistics.Application.Consumers.Rooms
                 var response = await _roomsStatisticsRepository.GetRoomsMonthStatistics(context.Message.Year, context.Message.Month);
                 if (response != null)
                 {
-                    _logger.LogInformation($"Month apartment statistic for date {response.StatisticsStart} was already created");
-                    return;
+                    throw new DuplicateNameException("Statistic already created");
                 }
                 RoomsStatistics apartmentStatistic = RoomsStatistics.CreateAsMonthStatisticsInformations(context.Message.Year, context.Message.Month);
                 await _roomsStatisticsRepository.CreateOrUpdateRoomsStatistics(apartmentStatistic);
                 _logger.LogInformation($"Month apartment statistic created with Id {apartmentStatistic.RoomsStatisticsId}");
                 return;
             }
-            catch (Exception)
+            catch (DuplicateNameException ex)
             {
-                _logger.LogError($"Something went wrong in RoomsMonthStatisticsMessageConsumer");
-                throw;
+                _logger.LogWarning(400, ex, ex.Message);
+            }
+            catch (Exception ex)
+            {
+
+                _logger.LogWarning(500, ex, "RoomsMonthStatisticsMessageConsumer failed");
             }
         }
     }
