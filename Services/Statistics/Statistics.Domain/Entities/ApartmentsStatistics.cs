@@ -23,8 +23,8 @@ namespace Statistics.Domain.Entities
         public Month? Month { get; private set; }
         public Day? Day { get; private set; }
         public Hour? Hour { get; private set; }
-        public DateTime StatisticsStart { get; private set; }
-        public DateTime StatisticsEnd { get; private set; }
+        public StatisticsStart StatisticsStart { get; private set; }
+        public StatisticsEnd StatisticsEnd { get; private set; }
         public int ApartmentsCreated { get; private set; }
         public int ApartmentsUpdated { get; private set; }
         public int MostApartmentsOwnedByUser { get; private set; }
@@ -40,8 +40,8 @@ namespace Statistics.Domain.Entities
                 Day = new Day(day),
                 Hour = new Hour(hour),
                 Scope = "Hour",
-                StatisticsStart = new DateTime(year, month, day, hour, 1, 1),
-                StatisticsEnd = new DateTime(year, month, day, hour + 1, 1, 1)
+                StatisticsStart = new StatisticsStart(new DateTime(year, month, day, hour, 1, 1)),
+                StatisticsEnd = new StatisticsEnd(new DateTime(year, month, day, hour + 1, 1, 1))
             };
 
         }
@@ -54,8 +54,8 @@ namespace Statistics.Domain.Entities
                 Day = new Day(day),
                 Hour = null,
                 Scope = "Day",
-                StatisticsStart = new DateTime(year, month, day),
-                StatisticsEnd = new DateTime(year, month, day + 1)
+                StatisticsStart = new StatisticsStart(new DateTime(year, month, day)),
+                StatisticsEnd = new StatisticsEnd(new DateTime(year, month, day + 1))
             };
         }
 
@@ -68,8 +68,8 @@ namespace Statistics.Domain.Entities
                 Day = null,
                 Hour = null,
                 Scope = "Month",
-                StatisticsStart = new DateTime(year, month, 1),
-                StatisticsEnd = new DateTime(year, month + 1, 1)
+                StatisticsStart = new StatisticsStart(new DateTime(year, month, 1)),
+                StatisticsEnd = new StatisticsEnd(new DateTime(year, month + 1, 1))
             };
         }
 
@@ -82,8 +82,8 @@ namespace Statistics.Domain.Entities
                 Day = null,
                 Hour = null,
                 Scope = "Year",
-                StatisticsStart = new DateTime(year, 1, 1),
-                StatisticsEnd = new DateTime(year + 1, 1,1)
+                StatisticsStart = new StatisticsStart(new DateTime(year, 1, 1)),
+                StatisticsEnd = new StatisticsEnd(new DateTime(year + 1, 1,1))
             };
         
         }
