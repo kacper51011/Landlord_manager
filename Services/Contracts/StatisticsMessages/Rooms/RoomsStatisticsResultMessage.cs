@@ -8,10 +8,10 @@ namespace Contracts.StatisticsMessages.Rooms
 {
     public record RoomsStatisticsResultMessage
     {
-        public int RoomsCreated { get; private set; }
-        public int RoomsUpdated { get; private set; }
-        public int BiggestCreatedRoomSize { get; private set; }
-        public int MostRoomsInApartment { get; private set; }
+        public int RoomsCreated { get; set; }
+        public int RoomsUpdated { get;  set; }
+        public int BiggestCreatedRoomSize { get; set; }
+        public int MostRoomsInApartment { get; set; }
         public int Year { get; set; }
         public int? Month { get; set; }
         public int? Day { get; set; }
