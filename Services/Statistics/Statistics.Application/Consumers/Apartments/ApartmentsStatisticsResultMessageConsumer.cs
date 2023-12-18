@@ -35,7 +35,7 @@ namespace Statistics.Application.Consumers.Apartments
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Updating with result failed");
+                _logger.LogWarning($"Updating with result failed");
 
                 throw ex;
             }
