@@ -1,8 +1,7 @@
 using Quartz;
 using Statistics.Application.Settings;
 using Statistics.Application.Workers;
-using Statistics.Application.Workers.Rooms;
-using Statistics.Application.Workers.Tenants;
+
 using Statistics.Infrastructure.Settings;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,16 +13,33 @@ builder.Services.Configure<RabbitMQSettings>(builder.Configuration.GetSection("R
 
 builder.Services.AddQuartz(options =>
 {
-    var apartmentsJob = JobKey.Create(nameof(ApartmentsStatisticsJob));
-    var roomsJob = JobKey.Create(nameof(RoomsHourStatisticsJob));
-    var tenantsJob = JobKey.Create(nameof(TenantsHourStatisticsJob));
+    var hourJob = JobKey.Create(nameof(HourStatisticsJob));
+    var dayJob = JobKey.Create(nameof(DayStatisticsJob));
+    var monthJob = JobKey.Create(nameof(MonthStatisticsJob));
+    var yearJob = JobKey.Create(nameof(YearStatisticsJob));
 
     //options
-    //.AddJob<RoomCheckBackgroundJob>(jobKey)
-    //.AddTrigger(trigger =>
-    //{
-    //    trigger.ForJob(jobKey).WithSimpleSchedule(schedule => schedule.WithIntervalInMinutes(2).RepeatForever());
-    //});
+    options
+    .AddJob<HourStatisticsJob>(hourJob)
+    .AddTrigger(trigger =>
+    {
+        trigger.ForJob(hourJob).WithCronSchedule("0 * * * *");
+    })
+    .AddJob<DayStatisticsJob>(dayJob)
+    .AddTrigger(trigger =>
+    {
+        trigger.ForJob(dayJob).WithCronSchedule("0 0 0 ? * * *");
+    })
+    .AddJob<MonthStatisticsJob>(monthJob)
+    .AddTrigger(trigger =>
+    {
+        trigger.ForJob(monthJob).WithCronSchedule("0 0 0 1 * ? *");
+    })
+    .AddJob<YearStatisticsJob>(yearJob)
+    .AddTrigger(trigger =>
+    {
+        trigger.ForJob(yearJob).WithCronSchedule("0 0 0 1 JAN ? *");
+    });
 });
 
 builder.Services.AddQuartzHostedService(options =>
