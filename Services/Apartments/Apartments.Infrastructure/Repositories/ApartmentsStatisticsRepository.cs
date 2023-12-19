@@ -14,7 +14,7 @@ namespace Apartments.Infrastructure.Repositories
 {
     public class ApartmentsStatisticsRepository : IApartmentsStatisticsRepository
     {
-        private IMongoCollection<ApartmentsHourStatistics> _apartmentsStatisticsCollection;
+        private IMongoCollection<ApartmentsStatistics> _apartmentsStatisticsCollection;
         public ApartmentsStatisticsRepository(IOptions<MongoSettings> apartmentsDatabaseSettings)
         {
             var mongoClient = new MongoClient(
@@ -23,11 +23,11 @@ namespace Apartments.Infrastructure.Repositories
             var mongoDatabase = mongoClient.GetDatabase(
                 apartmentsDatabaseSettings.Value.DatabaseName);
 
-            _apartmentsStatisticsCollection = mongoDatabase.GetCollection<ApartmentsHourStatistics>(
+            _apartmentsStatisticsCollection = mongoDatabase.GetCollection<ApartmentsStatistics>(
                 apartmentsDatabaseSettings.Value.CollectionStatisticsName);
 
         }
-        public async Task CreateOrUpdateApartmentStatistics(ApartmentsHourStatistics apartmentsStatistics)
+        public async Task CreateOrUpdateApartmentStatistics(ApartmentsStatistics apartmentsStatistics)
         {
             await _apartmentsStatisticsCollection.ReplaceOneAsync(x => x.ApartmentsStatisticsId == apartmentsStatistics.ApartmentsStatisticsId, apartmentsStatistics, new ReplaceOptions()
             {
@@ -35,10 +35,28 @@ namespace Apartments.Infrastructure.Repositories
             });
         }
 
-        public async Task<ApartmentsHourStatistics> GetApartmentStatisticsById(string apartmentStatisticsId)
+        public async Task<ApartmentsStatistics> GetApartmentStatisticsById(string apartmentStatisticsId)
         {
             return await _apartmentsStatisticsCollection.FindAsync(x => x.ApartmentsStatisticsId == apartmentStatisticsId).Result.FirstAsync();
 
+        }
+        public async Task<ApartmentsStatistics> GetUnproccessedApartmentStatistics()
+        {
+            var builder = Builders<ApartmentsStatistics>.Filter;
+            var filter = builder.Eq(x => x.AreInformationsSubmitted, false);
+            var sort = Builders<ApartmentsStatistics>.Sort.Descending(x => x.LastModifiedDate);
+
+            var returnValue = await _apartmentsStatisticsCollection.Find(filter).Sort(sort).FirstOrDefaultAsync();
+            return returnValue;
+        }
+        public async Task<ApartmentsStatistics> GetNotSendApartmentsStatistics()
+        {
+            var builder = Builders<ApartmentsStatistics>.Filter;
+            var filter = builder.Eq(x=> x.IsSendToStatisticsService, false);
+
+            var sort = Builders<ApartmentsStatistics>.Sort.Descending(x => x.LastModifiedDate);
+            var returnValue = await _apartmentsStatisticsCollection.Find(filter).Sort(sort).FirstOrDefaultAsync();
+            return returnValue;
         }
     }
 }

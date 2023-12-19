@@ -99,15 +99,9 @@ namespace Apartments.Infrastructure.Repositories
 
         public async Task<Apartment> GetApartmentById(string apartmentId)
         {
-            try
-            {
-                return await _apartmentsCollection.FindAsync(x => x.ApartmentId == apartmentId).Result.FirstAsync();
-            }
-            catch (Exception)
-            {
 
-                return null;
-            }
+                return await _apartmentsCollection.FindAsync(x => x.ApartmentId == apartmentId).Result.FirstOrDefaultAsync();
+
 
         }
 
