@@ -9,7 +9,11 @@ namespace Apartments.Domain.Interfaces
 {
     public interface IApartmentsStatisticsRepository
     {
-        public Task<ApartmentsHourStatistics> GetApartmentStatisticsById(string apartmentStatisticsId);
-        public Task CreateOrUpdateApartmentStatistics(ApartmentsHourStatistics apartment);
+        public Task<ApartmentsStatistics> GetApartmentStatisticsById(string apartmentStatisticsId);
+        public Task CreateOrUpdateApartmentStatistics(ApartmentsStatistics apartment);
+        public Task<ApartmentsStatistics> GetNotSendApartmentsStatistics();
+
+        public Task<ApartmentsStatistics> GetUnproccessedApartmentStatistics();
+
     }
 }
