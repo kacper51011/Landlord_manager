@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Rooms.Application.Consumers
 {
-    public class TenantCheckedConsumer : IConsumer<TenantCheckedEvent>
+    public class TenantCheckedConsumer : IConsumer<TenantCheckedMessage>
     {
         IRoomsRepository _roomsRepository;
         ILogger<TenantCheckedConsumer> _logger;
@@ -26,7 +26,7 @@ namespace Rooms.Application.Consumers
             _publishEndpoint = endpoint;
 
         }
-        public async Task Consume(ConsumeContext<TenantCheckedEvent> context)
+        public async Task Consume(ConsumeContext<TenantCheckedMessage> context)
         {
             try
             {
@@ -38,7 +38,7 @@ namespace Rooms.Application.Consumers
                 }
 
                 _logger.LogInformation($"room of tenant with id {context.Message.TenantId} was deleted, sending message on a queue");
-                await _publishEndpoint.Publish(new RoomDeletedEvent { TenantId = context.Message.TenantId });
+                await _publishEndpoint.Publish(new RoomDeletedMessage { TenantId = context.Message.TenantId });
 
  
             }

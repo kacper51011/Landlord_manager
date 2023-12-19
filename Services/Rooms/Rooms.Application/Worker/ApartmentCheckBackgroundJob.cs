@@ -34,7 +34,7 @@ namespace Rooms.Application.Worker
             foreach (var room in rooms)
             {
                 room.SetLastCheckedDate();
-                await _publishEndpoint.Publish(new RoomCheckedEvent {ApartmentId = room.ApartmentId });
+                await _publishEndpoint.Publish(new RoomCheckedMessage {ApartmentId = room.ApartmentId });
                 await _roomsRepository.CreateOrUpdateRoom(room);
                 _logger.LogInformation($"room with Id {room.RoomId} sent to check");
 

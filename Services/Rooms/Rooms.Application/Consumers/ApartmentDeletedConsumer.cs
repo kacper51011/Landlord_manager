@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Rooms.Application.Consumers
 {
-    public class ApartmentDeletedConsumer : IConsumer<ApartmentDeletedEvent>
+    public class ApartmentDeletedConsumer : IConsumer<ApartmentDeletedMessage>
     {
         private readonly IRoomsRepository _roomsRepository;
         private readonly ILogger<ApartmentDeletedConsumer> _logger; 
@@ -20,7 +20,7 @@ namespace Rooms.Application.Consumers
             _roomsRepository = roomsRepository;
             _logger = logger;
         }
-        public async Task Consume(ConsumeContext<ApartmentDeletedEvent> context)
+        public async Task Consume(ConsumeContext<ApartmentDeletedMessage> context)
         {
             try
             {

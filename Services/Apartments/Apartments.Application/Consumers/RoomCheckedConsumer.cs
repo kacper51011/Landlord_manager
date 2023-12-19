@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Apartments.Application.Consumers
 {
-    public class RoomCheckedConsumer : IConsumer<RoomCheckedEvent>
+    public class RoomCheckedConsumer : IConsumer<RoomCheckedMessage>
     {
         private readonly IApartmentsRepository _apartmentsRepository;
         private readonly ILogger<RoomCheckedConsumer> _logger;
@@ -25,7 +25,7 @@ namespace Apartments.Application.Consumers
         }
 
 
-        public async Task Consume(ConsumeContext<RoomCheckedEvent> context)
+        public async Task Consume(ConsumeContext<RoomCheckedMessage> context)
         {
             var apartment = await _apartmentsRepository.GetApartmentById(context.Message.ApartmentId);
             if (apartment != null)
@@ -34,7 +34,7 @@ namespace Apartments.Application.Consumers
                 return;
             }
 
-            await _publishEndpoint.Publish(new ApartmentDeletedEvent { RoomId = context.Message.RoomId });
+            await _publishEndpoint.Publish(new ApartmentDeletedMessage { RoomId = context.Message.RoomId });
             _logger.LogInformation($"Apartment of room with id {context.Message.RoomId} was deleted, sending message on a queue");
 
         }

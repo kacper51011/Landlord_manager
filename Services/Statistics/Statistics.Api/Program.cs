@@ -1,7 +1,13 @@
+using MassTransit;
 using Quartz;
+using Statistics.Application.Commands.Apartments.CreateDayStatistics;
+using Statistics.Application.Consumers.Apartments;
+using Statistics.Application.Consumers.Rooms;
+using Statistics.Application.Consumers.Tenants;
 using Statistics.Application.Settings;
 using Statistics.Application.Workers;
-
+using Statistics.Domain.Interfaces;
+using Statistics.Infrastructure.Repositories;
 using Statistics.Infrastructure.Settings;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,6 +16,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.Configure<MongoSettings>(builder.Configuration.GetSection("MongoDB"));
 builder.Services.Configure<RabbitMQSettings>(builder.Configuration.GetSection("RabbitMQ"));
+
+builder.Services.AddSingleton<IApartmentsStatisticsRepository, ApartmentsStatisticsRepository>();
+builder.Services.AddSingleton<IRoomsStatisticsRepository, RoomsStatisticsRepository>();
+builder.Services.AddSingleton<ITenantsStatisticsRepository, TenantsStatisticsRepository>();
 
 builder.Services.AddQuartz(options =>
 {
@@ -41,6 +51,48 @@ builder.Services.AddQuartz(options =>
         trigger.ForJob(yearJob).WithCronSchedule("0 0 0 1 JAN ? *");
     });
 });
+
+builder.Services.AddMassTransit(cfg =>
+{
+    cfg.SetDefaultEndpointNameFormatter();
+
+    //apartments consumers
+    cfg.AddConsumer<ApartmentsHourStatisticsMessageConsumer>();
+    cfg.AddConsumer<ApartmentsDayStatisticsMessageConsumer>();
+    cfg.AddConsumer<ApartmentsMonthStatisticsMessageConsumer>();
+    cfg.AddConsumer<ApartmentsYearStatisticsMessageConsumer>();
+    cfg.AddConsumer<ApartmentsStatisticsResultMessageConsumer>();
+
+    //rooms consumers
+    cfg.AddConsumer<RoomsHourStatisticsMessageConsumer>();
+    cfg.AddConsumer<RoomsDayStatisticsMessageConsumer>();
+    cfg.AddConsumer<RoomsMonthStatisticsMessageConsumer>();
+    cfg.AddConsumer<RoomsYearStatisticsMessageConsumer>();
+    cfg.AddConsumer<RoomsStatisticsResultMessageConsumer>();
+
+    //tenants consumers
+    cfg.AddConsumer<TenantsHourStatisticsMessageConsumer>();
+    cfg.AddConsumer<TenantsDayStatisticsMessageConsumer>();
+    cfg.AddConsumer<TenantsMonthStatisticsMessageConsumer>();
+    cfg.AddConsumer<TenantsYearStatisticsMessageConsumer>();
+    cfg.AddConsumer<TenantsStatisticsResultMessageConsumer>();
+
+    cfg.UsingRabbitMq((context, configuration) =>
+    {
+
+        configuration.Host(builder.Configuration["RabbitMQ:HostName"], "/", h =>
+        {
+            h.Username(builder.Configuration["RabbitMQ:UserName"]);
+            h.Password(builder.Configuration["RabbitMQ:Password"]);
+        });
+        configuration.ConfigureEndpoints(context);
+
+
+    });
+});
+
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining(typeof(CreateApartmentDayStatisticsCommand)));
+
 
 builder.Services.AddQuartzHostedService(options =>
 {

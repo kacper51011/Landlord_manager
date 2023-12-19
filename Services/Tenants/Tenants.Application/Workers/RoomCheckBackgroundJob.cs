@@ -35,7 +35,7 @@ namespace Tenants.Application.Workers
             foreach (var tenant in tenants)
             {
                 tenant.SetLastCheckedDate();
-                await _publishEndpoint.Publish(new TenantCheckedEvent { RoomId = tenant.RoomId, TenantId = tenant.TenantId});
+                await _publishEndpoint.Publish(new TenantCheckedMessage { RoomId = tenant.RoomId, TenantId = tenant.TenantId});
                 await _tenantsRepository.CreateOrUpdateTenant(tenant);
                 _logger.LogInformation($"tenant with Id {tenant.TenantId} sent to check");
 

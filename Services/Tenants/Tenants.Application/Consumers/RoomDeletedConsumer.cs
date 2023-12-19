@@ -10,7 +10,7 @@ using Tenants.Domain.Interfaces;
 
 namespace Tenants.Application.Consumers
 {
-    public class RoomDeletedConsumer : IConsumer<RoomDeletedEvent>
+    public class RoomDeletedConsumer : IConsumer<RoomDeletedMessage>
     {
         private readonly ITenantsRepository _tenantsRepository;
         private readonly ILogger<RoomDeletedConsumer> _logger;
@@ -21,7 +21,7 @@ namespace Tenants.Application.Consumers
             _logger = logger;
             
         }
-        public async Task Consume(ConsumeContext<RoomDeletedEvent> context)
+        public async Task Consume(ConsumeContext<RoomDeletedMessage> context)
         {
             try
             {
