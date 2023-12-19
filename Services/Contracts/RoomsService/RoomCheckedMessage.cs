@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Contracts.RoomsServiceEvents
 {
-    public record RoomCheckedEvent
+    public record RoomCheckedMessage
     {
         public string ApartmentId { get; set; }
         public string RoomId { get; set; }
