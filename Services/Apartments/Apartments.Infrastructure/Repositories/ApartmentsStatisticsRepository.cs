@@ -44,7 +44,7 @@ namespace Apartments.Infrastructure.Repositories
         {
             var builder = Builders<ApartmentsStatistics>.Filter;
             var filter = builder.Eq(x => x.AreInformationsSubmitted, false);
-            var sort = Builders<ApartmentsStatistics>.Sort.Descending(x => x.LastModifiedDate);
+            var sort = Builders<ApartmentsStatistics>.Sort.Ascending(x => x.LastModifiedDate);
 
             var returnValue = await _apartmentsStatisticsCollection.Find(filter).Sort(sort).FirstOrDefaultAsync();
             return returnValue;
