@@ -23,7 +23,7 @@ namespace Statistics.Api.Controllers
             _mediator = mediator;
         }
         [HttpPost]
-        [Route("CreateHourStatisticsManually")]
+        [Route("HourStatistics")]
         public async Task<ActionResult> CreateHourStatistics(CreateHourStatisticsRequestDto statisticsRequestDto)
         {
             try
@@ -46,7 +46,8 @@ namespace Statistics.Api.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
-        [Route("CreateDayStatisticsManually")]
+        [HttpPost]
+        [Route("DayStatistics")]
         public async Task<ActionResult> CreateDayStatistics(CreateDayStatisticsRequestDto statisticsRequestDto)
         {
             try
@@ -70,7 +71,8 @@ namespace Statistics.Api.Controllers
             }
 
         }
-        [Route("CreateMonthStatisticsManually")]
+        [HttpPost]
+        [Route("MonthStatistics")]
         public async Task<ActionResult> CreateMonthStatistics(CreateMonthStatisticsRequestDto statisticsRequestDto)
         {
             try
@@ -93,7 +95,8 @@ namespace Statistics.Api.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
-        [Route("CreateYearStatisticsManually")]
+        [HttpPost]
+        [Route("YearStatistics")]
         public async Task<ActionResult> CreateYearStatistics(CreateYearStatisticsRequestDto statisticsRequestDto)
         {
             try
