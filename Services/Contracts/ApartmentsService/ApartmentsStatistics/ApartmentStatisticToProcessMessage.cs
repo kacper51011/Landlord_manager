@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Contracts.ApartmentsService.ApartmentsStatistics
 {
-    internal class ProcessedApartmentsStatisticsMessage
+    public record ApartmentStatisticToProcessMessage
     {
+        public string ApartmentStatisticId { get; set; }
     }
 }
