@@ -21,7 +21,6 @@ namespace Tenants.Api.Controllers
             }
 
             [HttpGet]
-            [Route("{RoomId}")]
             public async Task<IActionResult> GetTenants(string roomId)
             {
                 try
@@ -38,7 +37,6 @@ namespace Tenants.Api.Controllers
             }
 
             [HttpPost]
-            [Route("create")]
             public async Task<IActionResult> CreateOrUpdateTenant([FromBody] TenantDto dto)
             {
                 try
@@ -58,7 +56,6 @@ namespace Tenants.Api.Controllers
                 }
             }
             [HttpDelete]
-            [Route("delete")]
             public async Task<IActionResult> DeleteTenant(string roomId, string tenantId)
             {
                 try
