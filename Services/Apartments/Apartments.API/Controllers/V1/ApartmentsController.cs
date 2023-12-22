@@ -23,7 +23,6 @@ namespace Apartments.API.Controllers.V1
         }
 
         [HttpGet]
-        [Route("{landlordId}")]
         public async Task<IActionResult> GetApartments(string landlordId)
         {
             try
@@ -40,7 +39,6 @@ namespace Apartments.API.Controllers.V1
         }
 
         [HttpPost]
-        [Route("create")]
         public async Task<IActionResult> CreateOrUpdateApartment([FromBody]ApartmentDto dto)
         {
             try
@@ -60,7 +58,6 @@ namespace Apartments.API.Controllers.V1
             }
         }
         [HttpDelete]
-        [Route("")]
         public async Task<IActionResult> DeleteApartment(string landlordId, string id)
         {
             try
@@ -81,23 +78,22 @@ namespace Apartments.API.Controllers.V1
                 return StatusCode(500);
             }
         }
-        [HttpGet]
-        [Route("{landlordId}/{apartmentId}")]
-        public async Task<IActionResult> GetApartment(string landlordId, string apartmentId)
-        {
-            try
-            {
-                var query = new GetApartmentQuery(landlordId, apartmentId);
-                var response = await _mediator.Send(query);
-                return Ok(response);
-            }
-            catch (Exception ex)
-            {
+        //[HttpGet]
+        //public async Task<IActionResult> GetApartment(string landlordId, string apartmentId)
+        //{
+        //    try
+        //    {
+        //        var query = new GetApartmentQuery(landlordId, apartmentId);
+        //        var response = await _mediator.Send(query);
+        //        return Ok(response);
+        //    }
+        //    catch (Exception ex)
+        //    {
 
-                Debug.WriteLine(ex);
-                return StatusCode(500);
-            }
-        }
+        //        Debug.WriteLine(ex);
+        //        return StatusCode(500);
+        //    }
+        //}
 
 
 

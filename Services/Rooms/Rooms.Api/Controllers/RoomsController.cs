@@ -20,7 +20,6 @@ namespace Rooms.Api.Controllers
         }
 
         [HttpGet]
-        [Route("{apartmentId}")]
         public async Task<IActionResult> GetApartmentRooms(string apartmentId)
         {
             try
@@ -37,7 +36,6 @@ namespace Rooms.Api.Controllers
             }
         }
         [HttpPost]
-        [Route("Create")]
         public async Task<IActionResult> CreateOrUpdateRoom(RoomDto roomDto)
         {
             try
@@ -69,22 +67,6 @@ namespace Rooms.Api.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
-        [HttpDelete]
-        [Route("{apartmentId}")]
-        public async Task<IActionResult> DeleteAllRoomsInApartment(string landlordId, string apartmentId)
-        {
-            try
-            {
-                var query = new DeleteAllRoomsCommand(landlordId, apartmentId);
-                await _mediator.Send(query);
-                return Ok();
 
-            }
-            catch (Exception ex)
-            {
-
-                return StatusCode(500, ex.Message);
-            }
-        }
     }
 }
