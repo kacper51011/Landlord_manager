@@ -34,7 +34,7 @@ namespace Apartments.Domain
 
         public static ApartmentsStatistics CreateAsHourStatisticsInformations(int year, int month, int day, int hour)
         {
-            return new ApartmentsStatistics()
+            var apartmentStatistic = new ApartmentsStatistics()
             {
                 Year = new Year(year),
                 Month = new Month(month),
@@ -43,12 +43,16 @@ namespace Apartments.Domain
                 Scope = "Hour",
                 StatisticsStart = new StatisticsStart(new DateTime(year, month, day, hour, 1, 1)),
                 StatisticsEnd = new StatisticsEnd(new DateTime(year, month, day, hour + 1, 1, 1))
+                
             };
+            apartmentStatistic.SetCreationDate();
+            apartmentStatistic.IncrementVersion();
+            return apartmentStatistic;
 
         }
         public static ApartmentsStatistics CreateAsDayStatisticsInformations(int year, int month, int day)
         {
-            return new ApartmentsStatistics()
+            var apartmentStatistic = new ApartmentsStatistics()
             {
                 Year = new Year(year),
                 Month = new Month(month),
@@ -58,11 +62,14 @@ namespace Apartments.Domain
                 StatisticsStart = new StatisticsStart(new DateTime(year, month, day)),
                 StatisticsEnd = new StatisticsEnd(new DateTime(year, month, day + 1))
             };
+            apartmentStatistic.SetCreationDate();
+            apartmentStatistic.IncrementVersion();
+            return apartmentStatistic;
         }
 
         public static ApartmentsStatistics CreateAsMonthStatisticsInformations(int year, int month)
         {
-            return new ApartmentsStatistics()
+            var apartmentStatistic = new ApartmentsStatistics()
             {
                 Year = new Year(year),
                 Month = new Month(month),
@@ -72,11 +79,14 @@ namespace Apartments.Domain
                 StatisticsStart = new StatisticsStart(new DateTime(year, month, 1)),
                 StatisticsEnd = new StatisticsEnd(new DateTime(year, month + 1, 1))
             };
+            apartmentStatistic.SetCreationDate();
+            apartmentStatistic.IncrementVersion();
+            return apartmentStatistic;
         }
 
         public static ApartmentsStatistics CreateAsYearStatisticsInformations(int year)
         {
-            return new ApartmentsStatistics()
+            var apartmentStatistic = new ApartmentsStatistics()
             {
                 Year = new Year(year),
                 Month = null,
@@ -86,6 +96,18 @@ namespace Apartments.Domain
                 StatisticsStart = new StatisticsStart(new DateTime(year, 1, 1)),
                 StatisticsEnd = new StatisticsEnd(new DateTime(year + 1, 1, 1))
             };
+            apartmentStatistic.SetCreationDate();
+            apartmentStatistic.IncrementVersion();
+            return apartmentStatistic;
+        }
+        public void SetInformations(int apartmentsCreated, int apartmentsUpdated, int mostApartmentsOwnedByOneUser)
+        {
+            ApartmentsCreated = apartmentsCreated;
+            ApartmentsUpdated = apartmentsUpdated;
+            MostApartmentsOwnedByUser = mostApartmentsOwnedByOneUser;
+            AreInformationsSubmitted = true;
+            IncrementVersion();
+
 
         }
 
