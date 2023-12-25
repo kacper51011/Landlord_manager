@@ -1,11 +1,8 @@
 ﻿using Apartments.Application.Commands.CreateOrUpdateApartment;
 using Apartments.Application.Commands.DeleteApartment;
 using Apartments.Application.Dtos;
-using Apartments.Application.Queries.GetApartment;
 using Apartments.Application.Queries.GetApartments;
-using Apartments.Domain.Entities;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -22,8 +19,17 @@ namespace Apartments.API.Controllers.V1
             _mediator = mediator;
         }
 
+        /// <summary>
+        /// Gets Apartments for specified landlord by his Id
+        /// </summary>
+        /// <param name="landlordId"></param>
+        /// <returns></returns>
         [HttpGet]
-        public async Task<IActionResult> GetApartments(string landlordId)
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+
+        public async Task<ActionResult<List<ApartmentDto>>> GetApartments(string landlordId)
         {
             try
             {
@@ -31,15 +37,22 @@ namespace Apartments.API.Controllers.V1
                 var response = await _mediator.Send(query);
                 return Ok(response);
             }
-            catch (Exception)
+            catch (FileNotFoundException ex)
             {
 
-                throw;
+                return StatusCode(404, ex.Message);
+            }
+            catch (Exception ex)
+            {
+
+                return StatusCode(500, ex.Message);
             }
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateOrUpdateApartment([FromBody]ApartmentDto dto)
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> CreateOrUpdateApartment([FromBody] ApartmentDto dto)
         {
             try
             {
@@ -58,18 +71,22 @@ namespace Apartments.API.Controllers.V1
             }
         }
         [HttpDelete]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> DeleteApartment(string landlordId, string id)
         {
             try
             {
                 var command = new DeleteApartmentCommand(landlordId, id);
-                var isSuccess = await _mediator.Send(command);
+                await _mediator.Send(command);
 
-                if (!isSuccess)
-                {
-                    return BadRequest();
-                }
                 return Ok();
+            }
+            catch (FileNotFoundException ex)
+            {
+
+                return StatusCode(404, ex.Message);
             }
             catch (Exception ex)
             {
