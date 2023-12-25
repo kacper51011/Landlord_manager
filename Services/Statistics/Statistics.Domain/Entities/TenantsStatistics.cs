@@ -1,4 +1,5 @@
-﻿using Statistics.Domain.ValueObjects;
+﻿using MongoDB.Bson.Serialization.Serializers;
+using Statistics.Domain.ValueObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,10 +30,11 @@ namespace Statistics.Domain.Entities
         public int TenantsUpdated { get; private set; }
         public int HighestRent { get; private set; }
         public int MostTenantsInRoom { get; private set; }
+        public bool IsSent { get; private set; }
         public bool IsFullyProcessed { get; private set; }
         public string Scope { get; private set; }
 
-        public static TenantsStatistics CreateAsHourStatisticsInformations(int year, int month, int day, int hour)
+        public static TenantsStatistics CreateAsHourStatisticsInformations(int year, int month, int day, int hour, bool isSent)
         {
             return new TenantsStatistics()
             {
@@ -42,11 +44,12 @@ namespace Statistics.Domain.Entities
                 Hour = new Hour(hour),
                 Scope = "Hour",
                 StatisticsStart =new StatisticsStart( new DateTime(year, month, day, hour, 1, 1)),
-                StatisticsEnd = new StatisticsEnd(new DateTime(year, month, day, hour + 1, 1, 1))
+                StatisticsEnd = new StatisticsEnd(new DateTime(year, month, day, hour + 1, 1, 1)),
+                IsSent = isSent
             };
 
         }
-        public static TenantsStatistics CreateAsDayStatisticsInformations(int year, int month, int day)
+        public static TenantsStatistics CreateAsDayStatisticsInformations(int year, int month, int day, bool isSent )
         {
             return new TenantsStatistics()
             {
@@ -56,11 +59,12 @@ namespace Statistics.Domain.Entities
                 Hour = null,
                 Scope = "Day",
                 StatisticsStart = new StatisticsStart(new DateTime(year, month, day)),
-                StatisticsEnd = new StatisticsEnd(new DateTime(year, month, day + 1))
+                StatisticsEnd = new StatisticsEnd(new DateTime(year, month, day + 1)),
+                IsSent = isSent
             };
         }
 
-        public static TenantsStatistics CreateAsMonthStatisticsInformations(int year, int month)
+        public static TenantsStatistics CreateAsMonthStatisticsInformations(int year, int month, bool isSent)
         {
             return new TenantsStatistics()
             {
@@ -70,11 +74,12 @@ namespace Statistics.Domain.Entities
                 Hour = null,
                 Scope = "Month",
                 StatisticsStart = new StatisticsStart(new DateTime(year, month, 1)),
-                StatisticsEnd = new StatisticsEnd(new DateTime(year, month + 1, 1))
+                StatisticsEnd = new StatisticsEnd(new DateTime(year, month + 1, 1)),
+                IsSent = isSent
             };
         }
 
-        public static TenantsStatistics CreateAsYearStatisticsInformations(int year)
+        public static TenantsStatistics CreateAsYearStatisticsInformations(int year, bool isSent)
         {
             return new TenantsStatistics()
             {
@@ -84,7 +89,8 @@ namespace Statistics.Domain.Entities
                 Hour = null,
                 Scope = "Year",
                 StatisticsStart = new StatisticsStart(new DateTime(year, 1, 1)),
-                StatisticsEnd = new StatisticsEnd(new DateTime(year + 1, 1, 1))
+                StatisticsEnd = new StatisticsEnd(new DateTime(year + 1, 1, 1)),
+                IsSent = isSent
             };
 
         }
@@ -95,6 +101,11 @@ namespace Statistics.Domain.Entities
             TenantsUpdated = roomsUpdated;
             HighestRent = highestRent;
             MostTenantsInRoom = mostTenantsInRoom;
+        }
+
+        public void SetIsSent(bool isSent)
+        {
+            IsSent = isSent;
         }
     }
 
