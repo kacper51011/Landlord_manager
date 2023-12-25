@@ -34,7 +34,7 @@ namespace Statistics.Application.Consumers.Tenants
                     //create as hour
                     if (context.Message.Hour.HasValue && context.Message.Month.HasValue && context.Message.Day.HasValue)
                     {
-                        tenantsStatistics = TenantsStatistics.CreateAsHourStatisticsInformations(context.Message.Year, context.Message.Month.Value, context.Message.Day.Value, context.Message.Hour.Value);
+                        tenantsStatistics = TenantsStatistics.CreateAsHourStatisticsInformations(context.Message.Year, context.Message.Month.Value, context.Message.Day.Value, context.Message.Hour.Value, true);
                     }
 
                     //create as day

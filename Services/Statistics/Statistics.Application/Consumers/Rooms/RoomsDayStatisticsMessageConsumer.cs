@@ -32,7 +32,7 @@ namespace Statistics.Application.Consumers.Rooms
                 {
                     throw new DuplicateNameException("Statistic already created");
                 }
-                RoomsStatistics roomStatistic = RoomsStatistics.CreateAsDayStatisticsInformations(context.Message.Year, context.Message.Month, context.Message.Day);
+                RoomsStatistics roomStatistic = RoomsStatistics.CreateAsDayStatisticsInformations(context.Message.Year, context.Message.Month, context.Message.Day, true);
                 await _roomsStatisticsRepository.CreateOrUpdateRoomsStatistics(roomStatistic);
                 _logger.LogInformation($"Day room statistic created with Id {roomStatistic.RoomsStatisticsId}");
                 return;

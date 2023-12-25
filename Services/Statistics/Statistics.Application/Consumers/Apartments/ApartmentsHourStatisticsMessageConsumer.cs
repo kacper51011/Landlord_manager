@@ -31,7 +31,7 @@ namespace Statistics.Application.Consumers.Apartments
                 {
                     throw new DuplicateNameException("Statistic already created");
                 }
-                ApartmentsStatistics apartmentStatistic = ApartmentsStatistics.CreateAsHourStatisticsInformations(context.Message.Year, context.Message.Month, context.Message.Day, context.Message.Hour);
+                ApartmentsStatistics apartmentStatistic = ApartmentsStatistics.CreateAsHourStatisticsInformations(context.Message.Year, context.Message.Month, context.Message.Day, context.Message.Hour, true);
                 await _apartmentsStatisticsRepository.CreateOrUpdateApartmentStatistics(apartmentStatistic);
                 _logger.LogInformation($"Hour apartment statistic created with Id {apartmentStatistic.ApartmentsStatisticsId}");
                 return;
