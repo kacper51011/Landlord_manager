@@ -5,7 +5,7 @@ using Statistics.Application.Consumers.Apartments;
 using Statistics.Application.Consumers.Rooms;
 using Statistics.Application.Consumers.Tenants;
 using Statistics.Application.Settings;
-using Statistics.Application.Workers;
+using Statistics.Application.Workers.InitializationJobs;
 using Statistics.Domain.Interfaces;
 using Statistics.Infrastructure.Repositories;
 using Statistics.Infrastructure.Settings;
