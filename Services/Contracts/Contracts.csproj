@@ -6,4 +6,13 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="protobuf-net.Grpc" Version="1.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="RoomsService\RoomsStatistics\" />
+    <Folder Include="TenantsService\TenantsStatistics\" />
+  </ItemGroup>
+
 </Project>

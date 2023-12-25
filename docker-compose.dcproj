@@ -5,7 +5,7 @@
     <DockerTargetOS>Linux</DockerTargetOS>
     <ProjectGuid>25f1ad23-89aa-4a7c-8beb-223caa9fe60d</ProjectGuid>
     <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
-    <DockerServiceUrl>{Scheme}://localhost:{ServicePort}/swagger</DockerServiceUrl>
+    <DockerServiceUrl>{Scheme}://localhost:8000/swagger</DockerServiceUrl>
     <DockerServiceName>apartments.api</DockerServiceName>
   </PropertyGroup>
   <ItemGroup>

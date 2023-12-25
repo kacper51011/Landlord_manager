@@ -41,6 +41,21 @@ namespace Rooms.Infrastructure.Repositories
         {
             await _roomsCollection.FindOneAndDeleteAsync(x => x.RoomId == roomId);
         }
+        public async Task<List<Room>> GetOldestCheckedRooms()
+        {
+
+            var builder = Builders<Room>.Filter;
+
+            var filter = builder.Lte(x => x.LastCheckedDate, DateTime.UtcNow);
+
+            var options = new FindOptions<Room>()
+            {
+                Sort = Builders<Room>.Sort.Descending(x => x.LastCheckedDate),
+                BatchSize = 5,
+            };
+
+            return await _roomsCollection.FindAsync(filter, options).Result.ToListAsync();
+        }
 
         public async Task<Room> GetRoomById(string roomId)
         {

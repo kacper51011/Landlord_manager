@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Runtime.CompilerServices;
 
 namespace Apartments.Domain.Entities
 {
@@ -15,11 +16,11 @@ namespace Apartments.Domain.Entities
         public string LandlordId { get; private set; }
         public double Latitude { get; private set; }
         public double Longitude { get; private set; }
-        public int RoomsNumber { get; private set; }
         public int Area { get; private set; }
         public string Telephone { get; private set; }
+        public List<DateTime> UpdateDates{ get; private set; }
 
-        public static Apartment CreateApartment(string landlordId, double latitude, double longitude, int roomsNumber, int area,  string telephone)
+        public static Apartment CreateApartment(string landlordId, double latitude, double longitude, int area,  string telephone)
         {
 
             var apartment = new Apartment
@@ -28,38 +29,34 @@ namespace Apartments.Domain.Entities
                 LandlordId = landlordId,
                 Latitude = latitude,
                 Longitude = longitude,
-                RoomsNumber = 0,
                 Area = area,
                 Telephone = telephone,
+                UpdateDates = new List<DateTime>()
                 
 
             };
             apartment.SetCreationDate();
             apartment.SetLastModifiedDate();
+            apartment.IncrementVersion();
             return apartment;
         }
-        public Apartment UpdateApartment(string landlordId, double latitude, double longitude, int roomsNumber, int area, string telephone)
+        public Apartment UpdateApartment(string landlordId, double latitude, double longitude, int area, string telephone)
         {
             LandlordId = landlordId;
             Latitude = latitude;
             Longitude = longitude;
-            RoomsNumber = roomsNumber;
             Area = area;
             Telephone = telephone;
             SetLastModifiedDate();
+            SetNewUpdateDate();
+            IncrementVersion();
             return this;
         }
 
-        public void IncreaseRoomNumber()
+        public void SetNewUpdateDate()
         {
-            RoomsNumber += 1;
+            UpdateDates.Add(DateTime.UtcNow);
         }
-
-        public void DecreaseRoomNumber()
-        {
-            RoomsNumber -= 1;
-        }
-
         
     }
 

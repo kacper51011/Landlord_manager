@@ -8,7 +8,7 @@ using Tenants.Application.Dtos;
 
 namespace Tenants.Application.Commands.CreateOrUpdateTenant
 {
-    public record CreateOrUpdateTenantCommand(TenantDto tenantDto): IRequest<TenantDto>
+    public record CreateOrUpdateTenantCommand(TenantDto tenantDto): IRequest
     {
 
     }

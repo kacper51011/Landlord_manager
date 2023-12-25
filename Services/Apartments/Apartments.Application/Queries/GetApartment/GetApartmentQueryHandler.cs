@@ -24,7 +24,7 @@ namespace Apartments.Application.Queries.GetApartment
             try
             {
                 var apartment = await _apartmentsRepository.GetApartmentByIdAndLandlordId(request.landlordId, request.apartmentId);
-                return new ApartmentDto { ApartmentId = apartment.ApartmentId, LandlordId = apartment.LandlordId, Area = apartment.Area, Latitude = apartment.Latitude, Longitude = apartment.Longitude, RoomsNumber = apartment.RoomsNumber, Telephone = apartment.Telephone };
+                return new ApartmentDto { ApartmentId = apartment.ApartmentId, LandlordId = apartment.LandlordId, Area = apartment.Area, Latitude = apartment.Latitude, Longitude = apartment.Longitude, Telephone = apartment.Telephone };
 
             }
             catch (Exception ex)
