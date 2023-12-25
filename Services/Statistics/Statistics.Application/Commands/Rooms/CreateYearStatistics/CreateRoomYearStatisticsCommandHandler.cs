@@ -32,7 +32,7 @@ namespace Statistics.Application.Commands.Rooms.CreateYearStatistics
                     throw new DuplicateNameException("Statistic already exists");
 
                 }
-                var statistic = RoomsStatistics.CreateAsYearStatisticsInformations(request.RequestDto.Year);
+                var statistic = RoomsStatistics.CreateAsYearStatisticsInformations(request.RequestDto.Year, false);
                 await _repository.CreateOrUpdateRoomsStatistics(statistic);
                 return;
             }

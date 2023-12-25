@@ -30,7 +30,7 @@ namespace Statistics.Application.Commands.Rooms.CreateDayStatistics
                 {
                     throw new DuplicateNameException("Statistic already exists");
                 }
-                var statistic = RoomsStatistics.CreateAsDayStatisticsInformations(request.RequestDto.Year, request.RequestDto.Month, request.RequestDto.Day);
+                var statistic = RoomsStatistics.CreateAsDayStatisticsInformations(request.RequestDto.Year, request.RequestDto.Month, request.RequestDto.Day, false);
                 await _repository.CreateOrUpdateRoomsStatistics(statistic);
                 return;
             }

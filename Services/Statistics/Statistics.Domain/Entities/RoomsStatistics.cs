@@ -1,13 +1,8 @@
 ﻿using Statistics.Domain.ValueObjects;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Statistics.Domain.Entities
 {
-    public class RoomsStatistics: AggregateRoot
+    public class RoomsStatistics : AggregateRoot
     {
         private RoomsStatistics()
         {
@@ -22,7 +17,7 @@ namespace Statistics.Domain.Entities
         public Year Year { get; private set; }
         public Month? Month { get; private set; }
         public Day? Day { get; private set; }
-        public Hour? Hour  { get; private set; }
+        public Hour? Hour { get; private set; }
         public StatisticsStart StatisticsStart { get; private set; }
         public StatisticsEnd StatisticsEnd { get; private set; }
         public int RoomsCreated { get; private set; }
@@ -60,7 +55,7 @@ namespace Statistics.Domain.Entities
                 Scope = "Day",
                 StatisticsStart = new StatisticsStart(new DateTime(year, month, day)),
                 StatisticsEnd = new StatisticsEnd(new DateTime(year, month, day + 1)),
-                                IsSent = isSent
+                IsSent = isSent
             };
         }
 
@@ -75,7 +70,7 @@ namespace Statistics.Domain.Entities
                 Scope = "Month",
                 StatisticsStart = new StatisticsStart(new DateTime(year, month, 1)),
                 StatisticsEnd = new StatisticsEnd(new DateTime(year, month + 1, 1)),
-                                IsSent = isSent
+                IsSent = isSent
             };
         }
 

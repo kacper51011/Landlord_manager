@@ -31,7 +31,7 @@ namespace Statistics.Application.Commands.Tenants.CreateYearStatistics
                 {
                     throw new DuplicateNameException("Statistic already exists");
                 }
-                var statistic = TenantsStatistics.CreateAsYearStatisticsInformations(request.RequestDto.Year);
+                var statistic = TenantsStatistics.CreateAsYearStatisticsInformations(request.RequestDto.Year, false);
                 await _repository.CreateOrUpdateTenantsStatistics(statistic);
                 return;
             }

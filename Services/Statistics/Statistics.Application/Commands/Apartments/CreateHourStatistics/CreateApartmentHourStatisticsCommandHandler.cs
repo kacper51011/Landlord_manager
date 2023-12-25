@@ -30,7 +30,7 @@ namespace Statistics.Application.Commands.Apartments.CreateHourStatistics
                 {
                         throw new DuplicateNameException("Statistic already exists");
                 }
-                var statistic = ApartmentsStatistics.CreateAsHourStatisticsInformations(request.RequestDto.Year, request.RequestDto.Month, request.RequestDto.Day, request.RequestDto.Hour);
+                var statistic = ApartmentsStatistics.CreateAsHourStatisticsInformations(request.RequestDto.Year, request.RequestDto.Month, request.RequestDto.Day, request.RequestDto.Hour, false);
                 return;
 
 

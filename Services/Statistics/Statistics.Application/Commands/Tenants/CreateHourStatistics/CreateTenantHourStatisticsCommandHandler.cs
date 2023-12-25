@@ -31,7 +31,7 @@ namespace Statistics.Application.Commands.Tenants.CreateHourStatistics
                 {
                     throw new DuplicateNameException("Statistic already exists");
                 }
-                var statistic = TenantsStatistics.CreateAsHourStatisticsInformations(request.RequestDto.Year, request.RequestDto.Month, request.RequestDto.Day, request.RequestDto.Hour);
+                var statistic = TenantsStatistics.CreateAsHourStatisticsInformations(request.RequestDto.Year, request.RequestDto.Month, request.RequestDto.Day, request.RequestDto.Hour, false);
                 await _repository.CreateOrUpdateTenantsStatistics(statistic);
                 return;
             }

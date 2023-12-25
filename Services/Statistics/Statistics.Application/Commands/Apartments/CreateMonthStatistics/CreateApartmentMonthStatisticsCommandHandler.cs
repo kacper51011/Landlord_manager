@@ -31,7 +31,7 @@ namespace Statistics.Application.Commands.Apartments.CreateMonthStatistics
                 {
                     throw new DuplicateNameException("Statistic already exists");
                 }
-                var statistic = ApartmentsStatistics.CreateAsMonthStatisticsInformations(request.RequestDto.Year, request.RequestDto.Month);
+                var statistic = ApartmentsStatistics.CreateAsMonthStatisticsInformations(request.RequestDto.Year, request.RequestDto.Month, false);
                 return;
 
 
