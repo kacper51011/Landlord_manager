@@ -40,19 +40,19 @@ namespace Statistics.Application.Consumers.Tenants
                     //create as day
                     if (context.Message.Hour == null && context.Message.Month.HasValue && context.Message.Day.HasValue)
                     {
-                        tenantsStatistics = TenantsStatistics.CreateAsDayStatisticsInformations(context.Message.Year, context.Message.Month.Value, context.Message.Day.Value);
+                        tenantsStatistics = TenantsStatistics.CreateAsDayStatisticsInformations(context.Message.Year, context.Message.Month.Value, context.Message.Day.Value, true);
                     }
 
                     //create as month
                     if (context.Message.Day == null && context.Message.Hour == null && context.Message.Month.HasValue)
                     {
-                        tenantsStatistics = TenantsStatistics.CreateAsMonthStatisticsInformations(context.Message.Year, context.Message.Month.Value);
+                        tenantsStatistics = TenantsStatistics.CreateAsMonthStatisticsInformations(context.Message.Year, context.Message.Month.Value, true);
                     }
 
                     //create as year
                     else
                     {
-                        tenantsStatistics = TenantsStatistics.CreateAsYearStatisticsInformations(context.Message.Year);
+                        tenantsStatistics = TenantsStatistics.CreateAsYearStatisticsInformations(context.Message.Year, true);
                     }
 
                     tenantsStatistics.SetStatistics(context.Message.TenantsCreated, context.Message.TenantsUpdated, context.Message.MostTenantsInRoom, context.Message.HighestRent);

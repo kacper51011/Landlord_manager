@@ -35,25 +35,25 @@ namespace Statistics.Application.Consumers.Rooms
                     //create as hour
                     if (context.Message.Hour.HasValue && context.Message.Month.HasValue && context.Message.Day.HasValue)
                     {
-                        roomsStatistics = RoomsStatistics.CreateAsHourStatisticsInformations(context.Message.Year, context.Message.Month.Value, context.Message.Day.Value, context.Message.Hour.Value);
+                        roomsStatistics = RoomsStatistics.CreateAsHourStatisticsInformations(context.Message.Year, context.Message.Month.Value, context.Message.Day.Value, context.Message.Hour.Value, true);
                     }
 
                     //create as day
                     if (context.Message.Hour == null && context.Message.Month.HasValue && context.Message.Day.HasValue)
                     {
-                        roomsStatistics = RoomsStatistics.CreateAsDayStatisticsInformations(context.Message.Year, context.Message.Month.Value, context.Message.Day.Value);
+                        roomsStatistics = RoomsStatistics.CreateAsDayStatisticsInformations(context.Message.Year, context.Message.Month.Value, context.Message.Day.Value, true);
                     }
 
                     //create as month
                     if (context.Message.Day == null && context.Message.Hour == null && context.Message.Month.HasValue)
                     {
-                        roomsStatistics = RoomsStatistics.CreateAsMonthStatisticsInformations(context.Message.Year, context.Message.Month.Value);
+                        roomsStatistics = RoomsStatistics.CreateAsMonthStatisticsInformations(context.Message.Year, context.Message.Month.Value, true);
                     }
 
                     //create as year
                     else
                     {
-                        roomsStatistics = RoomsStatistics.CreateAsYearStatisticsInformations(context.Message.Year);
+                        roomsStatistics = RoomsStatistics.CreateAsYearStatisticsInformations(context.Message.Year, true);
                     }
 
                     roomsStatistics.SetStatistics(context.Message.RoomsCreated, context.Message.RoomsUpdated, context.Message.BiggestCreatedRoomSize, context.Message.MostRoomsInApartment);

@@ -24,7 +24,7 @@ namespace Statistics.Application.Consumers.Apartments
         {
             try
             {
-                var statistic = await _apartmentsStatisticsRepository.GetApartmentAnyStatistics(context.Message.Year, context.Message.Month, context.Message.Day, context.Message.Hour, true);
+                var statistic = await _apartmentsStatisticsRepository.GetApartmentAnyStatistics(context.Message.Year, context.Message.Month, context.Message.Day, context.Message.Hour);
                 if (statistic == null)
                 {
                     throw new ArgumentNullException();
