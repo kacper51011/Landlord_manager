@@ -34,7 +34,7 @@ namespace Apartments.Application.Consumers.Statistics
                 }
                 var createdApartmentsCount = await _apartmentsReposistory.GetCreatedApartmentsCount(statisticToProcess.StatisticsStart.Value, statisticToProcess.StatisticsEnd.Value);
                 var updatedApartmentsCount = await _apartmentsReposistory.GetUpdatedApartmentsCount(statisticToProcess.StatisticsStart.Value, statisticToProcess.StatisticsEnd.Value);
-                var mostApartmentsOwnedByUser = await _apartmentsReposistory.GetMostApartmentsOwnedByOneUserCount();
+                var mostApartmentsOwnedByUser = await _apartmentsReposistory.GetMostApartmentsOwnedByOneUserCount(statisticToProcess.StatisticsEnd.Value);
 
                 statisticToProcess.SetInformations(createdApartmentsCount, updatedApartmentsCount, mostApartmentsOwnedByUser);
                 await _statisticsRepository.CreateOrUpdateApartmentStatistics(statisticToProcess);

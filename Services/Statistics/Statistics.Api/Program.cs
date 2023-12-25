@@ -33,17 +33,20 @@ builder.Services.AddQuartz(options =>
     .AddJob<HourStatisticsJob>(hourJob)
     .AddTrigger(trigger =>
     {
-        trigger.ForJob(hourJob).WithCronSchedule("0 * * * *");
+        trigger.ForJob(hourJob).WithCronSchedule(CronScheduleBuilder.CronSchedule("0 0 * 1/1 * ? *"));
+
     })
     .AddJob<DayStatisticsJob>(dayJob)
     .AddTrigger(trigger =>
     {
-        trigger.ForJob(dayJob).WithCronSchedule("0 0 0 ? * * *");
+        trigger.ForJob(dayJob).WithSchedule(CronScheduleBuilder.DailyAtHourAndMinute(0, 1));
     })
     .AddJob<MonthStatisticsJob>(monthJob)
     .AddTrigger(trigger =>
     {
-        trigger.ForJob(monthJob).WithCronSchedule("0 0 0 1 * ? *");
+        //trigger.ForJob(monthJob).WithCronSchedule("0 0 0 1 * ? *");
+        trigger.ForJob(monthJob).WithSchedule(CronScheduleBuilder.MonthlyOnDayAndHourAndMinute(1, 0, 1));
+
     })
     .AddJob<YearStatisticsJob>(yearJob)
     .AddTrigger(trigger =>

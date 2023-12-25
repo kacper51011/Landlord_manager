@@ -6,7 +6,8 @@
       "serviceActions": {
         "apartments.api": "StartDebugging",
         "rooms.api": "StartDebugging",
-        "tenants.api": "StartDebugging"
+        "tenants.api": "StartDebugging",
+        "statistics.api": "StartDebugging"
       }
     }
   }

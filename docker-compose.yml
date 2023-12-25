@@ -63,8 +63,18 @@ services:
     - 8002:8002
     - 8006:8006
 
+  statistics.api:
+    image: ${DOCKER_REGISTRY-}statisticsapi
+    build:
+      context: .
+      dockerfile: Services/Statistics/Statistics.Api/Dockerfile
+    ports:
+    - 8003:8003
+    - 8007:8007
+
 volumes:
   local:
+
 
 
 
