@@ -2,10 +2,12 @@
 using Apartments.Domain.Interfaces;
 using Apartments.Infrastructure.Db;
 using Microsoft.Extensions.Options;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -37,6 +39,47 @@ namespace Apartments.Infrastructure.Repositories
    
         }
 
+        public async Task<int> GetMostApartmentsOwnedByOneUserCount(DateTime endDate)
+        {
+            var filter = Builders<Apartment>.Filter.Lte(a => a.CreationDate, endDate);
+            var aggregation = _apartmentsCollection.Aggregate()
+            .Match(filter)
+            .Group(
+                key => key.LandlordId,
+                group => new
+                {
+                    LandlordId = group.Key,
+                    objectsCount = group.Count()
+                }
+                )
+            .SortBy(x => x.objectsCount);
+            var result = await aggregation.ToListAsync();
+            return result[0].objectsCount;
+        }
+        public async Task<int> GetUpdatedApartmentsCount(DateTime startDate, DateTime endDate)
+        {
+            var builder = Builders<Apartment>.Filter;
+            var dateRangeFilter = builder.Gte(a => a.UpdateDates.Min(), startDate) & builder.Lte(a => a.UpdateDates.Max(), endDate);
+            var versionFilter = builder.Gt(a => a.Version, 1);
+            var combinedFilter = versionFilter & dateRangeFilter;
+            var result = await _apartmentsCollection.FindAsync(combinedFilter);
+
+            return result.ToList().Count();
+        }
+        public async Task<int> GetCreatedApartmentsCount(DateTime startDate, DateTime endDate)
+        {
+            //filter for number of created apartments from start - end date
+            var builder = Builders<Apartment>.Filter;
+            var filter = builder.Gte(a => a.CreationDate, startDate) & builder.Lt(a => a.CreationDate, endDate);
+            
+            var result = await _apartmentsCollection.FindAsync(filter).Result.ToListAsync();
+            if(result == null)
+            {
+                throw new Exception("problem with GetCreatedApartments");
+            }
+            return result.Count();
+
+        }
         public async Task DeleteApartment(string apartmentId)
         {
 
@@ -55,15 +98,9 @@ namespace Apartments.Infrastructure.Repositories
 
         public async Task<Apartment> GetApartmentById(string apartmentId)
         {
-            try
-            {
-                return await _apartmentsCollection.FindAsync(x => x.ApartmentId == apartmentId).Result.FirstAsync();
-            }
-            catch (Exception)
-            {
 
-                return null;
-            }
+                return await _apartmentsCollection.FindAsync(x => x.ApartmentId == apartmentId).Result.FirstOrDefaultAsync();
+
 
         }
 

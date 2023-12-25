@@ -5,7 +5,9 @@
       "commandVersion": "1.0",
       "serviceActions": {
         "apartments.api": "StartDebugging",
-        "rooms.api": "StartDebugging"
+        "rooms.api": "StartDebugging",
+        "tenants.api": "StartDebugging",
+        "statistics.api": "StartDebugging"
       }
     }
   }

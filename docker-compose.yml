@@ -8,7 +8,7 @@ services:
      dockerfile: Services/Apartments/Apartments.API/Dockerfile
     ports:
     - 8000:8000
-    - 8001:8001
+    - 8004:8004
 
   mongo:
     image: mongo
@@ -18,12 +18,15 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: example
     ports:
      - 27017:27017
+    volumes:
+    - local:/data/db
 
   mongo-express:
     image: mongo-express
     restart: always
     ports:
-      - 8081:8081
+      - 8079:8079
+      - 808
     environment:
       ME_CONFIG_MONGODB_ADMINUSERNAME: root
       ME_CONFIG_MONGODB_ADMINPASSWORD: example
@@ -47,11 +50,33 @@ services:
       context: .
       dockerfile: Services/Rooms/Rooms.Api/Dockerfile
     ports:
+    - 8001:8001
+    - 8005:8005
+
+
+  tenants.api:
+    image: ${DOCKER_REGISTRY-}tenantsapi
+    build:
+      context: .
+      dockerfile: Services/Tenants/Tenants.Api/Dockerfile
+    ports:
     - 8002:8002
+    - 8006:8006
+
+  statistics.api:
+    image: ${DOCKER_REGISTRY-}statisticsapi
+    build:
+      context: .
+      dockerfile: Services/Statistics/Statistics.Api/Dockerfile
+    ports:
     - 8003:8003
+    - 8007:8007
 
 volumes:
   local:
+
+
+
 
 
 

@@ -1,4 +1,10 @@
+using Contracts.TenantsServiceEvents;
 using MassTransit;
+using Quartz;
+using Tenants.Application.Commands.CreateOrUpdateTenant;
+using Tenants.Application.Consumers;
+using Tenants.Application.Settings;
+using Tenants.Application.Workers;
 using Tenants.Domain.Interfaces;
 using Tenants.Infrastructure.Repositories;
 using Tenants.Infrastructure.Settings;
@@ -10,15 +16,32 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddSingleton<ITenantsRepository, TenantsRepository>();
 
 builder.Services.Configure<MongoSettings>(builder.Configuration.GetSection("MongoDB"));
-//builder.Services.Configure<RabbitMQSettings>(builder.Configuration.GetSection("RabbitMQ"));
+builder.Services.Configure<RabbitMQSettings>(builder.Configuration.GetSection("RabbitMQ"));
 
 
-//builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining(typeof(CreateOrUpdateRoomCommandHandler)));
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining(typeof(CreateOrUpdateTenantCommandHandler)));
+
+builder.Services.AddQuartz(options =>
+{
+    var jobKey = JobKey.Create(nameof(RoomCheckBackgroundJob));
+
+    options
+    .AddJob<RoomCheckBackgroundJob>(jobKey)
+    .AddTrigger(trigger =>
+    {
+        trigger.ForJob(jobKey).WithSimpleSchedule(schedule => schedule.WithIntervalInMinutes(2).RepeatForever());
+    });
+});
+
+builder.Services.AddQuartzHostedService(options =>
+{
+    options.WaitForJobsToComplete = true;
+});
 
 builder.Services.AddMassTransit(cfg =>
 {
     cfg.SetDefaultEndpointNameFormatter();
-
+    cfg.AddConsumer<RoomDeletedConsumer>();
 
     cfg.UsingRabbitMq((context, configuration) =>
     {
@@ -49,7 +72,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseAuthorization();
-
+app.UseHttpsRedirection();
 app.MapControllers();
+
 
 app.Run();

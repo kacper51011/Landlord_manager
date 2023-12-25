@@ -1,5 +1,6 @@
 ﻿using Contracts.ApartmentsServiceEvents;
 using MassTransit;
+using Microsoft.Extensions.Logging;
 using Rooms.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -9,32 +10,33 @@ using System.Threading.Tasks;
 
 namespace Rooms.Application.Consumers
 {
-    public class ApartmentDeletedConsumer : IConsumer<ApartmentDeletedEvent>
+    public class ApartmentDeletedConsumer : IConsumer<ApartmentDeletedMessage>
     {
         private readonly IRoomsRepository _roomsRepository;
+        private readonly ILogger<ApartmentDeletedConsumer> _logger; 
 
-        public ApartmentDeletedConsumer(IRoomsRepository roomsRepository)
+        public ApartmentDeletedConsumer(IRoomsRepository roomsRepository, ILogger<ApartmentDeletedConsumer> logger)
         {
             _roomsRepository = roomsRepository;
+            _logger = logger;
         }
-        public async Task Consume(ConsumeContext<ApartmentDeletedEvent> context)
+        public async Task Consume(ConsumeContext<ApartmentDeletedMessage> context)
         {
             try
             {
-                var rooms = await _roomsRepository.GetRoomsByApartmentId(context.Message.ApartmentId);
-                if (rooms == null)
+                var room = await _roomsRepository.GetRoomById(context.Message.RoomId);
+                if (room == null)
                 {
+                    _logger.LogInformation($"Couldn`t find room with Id {context.Message.RoomId}");
                     return;
+
                 }
-                foreach (var room in rooms)
-                {
-                   await _roomsRepository.DeleteRoom(room.RoomId);
-                }
+                await _roomsRepository.DeleteRoom(room.RoomId);
                 
             }
             catch (Exception ex)
             {
-
+                _logger.LogError($"Something went wrong in ApartmentDeletedConsumer when processing room with Id{context.Message.RoomId}");
                 throw ex;
             }
 

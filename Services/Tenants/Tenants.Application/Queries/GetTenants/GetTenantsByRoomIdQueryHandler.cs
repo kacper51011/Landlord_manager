@@ -29,10 +29,9 @@ namespace Tenants.Application.Queries.GetTenants
                 List<TenantDto> response = new List<TenantDto>();
                 if (tenants == null)
                 {
-                    _logger.LogDebug($"Can`t find tenants for room with ID {request.roomId}");
-                    return response;
+                    throw new FileNotFoundException("couldn`t find tenants with specified roomId");
                 }
-                foreach (var tenant in tenants )
+                foreach (var tenant in tenants)
                 {
                     
                     TenantDto tenantDto = tenant.Adapt<TenantDto>();
@@ -42,10 +41,16 @@ namespace Tenants.Application.Queries.GetTenants
 
 
 			}
-			catch (Exception)
-			{
+            catch (FileNotFoundException ex)
+            {
+                _logger.LogWarning(404, ex.Message);
+                throw ex;
+            }
 
-				throw;
+            catch (Exception ex)
+			{
+                _logger.LogWarning(500, ex.Message);
+                throw ex;
 			}
         }
     }

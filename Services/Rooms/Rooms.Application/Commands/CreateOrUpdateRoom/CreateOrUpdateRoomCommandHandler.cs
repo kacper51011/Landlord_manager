@@ -31,7 +31,6 @@ namespace Rooms.Application.Commands.CreateOrUpdateRoom
                 {
                     Room room = Room.CreateRoom(x.ApartmentId, x.LandlordId, x.Name, x.Surface, x.AnglesCoordinates, x.MaxTenantsNumber, x.CurrentTenantsNumber, x.MonthlyRent);
                     await _roomsRepository.CreateOrUpdateRoom(room);
-                    await _publishEndpoint.Publish(new RoomCreatedEvent { ApartmentId = room.ApartmentId });
                     return;
                 } else
                 {
@@ -40,12 +39,10 @@ namespace Rooms.Application.Commands.CreateOrUpdateRoom
                     {
                         room = Room.CreateRoom(x.ApartmentId, x.LandlordId, x.Name, x.Surface, x.AnglesCoordinates, x.MaxTenantsNumber, x.CurrentTenantsNumber, x.MonthlyRent);
                         await _roomsRepository.CreateOrUpdateRoom(room);
-                        await _publishEndpoint.Publish(new RoomCreatedEvent { ApartmentId = room.ApartmentId });
 
                     } else
                     {
                         room.UpdateRoom(x.Name, x.Surface, x.AnglesCoordinates, x.MaxTenantsNumber, x.CurrentTenantsNumber, x.MonthlyRent);
-                        await _roomsRepository.CreateOrUpdateRoom(room);
                     }
                     
                 }

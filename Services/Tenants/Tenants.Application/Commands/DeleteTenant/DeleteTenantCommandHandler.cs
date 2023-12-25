@@ -1,6 +1,7 @@
 ﻿using Contracts.TenantsServiceEvents;
 using MassTransit;
 using MediatR;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,33 +11,37 @@ using Tenants.Domain.Interfaces;
 
 namespace Tenants.Application.Commands.DeleteTenant
 {
-    public class DeleteTenantCommandHandler : IRequestHandler<DeleteTenantCommand, bool>
+    public class DeleteTenantCommandHandler : IRequestHandler<DeleteTenantCommand>
     {
         private readonly ITenantsRepository _tenantsRepository;
-        private readonly IPublishEndpoint _publishEndpoint;
-        public DeleteTenantCommandHandler(ITenantsRepository tenantsRepository, IPublishEndpoint publishEndpoint)
+        private readonly ILogger<DeleteTenantCommandHandler> _logger;
+        public DeleteTenantCommandHandler(ITenantsRepository tenantsRepository, ILogger<DeleteTenantCommandHandler> logger)
         {
             _tenantsRepository = tenantsRepository;
-            _publishEndpoint = publishEndpoint;
+            _logger = logger;
         }
-        public async Task<bool> Handle(DeleteTenantCommand request, CancellationToken cancellationToken)
+        public async Task Handle(DeleteTenantCommand request, CancellationToken cancellationToken)
         {
             try
             {
                 var tenant = await _tenantsRepository.GetTenantById(request.tenantId);
                 if (tenant == null)
                 {
-                    return false;
+                    throw new FileNotFoundException($"Couldn`t delete tenant with Id {request.tenantId}");
                 }
                 await _tenantsRepository.DeleteTenant(tenant.TenantId);
-                await _publishEndpoint.Publish(new TenantDeletedEvent { RoomId = request.roomId });
-                return true;
                 
+            }
+            catch (FileNotFoundException ex)
+            {
+
+                _logger.LogWarning(404, ex, ex.Message);
+                throw ex;
             }
             catch (Exception)
             {
 
-                return false;
+                throw;
             }
         }
     }

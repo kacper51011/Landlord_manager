@@ -27,7 +27,7 @@ namespace Rooms.Application.Queries.GetRooms
             for (int i = 0; i < response.Count; i++)
             {
                 var curr = response[i];
-                var roomDto = new RoomDto() {RoomId = curr.RoomId, LandlordId= curr.LandlordId, ApartmentId= curr.ApartmentId, Name= curr.Name, AnglesCoordinates=curr.AnglesCoordinates, CurrentTenantsNumber=curr.CurrentTenantsNumber, MaxTenantsNumber= curr.MaxTenantsNumber, MonthlyRent=curr.MonthlyRent, Surface=curr.Surface };
+                var roomDto = new RoomDto() {RoomId = curr.RoomId, LandlordId= curr.LandlordId, ApartmentId= curr.ApartmentId, Name= curr.Name, AnglesCoordinates=curr.AnglesCoordinates, Surface=curr.Surface };
                 result.Add(roomDto);
             }
             return result;
