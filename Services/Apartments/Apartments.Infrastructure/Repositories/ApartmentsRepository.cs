@@ -39,23 +39,22 @@ namespace Apartments.Infrastructure.Repositories
    
         }
 
-        public async Task<int> GetMostApartmentsOwnedByOneUserCount()
+        public async Task<int> GetMostApartmentsOwnedByOneUserCount(DateTime endDate)
         {
+            var filter = Builders<Apartment>.Filter.Lte(a => a.CreationDate, endDate);
             var aggregation = _apartmentsCollection.Aggregate()
+            .Match(filter)
             .Group(
                 key => key.LandlordId,
                 group => new
                 {
                     LandlordId = group.Key,
-                    IloscObiektów = group.Count()
+                    objectsCount = group.Count()
                 }
-                ).SortBy(x => x.IloscObiektów);
+                )
+            .SortBy(x => x.objectsCount);
             var result = await aggregation.ToListAsync();
-            if (result == null)
-            {
-                throw new Exception("problem with GetMostApartmentsOwnedByOneUser");
-            }
-            return result[0].IloscObiektów;
+            return result[0].objectsCount;
         }
         public async Task<int> GetUpdatedApartmentsCount(DateTime startDate, DateTime endDate)
         {

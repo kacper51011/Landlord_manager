@@ -16,7 +16,7 @@ namespace Apartments.Domain.Interfaces
         public Task<Apartment> GetApartmentById(string apartmentId);
         public Task CreateOrUpdateApartment(Apartment apartment);
         //Statistics
-        public Task<int> GetMostApartmentsOwnedByOneUserCount();
+        public Task<int> GetMostApartmentsOwnedByOneUserCount(DateTime endDate);
 
         public Task<int> GetUpdatedApartmentsCount(DateTime startDate, DateTime endDate);
         public Task<int> GetCreatedApartmentsCount(DateTime startDate, DateTime endDate);
