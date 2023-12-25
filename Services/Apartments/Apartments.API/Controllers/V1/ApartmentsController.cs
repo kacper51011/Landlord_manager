@@ -20,10 +20,10 @@ namespace Apartments.API.Controllers.V1
         }
 
         /// <summary>
-        /// Gets Apartments for specified landlord by his Id
+        /// Gets Apartments for specified landlord
         /// </summary>
-        /// <param name="landlordId"></param>
-        /// <returns></returns>
+        /// <param name="landlordId">Id of specified landlord</param>
+        /// <returns>List of apartments</returns>
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -48,15 +48,19 @@ namespace Apartments.API.Controllers.V1
                 return StatusCode(500, ex.Message);
             }
         }
-
+        /// <summary>
+        /// Creates or updates apartment, it depends on providing Id of apartment
+        /// </summary>
+        /// <param name="apartmentDto">object needed for creating or updating apartment in db</param>
+        /// <returns></returns>
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> CreateOrUpdateApartment([FromBody] ApartmentDto dto)
+        public async Task<IActionResult> CreateOrUpdateApartment([FromBody] ApartmentDto apartmentDto)
         {
             try
             {
-                var command = new CreateOrUpdateApartmentCommand(dto);
+                var command = new CreateOrUpdateApartmentCommand(apartmentDto);
                 await _mediator.Send(command);
 
 
@@ -70,15 +74,22 @@ namespace Apartments.API.Controllers.V1
                 return StatusCode(500);
             }
         }
+
+        /// <summary>
+        /// Deletes apartment if landlordId and apartmentId matches
+        /// </summary>
+        /// <param name="landlordId"></param>
+        /// <param name="apartmentId"></param>
+        /// <returns>Returns 200 status code if deleted</returns>
         [HttpDelete]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> DeleteApartment(string landlordId, string id)
+        public async Task<IActionResult> DeleteApartment(string landlordId, string apartmentId)
         {
             try
             {
-                var command = new DeleteApartmentCommand(landlordId, id);
+                var command = new DeleteApartmentCommand(landlordId, apartmentId);
                 await _mediator.Send(command);
 
                 return Ok();

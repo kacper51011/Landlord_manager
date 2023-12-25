@@ -1,8 +1,6 @@
 ﻿using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Rooms.Application.Commands.CreateOrUpdateRoom;
-using Rooms.Application.Commands.DeleteAllRooms;
 using Rooms.Application.Commands.DeleteRoom;
 using Rooms.Application.Dto;
 using Rooms.Application.Queries.GetRooms;
@@ -19,8 +17,17 @@ namespace Rooms.Api.Controllers
             _mediator = mediator;
         }
 
+        /// <summary>
+        /// Gets rooms located in specified apartment
+        /// </summary>
+        /// <param name="apartmentId">Id of apartment</param>
+        /// <returns>List of rooms</returns>
         [HttpGet]
-        public async Task<IActionResult> GetApartmentRooms(string apartmentId)
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+
+        public async Task<ActionResult<List<RoomDto>>> GetApartmentRooms(string apartmentId)
         {
             try
             {
@@ -29,13 +36,25 @@ namespace Rooms.Api.Controllers
                 return Ok(response);
 
             }
+            catch (FileNotFoundException ex)
+            {
+
+                return StatusCode(404, ex.Message);
+            }
             catch (Exception ex)
             {
 
                 return StatusCode(500, ex.Message);
             }
         }
+        /// <summary>
+        /// Responsible for creating room or updating already existing one
+        /// </summary>
+        /// <param name="roomDto"></param>
+        /// <returns></returns>
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> CreateOrUpdateRoom(RoomDto roomDto)
         {
             try
@@ -50,7 +69,17 @@ namespace Rooms.Api.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
+        /// <summary>
+        /// Responsible for deleting room in apartment
+        /// </summary>
+        /// <param name="landlordId"></param>
+        /// <param name="apartmentId"></param>
+        /// <param name="roomId"></param>
+        /// <returns>Returns status code 200 if operation succeeded</returns>
         [HttpDelete]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [Route("{roomId}")]
         public async Task<IActionResult> DeleteRoom(string landlordId, string apartmentId, string roomId)
         {
@@ -60,6 +89,11 @@ namespace Rooms.Api.Controllers
                 await _mediator.Send(query);
                 return Ok();
 
+            }
+            catch (FileNotFoundException ex)
+            {
+
+                return StatusCode(404, ex.Message);
             }
             catch (Exception ex)
             {
