@@ -12,7 +12,7 @@ namespace Apartments.Domain.Interfaces
         public Task<ApartmentsStatistics> GetApartmentStatisticsById(string apartmentStatisticsId);
         public Task CreateOrUpdateApartmentStatistics(ApartmentsStatistics apartment);
         public Task<ApartmentsStatistics> GetNotSendApartmentsStatistics();
-
+        public Task<ApartmentsStatistics> GetApartmentAnyStatistics(int year, int? month, int? day, int? hour);
         public Task<ApartmentsStatistics> GetUnproccessedApartmentStatistics();
 
     }

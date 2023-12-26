@@ -58,5 +58,16 @@ namespace Apartments.Infrastructure.Repositories
             var returnValue = await _apartmentsStatisticsCollection.Find(filter).Sort(sort).FirstOrDefaultAsync();
             return returnValue;
         }
+
+        public async Task<ApartmentsStatistics> GetApartmentAnyStatistics(int year, int? month, int? day, int? hour)
+        {
+            var builder = Builders<ApartmentsStatistics>.Filter;
+            var anyFilter = builder.Eq(a => a.Year.Value, year) & builder.Eq(a => a.Month.Value, month) & builder.Eq(a => a.Day.Value, day) & builder.Eq(a => a.Hour.Value, hour);
+            var combinedFilter = anyFilter;
+
+            var result = await _apartmentsStatisticsCollection.FindAsync(combinedFilter).Result.FirstAsync();
+
+            return result;
+        }
     }
 }
