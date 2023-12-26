@@ -103,5 +103,12 @@ namespace Statistics.Infrastructure.Repositories
         {
             throw new NotImplementedException();
         }
+
+        public async Task<RoomsStatistics> GetNotSentRoomStatistics()
+        {
+            var filter = Builders<RoomsStatistics>.Filter.Where(a => a.IsSent == false);
+            var response = await _roomsStatisticsCollection.Find(filter).FirstAsync();
+            return response;
+        }
     }
 }

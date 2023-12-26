@@ -20,7 +20,7 @@ namespace Statistics.Domain.Interfaces
         public Task<TenantsStatistics> GetTenantsYearStatistics(int year);
         public Task<TenantsStatistics> GetTenantsAnyStatistics(int year, int? month, int? day, int? hour);
 
-        public Task<TenantsStatistics> GetNotSentTenanttatistics();
+        public Task<TenantsStatistics> GetNotSentTenantStatistics();
 
     }
 }
