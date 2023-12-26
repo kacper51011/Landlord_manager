@@ -19,5 +19,8 @@ namespace Statistics.Domain.Interfaces
         public Task<RoomsStatistics> GetRoomsMonthStatistics(int year, int month);
         public Task<RoomsStatistics> GetRoomsYearStatistics(int year);
         public Task<RoomsStatistics> GetRoomsAnyStatistics(int year, int? month, int? day, int? hour);
+
+        public Task<RoomsStatistics> GetNotSentRoomStatistics();
+
     }
 }
