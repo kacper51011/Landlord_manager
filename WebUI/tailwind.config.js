@@ -4,10 +4,14 @@ export default {
   theme: {
     extend: {
       colors: {
-        main: "#E0F2FE",
-        secondary: "#38BDF8",
-        third: "#0EA5E9",
+        landingMain: "#084162",
+        landingGreen: "#22C55E",
+        landingGrey: "#0EA5E9",
         text: "#111827",
+      },
+      fontFamily: {
+        inter: ["Inter"],
+        poppins: ["Poppins"],
       },
     },
   },
