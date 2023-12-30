@@ -1,10 +1,10 @@
 import "./App.css";
-import { Navbar } from "./components/navbar/Navbar";
+import { LandingPage } from "./features/Landing/LandingPage";
 
 function App() {
   return (
     <>
-      <Navbar />
+      <LandingPage />
     </>
   );
 }
