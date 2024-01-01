@@ -1,6 +1,7 @@
 //do zrobienia: dodać listę obiektów i przemapować sobie li
-
-import { IoIosCheckmark, IoIosCheckmarkCircle } from "react-icons/io";
+import { IoBarChartOutline } from "react-icons/io5";
+import { IoIosCheckmark } from "react-icons/io";
+import { AiOutlineStock } from "react-icons/ai";
 import { NavList } from "./LandingPage.types";
 
 const list: NavList[] = [
@@ -21,7 +22,7 @@ export const LandingPage = () => {
   return (
     <div className="bg-slate-50">
       <nav className="flex flex-row justify-between items-center w-screen px-11 py-6">
-        <div className="font-poppins font-extrabold text-landingMain text-2xl">Landlord Manager</div>
+        <div className="font-poppins font-extrabold text-landingMain text-2xl cursor-default">Landlord Manager</div>
         <ul className="flex justify-between">
           {list.map((item) => (
             <li className="mx-10">
@@ -38,7 +39,9 @@ export const LandingPage = () => {
       </nav>
       <section className="py-8 flex flex-row justify-around items-center">
         <div className="flex flex-col items-start">
-          <div className=" mb-4 bg-landingGreen text-sm text-white px-4 py-2 rounded-full font-poppins">Home</div>
+          <div className=" mb-4 bg-landingGreen text-sm text-white px-4 py-2 rounded-full font-poppins cursor-default">
+            Home
+          </div>
           <h1 className="mb-2 font-poppins font-extrabold text-3xl leading-10 text-landingMain">
             Managing private estates has <br /> never been so easy
           </h1>
@@ -46,20 +49,92 @@ export const LandingPage = () => {
             Unlock the future of estate management services <br /> with our cutting edge solutions
           </p>
           {homeSectionList.map((item) => (
-            <div className="flex items-center mt-4 ">
+            <div className="flex items-center mb-4 ">
               <div className="bg-landingGreen  text-white rounded-full w-4 h-4 mr-4">
                 <IoIosCheckmark />
               </div>
               <p className="text-landingMain font-poppins text-xl">{item}</p>
             </div>
           ))}
+          <div className="flex mt-4">
+            <button className="bg-landingGreen text-white px-4 py-2 rounded-lg font-poppins mr-8">Get Started</button>
+            <button className="font-poppins font-semibold px-4 py-2  text-landingMain rounded-lg border-2">
+              Login
+            </button>
+          </div>
         </div>
         <img
-          src="public/landing-photo1.jpg"
+          src="landing-photo1.jpg"
           alt="Middle aged man sitting in apartment"
-          className="w-[600px] h-96 rounded-md mt-4"
+          className="w-[600px] h-[450px] rounded-md mt-4"
         />
       </section>
+      <section className="flex flex-col justify-center items-center w-screen mt-8 mb-8">
+        <div className="rounded-xl bg-landingLightGreen text-landingGreen px-2 py-1 font-poppins mb-8">Features</div>
+        <h2 className=" font-poppins font-bold text-4xl text-landingMain mb-4">
+          Unlock the Future of Management Services
+        </h2>
+        <p className="font-poppins font-medium text-xl text-landingMain text-center mb-20">
+          We are on a mission to revolutionize the way you manage your estate, communicate with your tenants
+          <br /> and meet the deadlines. With a commitment to innovation and user empowerment
+        </p>
+        {/* columns */}
+        <div className="flex flex-row justify-center items-center w-screen">
+          {/* first col */}
+          <div className="flex flex-col justify-around items-center w-1/3">
+            <div className="bg-landingGreen text-white px-4 py-4 text-lg rounded-md mb-2">
+              <IoBarChartOutline />
+            </div>
+            <p className="font-poppins font-bold text-sm text-landingMain mb-2">
+              <span className="text-landingGreen">Innovative</span> estate management
+            </p>
+            <p className="text-landingMain text-sm font-poppins text-center mb-32">
+              Discover a world where managing your estates is effortless.
+              <br /> Our user-friendly platform allows you to track finances,
+              <br /> manage apartments, and gain insights into your tenants life.
+            </p>
+            <div className="bg-landingGreen text-white px-4 py-4 text-lg rounded-md mb-2">
+              <AiOutlineStock />
+            </div>
+            <p className="font-poppins font-bold text-sm text-landingMain mb-2">
+              <span className="text-landingGreen">Innovative</span> estate management
+            </p>
+            <p className="text-landingMain text-sm font-poppins text-center mb-32">
+              Discover a world where managing your estates is effortless.
+              <br /> Our user-friendly platform allows you to track finances,
+              <br /> manage apartments, and gain insights into your tenants life.
+            </p>
+          </div>
+          {/* second col */}
+          <img src="landing-photo2.jpg" className="w-[400px] h-[550px] rounded-lg" />
+          {/* third col */}
+          <div className="flex flex-col justify-around items-center w-1/3">
+            <div className="bg-landingGreen text-white px-4 py-4 text-lg rounded-md mb-2">
+              <IoBarChartOutline />
+            </div>
+            <p className="font-poppins font-bold text-sm text-landingMain mb-2">
+              <span className="text-landingGreen">Innovative</span> estate management
+            </p>
+            <p className="text-landingMain text-sm font-poppins text-center mb-32">
+              Discover a world where managing your estates is effortless.
+              <br /> Our user-friendly platform allows you to track finances,
+              <br /> manage apartments, and gain insights into your tenants life.
+            </p>
+            <div className="bg-landingGreen text-white px-4 py-4 text-lg rounded-md mb-2">
+              <IoBarChartOutline />
+            </div>
+            <p className="font-poppins font-bold text-sm text-landingMain mb-2">
+              <span className="text-landingGreen">Innovative</span> estate management
+            </p>
+            <p className="text-landingMain text-sm font-poppins text-center mb-32">
+              Discover a world where managing your estates is effortless.
+              <br /> Our user-friendly platform allows you to track finances,
+              <br /> manage apartments, and gain insights into your tenants life.
+            </p>
+          </div>
+        </div>
+      </section>
+      <section></section>
     </div>
   );
 };

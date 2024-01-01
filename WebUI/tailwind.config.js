@@ -7,6 +7,7 @@ export default {
         landingMain: "#084162",
         landingGreen: "#22C55E",
         landingGrey: "#0EA5E9",
+        landingLightGreen: "#DCFCE7",
         text: "#111827",
       },
       fontFamily: {
