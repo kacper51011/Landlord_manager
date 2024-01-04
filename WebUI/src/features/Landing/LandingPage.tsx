@@ -69,7 +69,7 @@ export const LandingPage = () => {
           className="w-[600px] h-[450px] rounded-md mt-4"
         />
       </section>
-      <section className="flex flex-col justify-center items-center w-screen mt-8 mb-8">
+      <section className="flex flex-col justify-center items-center w-screen mt-8 mb-16">
         <div className="rounded-xl bg-landingLightGreen text-landingGreen px-2 py-1 font-poppins mb-8">Features</div>
         <h2 className=" font-poppins font-bold text-4xl text-landingMain mb-4">
           Unlock the Future of Management Services
@@ -134,7 +134,24 @@ export const LandingPage = () => {
           </div>
         </div>
       </section>
-      <section></section>
+      <section className=" w-screen flex justify-center mb-16">
+        <div className="w-2/3 bg-[#084162] h-72 flex justify-around items-center">
+          <div className="flex flex-col">
+            <p className="text-[#C4C4C4] font-poppins  font-bold text-2xl">
+              The fastest way from
+              <br /> idea to finance solution
+            </p>
+            <p className="font-poppins text-[#C4C4C4] font-normal text-lg">
+              Join us today and take care
+              <br /> of your financial future
+            </p>
+          </div>
+          <div>
+            <button className="p-3 bg-landingGreen text-white rounded-md">Get Started</button>
+            <button>Learn More</button>
+          </div>
+        </div>
+      </section>
     </div>
   );
 };
