@@ -1,0 +1,18 @@
+.Navbar-row-item{
+    width: 100%;
+    text-decoration: none;
+    padding-top: 0.3rem;
+    padding-bottom: 0.3rem;
+    background-color: #F5F5F5; /* Kolor główny z Material Design */
+    color: #37474F; /* Kolor tekstu */
+    border-bottom: 0.2rem solid #42A5F5;
+    cursor: pointer;
+}
+
+.Navbar-row-item:hover{
+    background-color: #B3E5FC;
+}
+
+.Navbar-row-item-label{
+    padding-left: 1rem;
+}
