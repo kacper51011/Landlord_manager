@@ -23,7 +23,10 @@ namespace Apartments.Application.Consumers.Statistics
                 var statistic = await _statisticsRepository.GetApartmentAnyStatistics(context.Message.Year, context.Message.Month, context.Message.Day, context.Message.Hour);
                 if (statistic != null)
                 {
-                    _logger.LogInformation($"Apartment Statistic already created");
+                    //If we did get this message while our statistic is not null, it means that our statistic could be lost
+                    _logger.LogInformation($"Apartment Statistic already created but requested by StatisticsService");
+                    statistic.SetIsSentToStatisticsService(false);
+                    await _statisticsRepository.CreateOrUpdateApartmentStatistics(statistic);
                     return;
                 }
                 ApartmentsStatistics roomsStatistics;
