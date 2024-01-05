@@ -3,12 +3,7 @@ using Apartments.Domain.Interfaces;
 using Contracts.StatisticsMessages;
 using MassTransit;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Apartments.Application.Consumers.Statistics
 {
