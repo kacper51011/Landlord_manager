@@ -62,22 +62,20 @@ namespace Apartments.Infrastructure.Repositories
             var dateRangeFilter = builder.Gte(a => a.UpdateDates.Min(), startDate) & builder.Lte(a => a.UpdateDates.Max(), endDate);
             var versionFilter = builder.Gt(a => a.Version, 1);
             var combinedFilter = versionFilter & dateRangeFilter;
-            var result = await _apartmentsCollection.FindAsync(combinedFilter);
+            var result = await _apartmentsCollection.CountDocumentsAsync(combinedFilter);
 
-            return result.ToList().Count();
+            return (int)result;
         }
         public async Task<int> GetCreatedApartmentsCount(DateTime startDate, DateTime endDate)
         {
             //filter for number of created apartments from start - end date
             var builder = Builders<Apartment>.Filter;
             var filter = builder.Gte(a => a.CreationDate, startDate) & builder.Lt(a => a.CreationDate, endDate);
-            
-            var result = await _apartmentsCollection.FindAsync(filter).Result.ToListAsync();
-            if(result == null)
-            {
-                throw new Exception("problem with GetCreatedApartments");
-            }
-            return result.Count();
+
+            var result = await _apartmentsCollection.CountDocumentsAsync(filter);
+
+
+            return (int)result;
 
         }
         public async Task DeleteApartment(string apartmentId)
@@ -91,7 +89,7 @@ namespace Apartments.Infrastructure.Repositories
             var builder = Builders<Apartment>.Filter;
             var filter = builder.Eq(a => a.ApartmentId, apartmentId) & builder.Eq(a => a.LandlordId, landlordId);
 
-            return await _apartmentsCollection.FindAsync(filter).Result.FirstAsync();
+            return await _apartmentsCollection.Find(filter).FirstAsync();
 
 
         }
@@ -99,7 +97,7 @@ namespace Apartments.Infrastructure.Repositories
         public async Task<Apartment> GetApartmentById(string apartmentId)
         {
 
-                return await _apartmentsCollection.FindAsync(x => x.ApartmentId == apartmentId).Result.FirstOrDefaultAsync();
+                return await _apartmentsCollection.Find(x => x.ApartmentId == apartmentId).FirstOrDefaultAsync();
 
 
         }
