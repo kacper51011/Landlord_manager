@@ -52,10 +52,15 @@ namespace Apartments.Infrastructure.Repositories
         public async Task<ApartmentsStatistics> GetNotSendApartmentsStatistics()
         {
             var builder = Builders<ApartmentsStatistics>.Filter;
-            var filter = builder.Eq(x=> x.IsSendToStatisticsService, false);
+            var filter = builder.Eq(x => x.IsSendToStatisticsService, false) & builder.Eq(x => x.AreInformationsSubmitted, true);
+
+            var update = Builders<ApartmentsStatistics>.Update.Set(x => x.IsSendToStatisticsService, true);
 
             var sort = Builders<ApartmentsStatistics>.Sort.Descending(x => x.LastModifiedDate);
-            var returnValue = await _apartmentsStatisticsCollection.Find(filter).Sort(sort).FirstOrDefaultAsync();
+            var returnValue = await _apartmentsStatisticsCollection.FindOneAndUpdateAsync(filter, update);
+            //var returnValue2 = await _apartmentsStatisticsCollection.Fin(filter, )
+            //var returnValue = await _apartmentsStatisticsCollection.FindOneAndUpdate
+
             return returnValue;
         }
 
