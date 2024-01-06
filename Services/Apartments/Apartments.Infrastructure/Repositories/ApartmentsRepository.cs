@@ -2,22 +2,15 @@
 using Apartments.Domain.Interfaces;
 using Apartments.Infrastructure.Db;
 using Microsoft.Extensions.Options;
-using MongoDB.Bson;
 using MongoDB.Driver;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Apartments.Infrastructure.Repositories
 {
     public class ApartmentsRepository : IApartmentsRepository
     {
         private IMongoCollection<Apartment> _apartmentsCollection;
-        public ApartmentsRepository( IOptions<MongoSettings> apartmentsDatabaseSettings)
-   
+        public ApartmentsRepository(IOptions<MongoSettings> apartmentsDatabaseSettings)
+
         {
             var mongoClient = new MongoClient(
                 apartmentsDatabaseSettings.Value.ConnectionString);
@@ -36,7 +29,7 @@ namespace Apartments.Infrastructure.Repositories
             {
                 IsUpsert = true
             });
-   
+
         }
 
         public async Task<int> GetMostApartmentsOwnedByOneUserCount(DateTime endDate)
@@ -62,6 +55,7 @@ namespace Apartments.Infrastructure.Repositories
             var dateRangeFilter = builder.Gte(a => a.UpdateDates.Min(), startDate) & builder.Lte(a => a.UpdateDates.Max(), endDate);
             var versionFilter = builder.Gt(a => a.Version, 1);
             var combinedFilter = versionFilter & dateRangeFilter;
+
             var result = await _apartmentsCollection.CountDocumentsAsync(combinedFilter);
 
             return (int)result;
@@ -81,7 +75,7 @@ namespace Apartments.Infrastructure.Repositories
         public async Task DeleteApartment(string apartmentId)
         {
 
-            await _apartmentsCollection.FindOneAndDeleteAsync(x=> x.ApartmentId == apartmentId);
+            await _apartmentsCollection.FindOneAndDeleteAsync(x => x.ApartmentId == apartmentId);
         }
 
         public async Task<Apartment> GetApartmentByIdAndLandlordId(string landlordId, string apartmentId)
@@ -97,7 +91,7 @@ namespace Apartments.Infrastructure.Repositories
         public async Task<Apartment> GetApartmentById(string apartmentId)
         {
 
-                return await _apartmentsCollection.Find(x => x.ApartmentId == apartmentId).FirstOrDefaultAsync();
+            return await _apartmentsCollection.Find(x => x.ApartmentId == apartmentId).FirstOrDefaultAsync();
 
 
         }
