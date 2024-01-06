@@ -30,7 +30,7 @@ namespace Rooms.Domain
 
         public bool IsSendToStatisticsService { get; private set; }
 
-        public static RoomsStatistics CreateAsHourStatisticsInformation(int year, int month, int day, int hour)
+        public static RoomsStatistics CreateAsHourStatisticsInformations(int year, int month, int day, int hour)
         {
             var roomsStatistics = new RoomsStatistics()
             {
