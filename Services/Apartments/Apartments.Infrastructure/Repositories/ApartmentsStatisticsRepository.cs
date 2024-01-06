@@ -52,11 +52,27 @@ namespace Apartments.Infrastructure.Repositories
         public async Task<ApartmentsStatistics> GetNotSendApartmentsStatistics()
         {
             var builder = Builders<ApartmentsStatistics>.Filter;
-            var filter = builder.Eq(x=> x.IsSendToStatisticsService, false);
+            var filter = builder.Eq(x => x.IsSendToStatisticsService, false) & builder.Eq(x => x.AreInformationsSubmitted, true);
+
+            var update = Builders<ApartmentsStatistics>.Update.Set(x => x.IsSendToStatisticsService, true);
 
             var sort = Builders<ApartmentsStatistics>.Sort.Descending(x => x.LastModifiedDate);
-            var returnValue = await _apartmentsStatisticsCollection.Find(filter).Sort(sort).FirstOrDefaultAsync();
+            var returnValue = await _apartmentsStatisticsCollection.FindOneAndUpdateAsync(filter, update);
+            //var returnValue2 = await _apartmentsStatisticsCollection.Fin(filter, )
+            //var returnValue = await _apartmentsStatisticsCollection.FindOneAndUpdate
+
             return returnValue;
+        }
+
+        public async Task<ApartmentsStatistics> GetApartmentAnyStatistics(int year, int? month, int? day, int? hour)
+        {
+            var builder = Builders<ApartmentsStatistics>.Filter;
+            var anyFilter = builder.Eq(a => a.Year.Value, year) & builder.Eq(a => a.Month.Value, month) & builder.Eq(a => a.Day.Value, day) & builder.Eq(a => a.Hour.Value, hour);
+            var combinedFilter = anyFilter;
+
+            var result = await _apartmentsStatisticsCollection.FindAsync(combinedFilter).Result.FirstAsync();
+
+            return result;
         }
     }
 }

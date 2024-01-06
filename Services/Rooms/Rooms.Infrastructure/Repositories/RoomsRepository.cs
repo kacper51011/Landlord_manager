@@ -30,10 +30,10 @@ namespace Rooms.Infrastructure.Repositories
             });
         }
 
-        public async Task DeleteAllRoomsInApartment(string landlordId, string apartmentId)
+        public async Task DeleteAllRoomsInRoom(string landlordId, string apartmentId)
         {
             var builder = Builders<Room>.Filter;
-            var filter = builder.Eq(a => a.LandlordId, landlordId) & builder.Eq(a => a.ApartmentId, apartmentId);
+            var filter = builder.Eq(a => a.LandlordId, landlordId) & builder.Eq(a => a.RoomId, apartmentId);
             await _roomsCollection.DeleteManyAsync(filter);
         }
 
@@ -78,9 +78,71 @@ namespace Rooms.Infrastructure.Repositories
             return await _roomsCollection.FindAsync(filter).Result.FirstAsync();
         }
 
+        public async Task<List<Room>> GetRoomsByRoomId(string apartmentId)
+        {
+            return await _roomsCollection.FindAsync(x => x.RoomId == apartmentId).Result.ToListAsync();
+        }
+
+    public async Task<int> GetMostRoomsInOneApartment(DateTime endDate)
+    {
+        var filter = Builders<Room>.Filter.Lte(a => a.CreationDate, endDate);
+        var aggregation = _roomsCollection.Aggregate()
+        .Match(filter)
+        .Group(
+            key => key.LandlordId,
+            group => new
+            {
+                LandlordId = group.Key,
+                objectsCount = group.Count()
+            }
+            )
+        .SortBy(x => x.objectsCount);
+        var result = await aggregation.ToListAsync();
+        return result[0].objectsCount;
+    }
+    public async Task<int> GetUpdatedRoomsCount(DateTime startDate, DateTime endDate)
+    {
+        var builder = Builders<Room>.Filter;
+        var dateRangeFilter = builder.Gte(a => a.UpdateDates.Min(), startDate) & builder.Lte(a => a.UpdateDates.Max(), endDate);
+        var versionFilter = builder.Gt(a => a.Version, 1);
+        var combinedFilter = versionFilter & dateRangeFilter;
+
+        var result = await _roomsCollection.CountDocumentsAsync(combinedFilter);
+
+        return (int)result;
+    }
+    public async Task<int> GetCreatedRoomsCount(DateTime startDate, DateTime endDate)
+    {
+        //filter for number of created rooms from start - end date
+        var builder = Builders<Room>.Filter;
+        var filter = builder.Gte(a => a.CreationDate, startDate) & builder.Lt(a => a.CreationDate, endDate);
+
+        var result = await _roomsCollection.CountDocumentsAsync(filter);
+
+
+        return (int)result;
+
+    }
+
         public async Task<List<Room>> GetRoomsByApartmentId(string apartmentId)
         {
-            return await _roomsCollection.FindAsync(x => x.ApartmentId == apartmentId).Result.ToListAsync();
+            var builder = Builders<Room>.Filter;
+            var filter = builder.Eq(r => r.ApartmentId, apartmentId);
+
+            var result = await _roomsCollection.Find(filter).ToListAsync();
+            return result;
+        }
+
+        public async Task<int> GetBiggestCreatedRoomSize(DateTime dateEnd)
+        {
+            var builder = Builders<Room>.Filter;
+            var filter = builder.Lt(a => a.CreationDate, dateEnd);
+            var sort = Builders<Room>.Sort.Descending(x => x.Surface);
+
+            var result = await _roomsCollection.Find(filter).Sort(sort).FirstAsync();
+
+            return result.Surface;
         }
     }
+
 }

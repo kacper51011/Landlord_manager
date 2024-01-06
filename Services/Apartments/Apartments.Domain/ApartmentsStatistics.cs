@@ -30,7 +30,7 @@ namespace Apartments.Domain
         public int MostApartmentsOwnedByUser { get; private set; }
         public bool AreInformationsSubmitted { get; private set; }
         public bool IsSendToStatisticsService { get; private set; }
-        public string Scope { get; private set; }
+        //public string Scope { get; private set; }
 
         public static ApartmentsStatistics CreateAsHourStatisticsInformations(int year, int month, int day, int hour)
         {
@@ -40,7 +40,7 @@ namespace Apartments.Domain
                 Month = new Month(month),
                 Day = new Day(day),
                 Hour = new Hour(hour),
-                Scope = "Hour",
+                //Scope = "Hour",
                 StatisticsStart = new StatisticsStart(new DateTime(year, month, day, hour, 1, 1)),
                 StatisticsEnd = new StatisticsEnd(new DateTime(year, month, day, hour + 1, 1, 1))
                 
@@ -58,7 +58,7 @@ namespace Apartments.Domain
                 Month = new Month(month),
                 Day = new Day(day),
                 Hour = null,
-                Scope = "Day",
+                //Scope = "Day",
                 StatisticsStart = new StatisticsStart(new DateTime(year, month, day)),
                 StatisticsEnd = new StatisticsEnd(new DateTime(year, month, day + 1))
             };
@@ -75,7 +75,7 @@ namespace Apartments.Domain
                 Month = new Month(month),
                 Day = null,
                 Hour = null,
-                Scope = "Month",
+                //Scope = "Month",
                 StatisticsStart = new StatisticsStart(new DateTime(year, month, 1)),
                 StatisticsEnd = new StatisticsEnd(new DateTime(year, month + 1, 1))
             };
@@ -92,7 +92,7 @@ namespace Apartments.Domain
                 Month = null,
                 Day = null,
                 Hour = null,
-                Scope = "Year",
+                //Scope = "Year",
                 StatisticsStart = new StatisticsStart(new DateTime(year, 1, 1)),
                 StatisticsEnd = new StatisticsEnd(new DateTime(year + 1, 1, 1))
             };
@@ -109,6 +109,11 @@ namespace Apartments.Domain
             IncrementVersion();
 
 
+        }
+
+        public void SetIsSentToStatisticsService (bool isSent)
+        {
+            IsSendToStatisticsService = isSent;
         }
 
     }

@@ -103,5 +103,12 @@ namespace Statistics.Infrastructure.Repositories
         {
             throw new NotImplementedException();
         }
+
+        public async Task<TenantsStatistics> GetNotSentTenantStatistics()
+        {
+            var filter = Builders<TenantsStatistics>.Filter.Where(a => a.IsSent == false);
+            var response = await _tenantsStatisticsCollection.Find(filter).FirstAsync();
+            return response;
+        }
     }
 }

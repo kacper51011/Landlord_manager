@@ -3,11 +3,6 @@ using MongoDB.Driver;
 using Statistics.Domain.Entities;
 using Statistics.Domain.Interfaces;
 using Statistics.Infrastructure.Settings;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Statistics.Infrastructure.Repositories
 {
@@ -104,5 +99,11 @@ namespace Statistics.Infrastructure.Repositories
             throw new NotImplementedException();
         }
 
+        public async Task<ApartmentsStatistics> GetNotSentApartmentStatistics()
+        {
+            var filter = Builders<ApartmentsStatistics>.Filter.Where(a => a.IsSent == false);
+            var response = await _apartmentsStatisticsCollection.Find(filter).FirstAsync();
+            return response;
+        }
     }
 }
