@@ -8,6 +8,7 @@ using Rooms.Application.Worker;
 using Rooms.Domain.Interfaces;
 using Rooms.Infrastructure.Repositories;
 using Rooms.Infrastructure.Settings;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -60,7 +61,13 @@ builder.Services.AddMassTransit(cfg =>
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen((setup)=>
+{
+    var commentFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var commentFullPath = Path.Combine(AppContext.BaseDirectory, commentFile);
+
+    setup.IncludeXmlComments(commentFullPath);
+});
 
 var app = builder.Build();
 
