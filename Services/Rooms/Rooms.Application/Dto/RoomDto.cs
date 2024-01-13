@@ -14,8 +14,5 @@ namespace Rooms.Application.Dto
         public string Name { get; set; }
         public int Surface { get; set; }
         public string AnglesCoordinates { get; set; }
-        public int MaxTenantsNumber { get; set; }
-        public int CurrentTenantsNumber { get; set; }
-        public int MonthlyRent { get; set; }
     }
 }
