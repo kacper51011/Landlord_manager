@@ -1,6 +1,7 @@
 using Contracts.TenantsServiceEvents;
 using MassTransit;
 using Quartz;
+using System.Reflection;
 using Tenants.Application.Commands.CreateOrUpdateTenant;
 using Tenants.Application.Consumers;
 using Tenants.Application.Settings;
@@ -60,7 +61,13 @@ builder.Services.AddMassTransit(cfg =>
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen((setup) =>
+{
+    var commentFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var commentFullPath = Path.Combine(AppContext.BaseDirectory, commentFile);
+
+    setup.IncludeXmlComments(commentFullPath);
+});
 
 var app = builder.Build();
 
