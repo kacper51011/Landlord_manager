@@ -67,6 +67,22 @@ builder.Services.AddSwaggerGen((setup)=>
     var commentFullPath = Path.Combine(AppContext.BaseDirectory, commentFile);
 
     setup.IncludeXmlComments(commentFullPath);
+    setup.SwaggerDoc("RoomsOpenAPISpecification", new()
+    {
+        Title = "Rooms Api",
+        Version = "v1",
+        Description = "<h3>Rooms service created for Landlords project, provide simple interface for managing rooms</h3><br/>" +
+        "Service provides endpoints for:<br/>" +
+        "<ul> <li>Getting Rooms for specified apartment</li><br/>" +
+        "<li>Creating new room or updating existing one</li><br/>" +
+        "<li>Deleting existing room</li><br/><ul/>",
+        Contact = new()
+        {
+            Email = "kacper.tylec1999@gmail.com",
+            Name = "Kacper Tylec",
+        }
+    });
+
 });
 
 var app = builder.Build();
@@ -75,7 +91,10 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI((setup) =>
+    {
+        setup.SwaggerEndpoint("RoomsOpenAPISpecification/swagger.json", "Rooms Api");
+    });
 }
 
 app.UseHttpsRedirection();

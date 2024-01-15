@@ -2,6 +2,7 @@ using Apartments.API.Configurations;
 using Apartments.API.Registers;
 using Apartments.Application.Commands.CreateOrUpdateApartment;
 using Apartments.Application.Consumers;
+using Apartments.Application.Consumers.Statistics;
 using Apartments.Application.Settings;
 using Apartments.Domain.Interfaces;
 using Apartments.Infrastructure.Db;
@@ -26,7 +27,19 @@ builder.Services.AddMassTransit(cfg =>
 {
     cfg.SetDefaultEndpointNameFormatter();
 
+    cfg.AddConsumer<ApartmentsHourStatisticsMessageConsumer>();
+    cfg.AddConsumer<ApartmentsDayStatisticsMessageConsumer>();
+    cfg.AddConsumer<ApartmentsMonthStatisticsMessageConsumer>();
+    cfg.AddConsumer<ApartmentsYearStatisticsMessageConsumer>();
+
+
+    cfg.AddConsumer<ManuallyCreatedStatisticMessageConsumer>();
+    cfg.AddConsumer<ApartmentStatisticsToProcessMessageConsumer>();
+
+    
+
     cfg.AddConsumer<RoomCheckedConsumer>();
+
 
     cfg.UsingRabbitMq((context, configuration) =>
     {

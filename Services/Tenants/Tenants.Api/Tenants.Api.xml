@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Tenants.Api</name>
+    </assembly>
+    <members>
+        <member name="M:Tenants.Api.Controllers.TenantsController.GetTenants(System.String)">
+            <summary>
+            Gets List of tenants for specified roomId
+            </summary>
+            <param name="roomId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tenants.Api.Controllers.TenantsController.CreateOrUpdateTenant(Tenants.Application.Dtos.TenantDto)">
+            <summary>
+            Creates or updates tenant, depends on including tenantId in body
+            </summary>
+            <param name="tenantDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tenants.Api.Controllers.TenantsController.DeleteTenant(System.String)">
+            <summary>
+            Deletes tenant with specified tenantId in room with specified roomId
+            </summary>
+            <param name="tenantId"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
