@@ -3,6 +3,7 @@ using MassTransit.DependencyInjection;
 using Quartz;
 using Rooms.Application.Commands.CreateOrUpdateRoom;
 using Rooms.Application.Consumers;
+using Rooms.Application.Consumers.Statistics;
 using Rooms.Application.Settings;
 using Rooms.Application.Worker;
 using Rooms.Domain.Interfaces;
@@ -18,6 +19,7 @@ builder.Services.Configure<RabbitMQSettings>(builder.Configuration.GetSection("R
 
 
 builder.Services.AddSingleton<IRoomsRepository, RoomsRepository>();
+builder.Services.AddSingleton<IRoomsStatisticsRepository, RoomsStatisticsRepository>();
 
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining(typeof(CreateOrUpdateRoomCommandHandler)));
 
@@ -31,18 +33,46 @@ builder.Services.AddQuartz(options =>
     {
         trigger.ForJob(jobKey).WithSimpleSchedule(schedule => schedule.WithIntervalInMinutes(1).RepeatForever());
     });
+
+    var jobKeySendStats = JobKey.Create(nameof(SendStatisticsBackgroundJob));
+
+    options
+    .AddJob<SendStatisticsBackgroundJob>(jobKeySendStats)
+    .AddTrigger(trigger =>
+    {
+        trigger.ForJob(jobKeySendStats).WithSimpleSchedule(schedule => schedule.WithIntervalInMinutes(10).RepeatForever());
+    });
+
+    var jobKeyStartStats = JobKey.Create(nameof(StartGettingStatisticsBackgroundJob));
+
+    options
+    .AddJob<StartGettingStatisticsBackgroundJob>(jobKeyStartStats)
+    .AddTrigger(trigger =>
+    {
+        trigger.ForJob(jobKeyStartStats).WithSimpleSchedule(schedule => schedule.WithIntervalInMinutes(5).RepeatForever());
+    });
+
 });
 
-builder.Services.AddQuartzHostedService(options =>
-{
-    options.WaitForJobsToComplete = true;
-});
+//builder.Services.AddQuartzHostedService(options =>
+//{
+//    options.WaitForJobsToComplete = false;
+//});
 
 builder.Services.AddMassTransit(cfg =>
 {
     cfg.SetDefaultEndpointNameFormatter();
 
     cfg.AddConsumer<TenantCheckedConsumer>();
+    cfg.AddConsumer<ApartmentDeletedConsumer>();
+
+    cfg.AddConsumer<ManuallyCreatedStatisticMessageConsumer>();
+    cfg.AddConsumer<RoomStatisticsToProcessMessageConsumer>();
+
+    cfg.AddConsumer<RoomHourStatisticsMessageConsumer>();
+    cfg.AddConsumer<RoomDayStatisticsMessageConsumer>();
+    cfg.AddConsumer<RoomMonthStatisticsMessageConsumer>();
+    cfg.AddConsumer<RoomYearStatisticsMessageConsumer>();
 
     cfg.UsingRabbitMq((context, configuration) =>
     {

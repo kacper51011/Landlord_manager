@@ -56,6 +56,7 @@ builder.Services.AddQuartz(options =>
     });
 });
 
+
 builder.Services.AddMassTransit(cfg =>
 {
     cfg.SetDefaultEndpointNameFormatter();

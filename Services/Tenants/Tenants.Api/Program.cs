@@ -44,6 +44,7 @@ builder.Services.AddMassTransit(cfg =>
     cfg.SetDefaultEndpointNameFormatter();
     cfg.AddConsumer<RoomDeletedConsumer>();
 
+
     cfg.UsingRabbitMq((context, configuration) =>
     {
 
