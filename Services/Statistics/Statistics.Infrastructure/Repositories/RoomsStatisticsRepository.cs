@@ -37,7 +37,7 @@ namespace Statistics.Infrastructure.Repositories
 
         public async Task<RoomsStatistics> GetRoomsStatisticsById(string apartmentStatisticsId)
         {
-            return await _roomsStatisticsCollection.FindAsync(x => x.RoomsStatisticsId == apartmentStatisticsId).Result.FirstAsync();
+            return await _roomsStatisticsCollection.Find(x => x.RoomsStatisticsId == apartmentStatisticsId).FirstOrDefaultAsync();
 
         }
         public async Task<RoomsStatistics> GetRoomsYearStatistics(int year)
@@ -48,7 +48,7 @@ namespace Statistics.Infrastructure.Repositories
             var nullFilter = builder.Eq(a => a.Month, null) & builder.Eq(a => a.Day, null) & builder.Eq(a => a.Hour, null);
             var combinedFilter = yearFilter & nullFilter;
 
-            var result = await _roomsStatisticsCollection.FindAsync(combinedFilter).Result.FirstAsync();
+            var result = await _roomsStatisticsCollection.Find(combinedFilter).FirstOrDefaultAsync();
 
             return result;
 
@@ -61,7 +61,7 @@ namespace Statistics.Infrastructure.Repositories
             var nullFilter = builder.Eq(a => a.Day, null) & builder.Eq(a => a.Hour, null);
             var combinedFilter = monthFilter & nullFilter;
 
-            var result = await _roomsStatisticsCollection.FindAsync(combinedFilter).Result.FirstAsync();
+            var result = await _roomsStatisticsCollection.Find(combinedFilter).FirstOrDefaultAsync();
 
             return result;
 
@@ -73,7 +73,7 @@ namespace Statistics.Infrastructure.Repositories
             var nullFilter = builder.Eq(a => a.Hour, null);
             var combinedFilter = dayFilter & nullFilter;
 
-            var result = await _roomsStatisticsCollection.FindAsync(combinedFilter).Result.FirstAsync();
+            var result = await _roomsStatisticsCollection.Find(combinedFilter).FirstOrDefaultAsync();
 
             return result;
         }
@@ -83,7 +83,7 @@ namespace Statistics.Infrastructure.Repositories
             var dayFilter = builder.Eq(a => a.Year.Value, year) & builder.Eq(a => a.Month.Value, month) & builder.Eq(a => a.Day.Value, day) & builder.Eq(a => a.Hour.Value, hour);
             var combinedFilter = dayFilter;
 
-            var result = await _roomsStatisticsCollection.FindAsync(combinedFilter).Result.FirstAsync();
+            var result = await _roomsStatisticsCollection.Find(combinedFilter).FirstOrDefaultAsync();
 
             return result;
         }
@@ -93,7 +93,7 @@ namespace Statistics.Infrastructure.Repositories
             var anyFilter = builder.Eq(a => a.Year.Value, year) & builder.Eq(a => a.Month.Value, month) & builder.Eq(a => a.Day.Value, day) & builder.Eq(a => a.Hour.Value, hour);
             var combinedFilter = anyFilter;
 
-            var result = await _roomsStatisticsCollection.FindAsync(combinedFilter).Result.FirstAsync();
+            var result = await _roomsStatisticsCollection.Find(combinedFilter).FirstOrDefaultAsync();
 
             return result;
         }
@@ -107,7 +107,7 @@ namespace Statistics.Infrastructure.Repositories
         public async Task<RoomsStatistics> GetNotSentRoomStatistics()
         {
             var filter = Builders<RoomsStatistics>.Filter.Where(a => a.IsSent == false);
-            var response = await _roomsStatisticsCollection.Find(filter).FirstAsync();
+            var response = await _roomsStatisticsCollection.Find(filter).FirstOrDefaultAsync();
             return response;
         }
     }
