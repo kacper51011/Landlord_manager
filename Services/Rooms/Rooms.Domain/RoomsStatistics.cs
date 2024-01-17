@@ -27,7 +27,6 @@ namespace Rooms.Domain
         public int BiggestCreatedRoomSize { get; private set; }
         public int MostRoomsInApartment { get; private set; }
         public bool AreInformationsSubmitted { get; private set; }
-
         public bool IsSendToStatisticsService { get; private set; }
 
         public static RoomsStatistics CreateAsHourStatisticsInformations(int year, int month, int day, int hour)
@@ -38,6 +37,8 @@ namespace Rooms.Domain
                 Month = new Month(month),
                 Day = new Day(day),
                 Hour = new Hour(hour),
+                StatisticsStart = new StatisticsStart(new DateTime(year, month, day, hour, 1, 1)),
+                StatisticsEnd = new StatisticsEnd(new DateTime(year, month, day, hour, 1, 1).AddHours(1))
 
             };
             roomsStatistics.SetCreationDate();
@@ -54,7 +55,7 @@ namespace Rooms.Domain
                 Hour = null,
                 //Scope = "Day",
                 StatisticsStart = new StatisticsStart(new DateTime(year, month, day)),
-                StatisticsEnd = new StatisticsEnd(new DateTime(year, month, day + 1))
+                StatisticsEnd = new StatisticsEnd(new DateTime(year, month, day).AddDays(1))
             };
             roomsStatistic.SetCreationDate();
             roomsStatistic.IncrementVersion();
@@ -71,7 +72,8 @@ namespace Rooms.Domain
                 Hour = null,
                 //Scope = "Month",
                 StatisticsStart = new StatisticsStart(new DateTime(year, month, 1)),
-                StatisticsEnd = new StatisticsEnd(new DateTime(year, month + 1, 1))
+                StatisticsEnd = new StatisticsEnd(new DateTime(year, month, 1).AddMonths(1))
+
             };
             roomsStatistic.SetCreationDate();
             roomsStatistic.IncrementVersion();
@@ -88,7 +90,7 @@ namespace Rooms.Domain
                 Hour = null,
                 //Scope = "Year",
                 StatisticsStart = new StatisticsStart(new DateTime(year, 1, 1)),
-                StatisticsEnd = new StatisticsEnd(new DateTime(year + 1, 1, 1))
+                StatisticsEnd = new StatisticsEnd(new DateTime(year, 1, 1).AddYears(1))
             };
             roomsStatistic.SetCreationDate();
             roomsStatistic.IncrementVersion();

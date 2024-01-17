@@ -42,7 +42,7 @@ namespace Apartments.Domain
                 Hour = new Hour(hour),
                 //Scope = "Hour",
                 StatisticsStart = new StatisticsStart(new DateTime(year, month, day, hour, 1, 1)),
-                StatisticsEnd = new StatisticsEnd(new DateTime(year, month, day, hour + 1, 1, 1))
+                StatisticsEnd = new StatisticsEnd(new DateTime(year, month, day, hour, 1, 1).AddHours(1))
                 
             };
             apartmentStatistic.SetCreationDate();
@@ -60,7 +60,7 @@ namespace Apartments.Domain
                 Hour = null,
                 //Scope = "Day",
                 StatisticsStart = new StatisticsStart(new DateTime(year, month, day)),
-                StatisticsEnd = new StatisticsEnd(new DateTime(year, month, day + 1))
+                StatisticsEnd = new StatisticsEnd(new DateTime(year, month, day).AddDays(1))
             };
             apartmentStatistic.SetCreationDate();
             apartmentStatistic.IncrementVersion();
@@ -77,7 +77,7 @@ namespace Apartments.Domain
                 Hour = null,
                 //Scope = "Month",
                 StatisticsStart = new StatisticsStart(new DateTime(year, month, 1)),
-                StatisticsEnd = new StatisticsEnd(new DateTime(year, month + 1, 1))
+                StatisticsEnd = new StatisticsEnd(new DateTime(year, month, 1).AddMonths(1))
             };
             apartmentStatistic.SetCreationDate();
             apartmentStatistic.IncrementVersion();
@@ -94,7 +94,7 @@ namespace Apartments.Domain
                 Hour = null,
                 //Scope = "Year",
                 StatisticsStart = new StatisticsStart(new DateTime(year, 1, 1)),
-                StatisticsEnd = new StatisticsEnd(new DateTime(year + 1, 1, 1))
+                StatisticsEnd = new StatisticsEnd(new DateTime(year, 1, 1).AddYears(1))
             };
             apartmentStatistic.SetCreationDate();
             apartmentStatistic.IncrementVersion();
