@@ -15,6 +15,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddSingleton<ITenantsRepository, TenantsRepository>();
+builder.Services.AddSingleton<ITenantsStatisticsRepository, TenantsStatisticsRepository>();
 
 builder.Services.Configure<MongoSettings>(builder.Configuration.GetSection("MongoDB"));
 builder.Services.Configure<RabbitMQSettings>(builder.Configuration.GetSection("RabbitMQ"));
@@ -34,10 +35,7 @@ builder.Services.AddQuartz(options =>
     });
 });
 
-builder.Services.AddQuartzHostedService(options =>
-{
-    options.WaitForJobsToComplete = true;
-});
+
 
 builder.Services.AddMassTransit(cfg =>
 {

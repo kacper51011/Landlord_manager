@@ -16,7 +16,7 @@ namespace Tenants.Domain
             TenantsUpdated = 0;
             HighestRent = 0;
             MostTenantsInRoom = 0;
-            IsFullyProcessed = false;
+            AreInformationsSubmitted = false;
         }
         public string TenantsStatisticsId { get; private set; }
         public Year Year { get; private set; }
@@ -29,8 +29,8 @@ namespace Tenants.Domain
         public int TenantsUpdated { get; private set; }
         public int HighestRent { get; private set; }
         public int MostTenantsInRoom { get; private set; }
-        public bool IsSent { get; private set; }
-        public bool IsFullyProcessed { get; private set; }
+        public bool IsSendToStatisticsService { get; private set; }
+        public bool AreInformationsSubmitted { get; private set; }
         public string Scope { get; private set; }
 
         public static TenantsStatistics CreateAsHourStatisticsInformations(int year, int month, int day, int hour, bool isSent)
@@ -44,7 +44,7 @@ namespace Tenants.Domain
                 Scope = "Hour",
                 StatisticsStart = new StatisticsStart(new DateTime(year, month, day, hour, 1, 1)),
                 StatisticsEnd = new StatisticsEnd(new DateTime(year, month, day, hour, 1, 1).AddHours(1)),
-                IsSent = isSent
+                IsSendToStatisticsService = isSent
             };
 
         }
@@ -59,7 +59,7 @@ namespace Tenants.Domain
                 Scope = "Day",
                 StatisticsStart = new StatisticsStart(new DateTime(year, month, day)),
                 StatisticsEnd = new StatisticsEnd(new DateTime(year, month, day).AddDays(1)),
-                IsSent = isSent
+                IsSendToStatisticsService = isSent
             };
         }
 
@@ -74,7 +74,7 @@ namespace Tenants.Domain
                 Scope = "Month",
                 StatisticsStart = new StatisticsStart(new DateTime(year, month, 1)),
                 StatisticsEnd = new StatisticsEnd(new DateTime(year, month, 1).AddMonths(1)),
-                IsSent = isSent
+                IsSendToStatisticsService = isSent
             };
         }
 
@@ -89,7 +89,7 @@ namespace Tenants.Domain
                 Scope = "Year",
                 StatisticsStart = new StatisticsStart(new DateTime(year, 1, 1)),
                 StatisticsEnd = new StatisticsEnd(new DateTime(year, 1, 1).AddYears(1)),
-                IsSent = isSent
+                IsSendToStatisticsService = isSent
             };
 
         }
@@ -100,11 +100,12 @@ namespace Tenants.Domain
             TenantsUpdated = tenantsUpdated;
             HighestRent = highestRent;
             MostTenantsInRoom = mostTenantsInRoom;
+            AreInformationsSubmitted = true;
         }
 
         public void SetIsSent(bool isSent)
         {
-            IsSent = isSent;
+            IsSendToStatisticsService = isSent;
         }
     }
 }
