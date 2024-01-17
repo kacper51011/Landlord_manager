@@ -17,6 +17,7 @@ namespace Tenants.Domain
             HighestRent = 0;
             MostTenantsInRoom = 0;
             AreInformationsSubmitted = false;
+            IsSendToStatisticsService = false;
         }
         public string TenantsStatisticsId { get; private set; }
         public Year Year { get; private set; }
@@ -33,7 +34,7 @@ namespace Tenants.Domain
         public bool AreInformationsSubmitted { get; private set; }
         public string Scope { get; private set; }
 
-        public static TenantsStatistics CreateAsHourStatisticsInformations(int year, int month, int day, int hour, bool isSent)
+        public static TenantsStatistics CreateAsHourStatisticsInformations(int year, int month, int day, int hour)
         {
             return new TenantsStatistics()
             {
@@ -43,12 +44,11 @@ namespace Tenants.Domain
                 Hour = new Hour(hour),
                 Scope = "Hour",
                 StatisticsStart = new StatisticsStart(new DateTime(year, month, day, hour, 1, 1)),
-                StatisticsEnd = new StatisticsEnd(new DateTime(year, month, day, hour, 1, 1).AddHours(1)),
-                IsSendToStatisticsService = isSent
+                StatisticsEnd = new StatisticsEnd(new DateTime(year, month, day, hour, 1, 1).AddHours(1))
             };
 
         }
-        public static TenantsStatistics CreateAsDayStatisticsInformations(int year, int month, int day, bool isSent)
+        public static TenantsStatistics CreateAsDayStatisticsInformations(int year, int month, int day)
         {
             return new TenantsStatistics()
             {
@@ -58,12 +58,11 @@ namespace Tenants.Domain
                 Hour = null,
                 Scope = "Day",
                 StatisticsStart = new StatisticsStart(new DateTime(year, month, day)),
-                StatisticsEnd = new StatisticsEnd(new DateTime(year, month, day).AddDays(1)),
-                IsSendToStatisticsService = isSent
+                StatisticsEnd = new StatisticsEnd(new DateTime(year, month, day).AddDays(1))
             };
         }
 
-        public static TenantsStatistics CreateAsMonthStatisticsInformations(int year, int month, bool isSent)
+        public static TenantsStatistics CreateAsMonthStatisticsInformations(int year, int month)
         {
             return new TenantsStatistics()
             {
@@ -73,12 +72,11 @@ namespace Tenants.Domain
                 Hour = null,
                 Scope = "Month",
                 StatisticsStart = new StatisticsStart(new DateTime(year, month, 1)),
-                StatisticsEnd = new StatisticsEnd(new DateTime(year, month, 1).AddMonths(1)),
-                IsSendToStatisticsService = isSent
+                StatisticsEnd = new StatisticsEnd(new DateTime(year, month, 1).AddMonths(1))
             };
         }
 
-        public static TenantsStatistics CreateAsYearStatisticsInformations(int year, bool isSent)
+        public static TenantsStatistics CreateAsYearStatisticsInformations(int year)
         {
             return new TenantsStatistics()
             {
@@ -88,8 +86,7 @@ namespace Tenants.Domain
                 Hour = null,
                 Scope = "Year",
                 StatisticsStart = new StatisticsStart(new DateTime(year, 1, 1)),
-                StatisticsEnd = new StatisticsEnd(new DateTime(year, 1, 1).AddYears(1)),
-                IsSendToStatisticsService = isSent
+                StatisticsEnd = new StatisticsEnd(new DateTime(year, 1, 1).AddYears(1))
             };
 
         }
