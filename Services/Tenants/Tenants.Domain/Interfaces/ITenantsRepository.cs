@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MongoDB.Bson.IO;
 using Tenants.Domain.Entities;
 
 namespace Tenants.Domain.Interfaces
@@ -14,8 +10,13 @@ namespace Tenants.Domain.Interfaces
         public Task CreateOrUpdateTenant(Tenant tenant);
         public Task<Tenant> GetTenantByIdAndRoomId(string tenantId, string roomId);
         public Task DeleteTenant(string tenantId);
-
         public Task DeleteAllTenantsInRoom(string RoomId);
         public Task<Tenant> GetTenantById(string tenantId);
+
+        // statistics gets
+        public Task<int> GetMostTenantsInOneRoomCount(DateTime endDate);
+        public Task<int> GetUpdatedTenantsCount(DateTime startDate, DateTime endDate);
+        public Task<int> GetCreatedTenantsCount(DateTime startDate, DateTime endDate);
+        public Task<int> GetHighestRentValue(DateTime startDate, DateTime endDate);
     }
 }

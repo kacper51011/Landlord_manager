@@ -100,7 +100,7 @@ namespace Tenants.Domain
             AreInformationsSubmitted = true;
         }
 
-        public void SetIsSent(bool isSent)
+        public void SetIsSentToStatisticsService(bool isSent)
         {
             IsSendToStatisticsService = isSent;
         }
