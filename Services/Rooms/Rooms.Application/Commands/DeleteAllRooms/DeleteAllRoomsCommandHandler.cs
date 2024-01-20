@@ -18,7 +18,7 @@ namespace Rooms.Application.Commands.DeleteAllRooms
         }
         public async Task Handle(DeleteAllRoomsCommand request, CancellationToken cancellationToken)
         {
-            await _roomsRepository.DeleteAllRoomsInApartment(request.landlordId, request.apartmentId);
+            //await _roomsRepository.DeleteAllRoomsInApartment(request.landlordId, request.apartmentId);
         }
     }
 }

@@ -9,6 +9,7 @@
     <DockerfileContext>..\..\..</DockerfileContext>
     <DockerComposeProjectPath>..\..\..\docker-compose.dcproj</DockerComposeProjectPath>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <DocumentationFile>Rooms.Api.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

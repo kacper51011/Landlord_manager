@@ -33,7 +33,7 @@ namespace Statistics.Application.Consumers.Tenants
                 }
                 TenantsStatistics apartmentStatistic = TenantsStatistics.CreateAsMonthStatisticsInformations(context.Message.Year, context.Message.Month, true);
                 await _tenantsStatisticsRepository.CreateOrUpdateTenantsStatistics(apartmentStatistic);
-                _logger.LogInformation($"Month apartment statistic created with Id {apartmentStatistic.TenantsStatisticsId}");
+                _logger.LogInformation($"Month apartment statistic created with Id {apartmentStatistic.TenantStatisticId}");
                 return;
             }
             catch (DuplicateNameException ex)

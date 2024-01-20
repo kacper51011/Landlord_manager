@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Rooms.Api</name>
+    </assembly>
+    <members>
+        <member name="M:Rooms.Api.Controllers.RoomsController.GetApartmentRooms(System.String)">
+            <summary>
+            Gets rooms located in specified apartment
+            </summary>
+            <param name="apartmentId">Id of apartment</param>
+            <returns>List of rooms</returns>
+        </member>
+        <member name="M:Rooms.Api.Controllers.RoomsController.CreateOrUpdateRoom(Rooms.Application.Dto.RoomDto)">
+            <summary>
+            Responsible for creating room or updating already existing one
+            </summary>
+            <param name="roomDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Rooms.Api.Controllers.RoomsController.DeleteRoom(System.String,System.String,System.String)">
+            <summary>
+            Responsible for deleting room in apartment
+            </summary>
+            <param name="landlordId"></param>
+            <param name="apartmentId"></param>
+            <param name="roomId"></param>
+            <returns>Returns status code 200 if operation succeeded</returns>
+        </member>
+    </members>
+</doc>

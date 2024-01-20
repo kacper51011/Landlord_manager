@@ -29,7 +29,7 @@ namespace Rooms.Application.Commands.CreateOrUpdateRoom
                 RoomDto x = request.RoomDto;
                 if (request.RoomDto.RoomId == null)
                 {
-                    Room room = Room.CreateRoom(x.ApartmentId, x.LandlordId, x.Name, x.Surface, x.AnglesCoordinates, x.MaxTenantsNumber, x.CurrentTenantsNumber, x.MonthlyRent);
+                    Room room = Room.CreateRoom(x.ApartmentId, x.LandlordId, x.Name, x.Surface, x.AnglesCoordinates);
                     await _roomsRepository.CreateOrUpdateRoom(room);
                     return;
                 } else
@@ -37,12 +37,12 @@ namespace Rooms.Application.Commands.CreateOrUpdateRoom
                     var room = await _roomsRepository.GetRoomById(request.RoomDto.RoomId);
                     if (room == null)
                     {
-                        room = Room.CreateRoom(x.ApartmentId, x.LandlordId, x.Name, x.Surface, x.AnglesCoordinates, x.MaxTenantsNumber, x.CurrentTenantsNumber, x.MonthlyRent);
+                        room = Room.CreateRoom(x.ApartmentId, x.LandlordId, x.Name, x.Surface, x.AnglesCoordinates);
                         await _roomsRepository.CreateOrUpdateRoom(room);
 
                     } else
                     {
-                        room.UpdateRoom(x.Name, x.Surface, x.AnglesCoordinates, x.MaxTenantsNumber, x.CurrentTenantsNumber, x.MonthlyRent);
+                        room.UpdateRoom(x.Name, x.Surface, x.AnglesCoordinates);
                     }
                     
                 }

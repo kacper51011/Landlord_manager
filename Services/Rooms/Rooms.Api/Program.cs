@@ -3,11 +3,13 @@ using MassTransit.DependencyInjection;
 using Quartz;
 using Rooms.Application.Commands.CreateOrUpdateRoom;
 using Rooms.Application.Consumers;
+using Rooms.Application.Consumers.Statistics;
 using Rooms.Application.Settings;
 using Rooms.Application.Worker;
 using Rooms.Domain.Interfaces;
 using Rooms.Infrastructure.Repositories;
 using Rooms.Infrastructure.Settings;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +19,7 @@ builder.Services.Configure<RabbitMQSettings>(builder.Configuration.GetSection("R
 
 
 builder.Services.AddSingleton<IRoomsRepository, RoomsRepository>();
+builder.Services.AddSingleton<IRoomsStatisticsRepository, RoomsStatisticsRepository>();
 
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining(typeof(CreateOrUpdateRoomCommandHandler)));
 
@@ -30,18 +33,46 @@ builder.Services.AddQuartz(options =>
     {
         trigger.ForJob(jobKey).WithSimpleSchedule(schedule => schedule.WithIntervalInMinutes(1).RepeatForever());
     });
+
+    var jobKeySendStats = JobKey.Create(nameof(SendStatisticsBackgroundJob));
+
+    options
+    .AddJob<SendStatisticsBackgroundJob>(jobKeySendStats)
+    .AddTrigger(trigger =>
+    {
+        trigger.ForJob(jobKeySendStats).WithSimpleSchedule(schedule => schedule.WithIntervalInMinutes(10).RepeatForever());
+    });
+
+    var jobKeyStartStats = JobKey.Create(nameof(StartGettingStatisticsBackgroundJob));
+
+    options
+    .AddJob<StartGettingStatisticsBackgroundJob>(jobKeyStartStats)
+    .AddTrigger(trigger =>
+    {
+        trigger.ForJob(jobKeyStartStats).WithSimpleSchedule(schedule => schedule.WithIntervalInMinutes(5).RepeatForever());
+    });
+
 });
 
-builder.Services.AddQuartzHostedService(options =>
-{
-    options.WaitForJobsToComplete = true;
-});
+//builder.Services.AddQuartzHostedService(options =>
+//{
+//    options.WaitForJobsToComplete = false;
+//});
 
 builder.Services.AddMassTransit(cfg =>
 {
     cfg.SetDefaultEndpointNameFormatter();
 
     cfg.AddConsumer<TenantCheckedConsumer>();
+    cfg.AddConsumer<ApartmentDeletedConsumer>();
+
+    cfg.AddConsumer<ManuallyCreatedRoomsServiceStatisticMessageConsumer>();
+    cfg.AddConsumer<RoomServiceStatisticsToProcessMessageConsumer>();
+
+    cfg.AddConsumer<RoomsServiceHourStatisticsMessageConsumer>();
+    cfg.AddConsumer<RoomsServiceDayStatisticsMessageConsumer>();
+    cfg.AddConsumer<RoomsServiceMonthStatisticsMessageConsumer>();
+    cfg.AddConsumer<RoomsServiceYearStatisticsMessageConsumer>();
 
     cfg.UsingRabbitMq((context, configuration) =>
     {
@@ -60,7 +91,29 @@ builder.Services.AddMassTransit(cfg =>
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen((setup)=>
+{
+    var commentFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var commentFullPath = Path.Combine(AppContext.BaseDirectory, commentFile);
+
+    setup.IncludeXmlComments(commentFullPath);
+    setup.SwaggerDoc("RoomsOpenAPISpecification", new()
+    {
+        Title = "Rooms Api",
+        Version = "v1",
+        Description = "<h3>Rooms service created for Landlords project, provide simple interface for managing rooms</h3><br/>" +
+        "Service provides endpoints for:<br/>" +
+        "<ul> <li>Getting Rooms for specified apartment</li><br/>" +
+        "<li>Creating new room or updating existing one</li><br/>" +
+        "<li>Deleting existing room</li><br/><ul/>",
+        Contact = new()
+        {
+            Email = "kacper.tylec1999@gmail.com",
+            Name = "Kacper Tylec",
+        }
+    });
+
+});
 
 var app = builder.Build();
 
@@ -68,7 +121,10 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI((setup) =>
+    {
+        setup.SwaggerEndpoint("RoomsOpenAPISpecification/swagger.json", "Rooms Api");
+    });
 }
 
 app.UseHttpsRedirection();

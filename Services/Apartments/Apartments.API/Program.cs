@@ -2,7 +2,9 @@ using Apartments.API.Configurations;
 using Apartments.API.Registers;
 using Apartments.Application.Commands.CreateOrUpdateApartment;
 using Apartments.Application.Consumers;
+using Apartments.Application.Consumers.Statistics;
 using Apartments.Application.Settings;
+using Apartments.Application.Workers;
 using Apartments.Domain.Interfaces;
 using Apartments.Infrastructure.Db;
 using Apartments.Infrastructure.Repositories;
@@ -11,6 +13,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.Extensions.Configuration;
+using Quartz;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,12 +24,48 @@ builder.Services.Configure<RabbitMQSettings>(builder.Configuration.GetSection("R
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining(typeof(CreateOrUpdateApartmentCommandHandler)));
 
 builder.Services.AddSingleton<IApartmentsRepository, ApartmentsRepository>();
+builder.Services.AddSingleton<IApartmentsStatisticsRepository, ApartmentsStatisticsRepository>();
+
+builder.Services.AddQuartz(options =>
+{
+    var jobKey = JobKey.Create(nameof(SendStatisticsBackgroundJob));
+
+    options
+    .AddJob<SendStatisticsBackgroundJob>(jobKey)
+    .AddTrigger(trigger =>
+    {
+        trigger.ForJob(jobKey).WithSimpleSchedule(schedule => schedule.WithIntervalInMinutes(10).RepeatForever());
+    });
+
+    var jobKey2 = JobKey.Create(nameof(StartGettingStatisticsBackgroundJob));
+
+    options
+    .AddJob<StartGettingStatisticsBackgroundJob>(jobKey2)
+    .AddTrigger(trigger =>
+    {
+        trigger.ForJob(jobKey2).WithSimpleSchedule(schedule => schedule.WithIntervalInMinutes(5).RepeatForever());
+    });
+
+
+});
 
 builder.Services.AddMassTransit(cfg =>
 {
     cfg.SetDefaultEndpointNameFormatter();
 
+    cfg.AddConsumer<ApartmentsServiceHourStatisticsMessageConsumer>();
+    cfg.AddConsumer<ApartmentsServiceDayStatisticsMessageConsumer>();
+    cfg.AddConsumer<ApartmentsServiceMonthStatisticsMessageConsumer>();
+    cfg.AddConsumer<ApartmentsServiceYearStatisticsMessageConsumer>();
+
+
+    cfg.AddConsumer<ManuallyCreatedApartmentsServiceStatisticMessageConsumer>();
+    cfg.AddConsumer<ApartmentsServiceStatisticsToProcessMessageConsumer>();
+
+    
+
     cfg.AddConsumer<RoomCheckedConsumer>();
+
 
     cfg.UsingRabbitMq((context, configuration) =>
     {

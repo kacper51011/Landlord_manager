@@ -12,14 +12,14 @@ namespace Statistics.Domain.Entities
     {
         private TenantsStatistics()
         {
-            TenantsStatisticsId = Guid.NewGuid().ToString();
+            TenantStatisticId = Guid.NewGuid().ToString();
             TenantsCreated = 0;
             TenantsUpdated = 0;
             HighestRent = 0;
             MostTenantsInRoom = 0;
             IsFullyProcessed = false;
         }
-        public string TenantsStatisticsId { get; private set; }   
+        public string TenantStatisticId { get; private set; }   
         public Year Year { get; private set; }
         public Month? Month { get; private set; }
         public Day? Day { get; private set; }
@@ -36,7 +36,7 @@ namespace Statistics.Domain.Entities
 
         public static TenantsStatistics CreateAsHourStatisticsInformations(int year, int month, int day, int hour, bool isSent)
         {
-            return new TenantsStatistics()
+            var tenantStatistic = new TenantsStatistics()
             {
                 Year = new Year(year),
                 Month = new Month(month),
@@ -44,14 +44,18 @@ namespace Statistics.Domain.Entities
                 Hour = new Hour(hour),
                 Scope = "Hour",
                 StatisticsStart =new StatisticsStart( new DateTime(year, month, day, hour, 1, 1)),
-                StatisticsEnd = new StatisticsEnd(new DateTime(year, month, day, hour + 1, 1, 1)),
+                StatisticsEnd = new StatisticsEnd(new DateTime(year, month, day, hour, 1, 1).AddHours(1)),
                 IsSent = isSent
             };
+            tenantStatistic.SetCreationDate();
+            tenantStatistic.SetLastModifiedDate();
+            tenantStatistic.IncrementVersion();
+            return tenantStatistic;
 
         }
         public static TenantsStatistics CreateAsDayStatisticsInformations(int year, int month, int day, bool isSent )
         {
-            return new TenantsStatistics()
+            var tenantStatistic = new TenantsStatistics()
             {
                 Year = new Year(year),
                 Month = new Month(month),
@@ -59,14 +63,18 @@ namespace Statistics.Domain.Entities
                 Hour = null,
                 Scope = "Day",
                 StatisticsStart = new StatisticsStart(new DateTime(year, month, day)),
-                StatisticsEnd = new StatisticsEnd(new DateTime(year, month, day + 1)),
+                StatisticsEnd = new StatisticsEnd(new DateTime(year, month, day).AddDays(1)),
                 IsSent = isSent
             };
+            tenantStatistic.SetCreationDate();
+            tenantStatistic.SetLastModifiedDate();
+            tenantStatistic.IncrementVersion();
+            return tenantStatistic;
         }
 
         public static TenantsStatistics CreateAsMonthStatisticsInformations(int year, int month, bool isSent)
         {
-            return new TenantsStatistics()
+            var tenantStatistic = new TenantsStatistics()
             {
                 Year = new Year(year),
                 Month = new Month(month),
@@ -74,14 +82,18 @@ namespace Statistics.Domain.Entities
                 Hour = null,
                 Scope = "Month",
                 StatisticsStart = new StatisticsStart(new DateTime(year, month, 1)),
-                StatisticsEnd = new StatisticsEnd(new DateTime(year, month + 1, 1)),
+                StatisticsEnd = new StatisticsEnd(new DateTime(year, month, 1).AddMonths(1)),
                 IsSent = isSent
             };
+            tenantStatistic.SetCreationDate();
+            tenantStatistic.SetLastModifiedDate();
+            tenantStatistic.IncrementVersion();
+            return tenantStatistic;
         }
 
         public static TenantsStatistics CreateAsYearStatisticsInformations(int year, bool isSent)
         {
-            return new TenantsStatistics()
+            var tenantStatistic = new TenantsStatistics()
             {
                 Year = new Year(year),
                 Month = null,
@@ -89,9 +101,13 @@ namespace Statistics.Domain.Entities
                 Hour = null,
                 Scope = "Year",
                 StatisticsStart = new StatisticsStart(new DateTime(year, 1, 1)),
-                StatisticsEnd = new StatisticsEnd(new DateTime(year + 1, 1, 1)),
+                StatisticsEnd = new StatisticsEnd(new DateTime(year, 1, 1).AddYears(1)),
                 IsSent = isSent
             };
+            tenantStatistic.SetCreationDate();
+            tenantStatistic.SetLastModifiedDate();
+            tenantStatistic.IncrementVersion();
+            return tenantStatistic;
 
         }
 

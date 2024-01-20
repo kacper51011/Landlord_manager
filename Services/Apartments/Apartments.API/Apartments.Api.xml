@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Apartments.API</name>
+    </assembly>
+    <members>
+        <member name="M:Apartments.API.Controllers.V1.ApartmentsController.GetApartments(System.String)">
+            <summary>
+            Gets Apartments for specified landlord
+            </summary>
+            <param name="landlordId">Id of specified landlord</param>
+            <returns>List of apartments</returns>
+        </member>
+        <member name="M:Apartments.API.Controllers.V1.ApartmentsController.CreateOrUpdateApartment(Apartments.Application.Dtos.ApartmentDto)">
+            <summary>
+            Creates or updates apartment, it depends on providing Id of apartment
+            </summary>
+            <param name="apartmentDto">object needed for creating or updating apartment in db</param>
+            <returns></returns>
+        </member>
+        <member name="M:Apartments.API.Controllers.V1.ApartmentsController.DeleteApartment(System.String,System.String)">
+            <summary>
+            Deletes apartment if landlordId and apartmentId matches
+            </summary>
+            <param name="landlordId"></param>
+            <param name="apartmentId"></param>
+            <returns>Returns 200 status code if deleted</returns>
+        </member>
+    </members>
+</doc>

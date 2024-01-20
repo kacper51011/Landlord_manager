@@ -9,6 +9,7 @@ using Statistics.Application.Workers.InitializationJobs;
 using Statistics.Domain.Interfaces;
 using Statistics.Infrastructure.Repositories;
 using Statistics.Infrastructure.Settings;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -54,6 +55,7 @@ builder.Services.AddQuartz(options =>
         trigger.ForJob(yearJob).WithCronSchedule("0 0 0 1 JAN ? *");
     });
 });
+
 
 builder.Services.AddMassTransit(cfg =>
 {
@@ -106,7 +108,27 @@ builder.Services.AddQuartzHostedService(options =>
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen((setup) =>
+{
+    var commentFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var commentFullPath = Path.Combine(AppContext.BaseDirectory, commentFile);
+
+    setup.IncludeXmlComments(commentFullPath);
+    setup.SwaggerDoc("StatisticsOpenAPISpecification", new()
+    {
+        Title = "Statistics Api",
+        Version = "v1",
+        Description = "<h3>Statistics service created for Landlords project, provide simple interface for managing statistics across other services</h3><br/>" +
+        "Service provides endpoints for:<br/>" +
+        "<ul> <li>Getting statistics for specified time interval for chosen type of data</li><br/>" +
+        "<li>Creating new statistic</li><br/>",
+        Contact = new()
+        {
+            Email = "kacper.tylec1999@gmail.com",
+            Name = "Kacper Tylec",
+        }
+    });
+});
 
 var app = builder.Build();
 
@@ -114,7 +136,10 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI((setup) =>
+    {
+        setup.SwaggerEndpoint("StatisticsOpenAPISpecification/swagger.json", "Rooms Api");
+    });
 }
 app.UseHttpsRedirection();
 

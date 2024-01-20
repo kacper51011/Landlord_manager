@@ -31,9 +31,9 @@ namespace Statistics.Application.Consumers.Tenants
                 {
                     throw new DuplicateNameException("Statistic already created");
                 }
-                TenantsStatistics apartmentStatistic = TenantsStatistics.CreateAsDayStatisticsInformations(context.Message.Year, context.Message.Month, context.Message.Day, true);
-                await _tenantsStatisticsRepository.CreateOrUpdateTenantsStatistics(apartmentStatistic);
-                _logger.LogInformation($"Day apartment statistic created with Id {apartmentStatistic.TenantsStatisticsId}");
+                TenantsStatistics tenantStatistic = TenantsStatistics.CreateAsDayStatisticsInformations(context.Message.Year, context.Message.Month, context.Message.Day, true);
+                await _tenantsStatisticsRepository.CreateOrUpdateTenantsStatistics(tenantStatistic);
+                _logger.LogInformation($"Day tenant statistic created with Id {tenantStatistic.TenantStatisticId}");
                 return;
             }
             catch (DuplicateNameException ex)

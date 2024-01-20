@@ -3,16 +3,11 @@ using MassTransit;
 using Microsoft.Extensions.Logging;
 using Statistics.Domain.Entities;
 using Statistics.Domain.Interfaces;
-using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Statistics.Application.Consumers.Rooms
 {
-    public class RoomsHourStatisticsMessageConsumer: IConsumer<StatisticHourMessage>
+    public class RoomsHourStatisticsMessageConsumer : IConsumer<StatisticHourMessage>
     {
         private readonly ILogger<RoomsHourStatisticsMessageConsumer> _logger;
         private readonly IRoomsStatisticsRepository _roomsStatisticsRepository;
@@ -27,13 +22,18 @@ namespace Statistics.Application.Consumers.Rooms
             try
             {
                 var response = await _roomsStatisticsRepository.GetRoomsHourStatistics(context.Message.Year, context.Message.Month, context.Message.Day, context.Message.Hour);
-                if (response != null)
+                if (response == null)
+                {
+                    RoomsStatistics roomStatistic = RoomsStatistics.CreateAsHourStatisticsInformations(context.Message.Year, context.Message.Month, context.Message.Day, context.Message.Hour, true);
+                    await _roomsStatisticsRepository.CreateOrUpdateRoomsStatistics(roomStatistic);
+                    _logger.LogInformation($"Hour room statistic created with Id {roomStatistic.RoomsStatisticsId}");
+                }
+                else
                 {
                     throw new DuplicateNameException("Statistic already created");
                 }
-                RoomsStatistics apartmentStatistic = RoomsStatistics.CreateAsHourStatisticsInformations(context.Message.Year, context.Message.Month, context.Message.Day, context.Message.Hour, true);
-                await _roomsStatisticsRepository.CreateOrUpdateRoomsStatistics(apartmentStatistic);
-                _logger.LogInformation($"Hour apartment statistic created with Id {apartmentStatistic.RoomsStatisticsId}");
+
+
                 return;
             }
             catch (DuplicateNameException ex)

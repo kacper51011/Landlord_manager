@@ -7,7 +7,10 @@ using Statistics.Application.Commands.Tenants.CreateDayStatistics;
 using Statistics.Application.Commands.Tenants.CreateHourStatistics;
 using Statistics.Application.Commands.Tenants.CreateMonthStatistics;
 using Statistics.Application.Commands.Tenants.CreateYearStatistics;
-using Statistics.Application.Dto;
+using Statistics.Application.Dto.In;
+using Statistics.Application.Dto.Out;
+using Statistics.Application.Queries.Apartments.GetApartmentsStatisticQuery;
+using Statistics.Application.Queries.Tenants;
 using System.Data;
 
 namespace Statistics.Api.Controllers
@@ -21,6 +24,31 @@ namespace Statistics.Api.Controllers
         public TenantsStatisticsController(IMediator mediator)
         {
             _mediator = mediator;
+        }
+        [HttpGet]
+        [Route("TenantStatistic")]
+        public async Task<ActionResult<GetTenantsStatisticResponse>> GetAnyTenantStatistic([FromQuery] GetStatisticDto dto)
+        {
+            try
+            {
+                var query = new GetTenantStatisticQuery(dto);
+                var response = await _mediator.Send(query);
+
+                return Ok(response);
+            }
+            catch (FileNotFoundException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch(FileLoadException ex)
+            {
+                return StatusCode(423, ex.Message);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
         [HttpPost]
         [Route("HourStatistics")]

@@ -7,7 +7,10 @@ using Statistics.Application.Commands.Rooms.CreateDayStatistics;
 using Statistics.Application.Commands.Rooms.CreateHourStatistics;
 using Statistics.Application.Commands.Rooms.CreateMonthStatistics;
 using Statistics.Application.Commands.Rooms.CreateYearStatistics;
-using Statistics.Application.Dto;
+using Statistics.Application.Dto.In;
+using Statistics.Application.Dto.Out;
+using Statistics.Application.Queries.Rooms;
+using Statistics.Domain.Entities;
 using System.Data;
 
 namespace Statistics.Api.Controllers
@@ -21,6 +24,32 @@ namespace Statistics.Api.Controllers
         public RoomsStatisticsController(IMediator mediator)
         {
             _mediator = mediator;
+        }
+        [HttpGet]
+        [Route("RoomStatistic")]
+
+        public async Task<ActionResult<GetRoomsStatisticResponse>> GetAnyRoomStatistic([FromQuery] GetStatisticDto dto)
+        {
+            try
+            {
+                var query = new GetRoomStatisticQuery(dto);
+                var response = await _mediator.Send(query);
+
+                return Ok(response);
+            }
+            catch (FileNotFoundException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (FileLoadException ex)
+            {
+                return StatusCode(423, ex.Message);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
         [HttpPost]
         [Route("HourStatistics")]
