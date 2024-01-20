@@ -6,11 +6,11 @@ using Microsoft.Extensions.Logging;
 
 namespace Apartments.Application.Consumers.Statistics
 {
-    public class ManuallyCreatedStatisticMessageConsumer : IConsumer<ManuallyCreatedApartmentStatisticsMessage>
+    public class ManuallyCreatedApartmentsServiceStatisticMessageConsumer : IConsumer<ManuallyCreatedApartmentStatisticsMessage>
     {
         private readonly IApartmentsStatisticsRepository _statisticsRepository;
-        private readonly ILogger<ManuallyCreatedStatisticMessageConsumer> _logger;
-        public ManuallyCreatedStatisticMessageConsumer(IApartmentsStatisticsRepository statisticsRepository, ILogger<ManuallyCreatedStatisticMessageConsumer> logger)
+        private readonly ILogger<ManuallyCreatedApartmentsServiceStatisticMessageConsumer> _logger;
+        public ManuallyCreatedApartmentsServiceStatisticMessageConsumer(IApartmentsStatisticsRepository statisticsRepository, ILogger<ManuallyCreatedApartmentsServiceStatisticMessageConsumer> logger)
         {
             _statisticsRepository = statisticsRepository;
             _logger = logger;

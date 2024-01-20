@@ -53,14 +53,14 @@ builder.Services.AddMassTransit(cfg =>
 {
     cfg.SetDefaultEndpointNameFormatter();
 
-    cfg.AddConsumer<ApartmentsHourStatisticsMessageConsumer>();
-    cfg.AddConsumer<ApartmentsDayStatisticsMessageConsumer>();
-    cfg.AddConsumer<ApartmentsMonthStatisticsMessageConsumer>();
-    cfg.AddConsumer<ApartmentsYearStatisticsMessageConsumer>();
+    cfg.AddConsumer<ApartmentsServiceHourStatisticsMessageConsumer>();
+    cfg.AddConsumer<ApartmentsServiceDayStatisticsMessageConsumer>();
+    cfg.AddConsumer<ApartmentsServiceMonthStatisticsMessageConsumer>();
+    cfg.AddConsumer<ApartmentsServiceYearStatisticsMessageConsumer>();
 
 
-    cfg.AddConsumer<ManuallyCreatedStatisticMessageConsumer>();
-    cfg.AddConsumer<ApartmentStatisticsToProcessMessageConsumer>();
+    cfg.AddConsumer<ManuallyCreatedApartmentsServiceStatisticMessageConsumer>();
+    cfg.AddConsumer<ApartmentsServiceStatisticsToProcessMessageConsumer>();
 
     
 

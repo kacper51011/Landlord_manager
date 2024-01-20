@@ -7,11 +7,11 @@ using System.Data;
 
 namespace Apartments.Application.Consumers.Statistics
 {
-    public class ApartmentsMonthStatisticsMessageConsumer : IConsumer<StatisticMonthMessage>
+    public class ApartmentsServiceMonthStatisticsMessageConsumer : IConsumer<StatisticMonthMessage>
     {
-        private readonly ILogger<ApartmentsMonthStatisticsMessageConsumer> _logger;
+        private readonly ILogger<ApartmentsServiceMonthStatisticsMessageConsumer> _logger;
         private readonly IApartmentsStatisticsRepository _apartmentsStatisticsRepository;
-        public ApartmentsMonthStatisticsMessageConsumer(ILogger<ApartmentsMonthStatisticsMessageConsumer> logger, IApartmentsStatisticsRepository apartmentsStatisticsRepository)
+        public ApartmentsServiceMonthStatisticsMessageConsumer(ILogger<ApartmentsServiceMonthStatisticsMessageConsumer> logger, IApartmentsStatisticsRepository apartmentsStatisticsRepository)
         {
             _logger = logger;
             _apartmentsStatisticsRepository = apartmentsStatisticsRepository;

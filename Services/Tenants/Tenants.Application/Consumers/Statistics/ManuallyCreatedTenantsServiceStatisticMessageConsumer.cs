@@ -11,11 +11,11 @@ using Tenants.Domain.Interfaces;
 
 namespace Tenants.Application.Consumers.Statistics
 {
-    public class ManuallyCreatedStatisticMessageConsumer : IConsumer<ManuallyCreatedTenantStatisticsMessage>
+    public class ManuallyCreatedTenantsServiceStatisticMessageConsumer : IConsumer<ManuallyCreatedTenantStatisticsMessage>
     {
         private readonly ITenantsStatisticsRepository _statisticsRepository;
-        private readonly ILogger<ManuallyCreatedStatisticMessageConsumer> _logger;
-        public ManuallyCreatedStatisticMessageConsumer(ITenantsStatisticsRepository statisticsRepository, ILogger<ManuallyCreatedStatisticMessageConsumer> logger)
+        private readonly ILogger<ManuallyCreatedTenantsServiceStatisticMessageConsumer> _logger;
+        public ManuallyCreatedTenantsServiceStatisticMessageConsumer(ITenantsStatisticsRepository statisticsRepository, ILogger<ManuallyCreatedTenantsServiceStatisticMessageConsumer> logger)
         {
             _statisticsRepository = statisticsRepository;
             _logger = logger;

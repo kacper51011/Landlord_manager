@@ -12,28 +12,28 @@ using System.Threading.Tasks;
 
 namespace Apartments.Application.Consumers.Statistics
 {
-    public class ApartmentsHourStatisticsMessageConsumer : IConsumer<StatisticHourMessage>
+    public class ApartmentsServiceYearStatisticsMessageConsumer : IConsumer<StatisticYearMessage>
     {
-        private readonly ILogger<ApartmentsHourStatisticsMessageConsumer> _logger;
+        private readonly ILogger<ApartmentsServiceYearStatisticsMessageConsumer> _logger;
         private readonly IApartmentsStatisticsRepository _apartmentsStatisticsRepository;
-        public ApartmentsHourStatisticsMessageConsumer(ILogger<ApartmentsHourStatisticsMessageConsumer> logger, IApartmentsStatisticsRepository apartmentsStatisticsRepository)
+        public ApartmentsServiceYearStatisticsMessageConsumer(ILogger<ApartmentsServiceYearStatisticsMessageConsumer> logger, IApartmentsStatisticsRepository apartmentsStatisticsRepository)
         {
             _logger = logger;
             _apartmentsStatisticsRepository = apartmentsStatisticsRepository;
 
         }
-        public async Task Consume(ConsumeContext<StatisticHourMessage> context)
+        public async Task Consume(ConsumeContext<StatisticYearMessage> context)
         {
             try
             {
-                var response = await _apartmentsStatisticsRepository.GetApartmentAnyStatistics(context.Message.Year, context.Message.Month, context.Message.Day, context.Message.Hour);
+                var response = await _apartmentsStatisticsRepository.GetApartmentAnyStatistics(context.Message.Year, null, null, null);
                 if (response != null)
                 {
                     throw new DuplicateNameException("Statistic already created");
                 }
-                ApartmentsStatistics apartmentStatistic = ApartmentsStatistics.CreateAsHourStatisticsInformations(context.Message.Year, context.Message.Month, context.Message.Day, context.Message.Hour);
+                ApartmentsStatistics apartmentStatistic = ApartmentsStatistics.CreateAsYearStatisticsInformations(context.Message.Year);
                 await _apartmentsStatisticsRepository.CreateOrUpdateApartmentStatistics(apartmentStatistic);
-                _logger.LogInformation($"Hour apartment statistic created with Id {apartmentStatistic.ApartmentsStatisticsId}");
+                _logger.LogInformation($"Year apartment statistic created with Id {apartmentStatistic.ApartmentsStatisticsId}");
                 return;
             }
             catch (DuplicateNameException ex)
@@ -43,7 +43,7 @@ namespace Apartments.Application.Consumers.Statistics
             catch (Exception ex)
             {
 
-                _logger.LogWarning(500, ex, "ApartmentsHourStatisticsMessageConsumer failed");
+                _logger.LogWarning(500, ex, "ApartmentsYearStatisticsMessageConsumer failed");
             }
         }
     }

@@ -11,11 +11,11 @@ using System.Threading.Tasks;
 
 namespace Rooms.Application.Consumers.Statistics
 {
-    public class ManuallyCreatedStatisticMessageConsumer : IConsumer<ManuallyCreatedRoomStatisticsMessage>
+    public class ManuallyCreatedRoomsServiceStatisticMessageConsumer : IConsumer<ManuallyCreatedRoomStatisticsMessage>
     {
         private readonly IRoomsStatisticsRepository _statisticsRepository;
-        private readonly ILogger<ManuallyCreatedStatisticMessageConsumer> _logger;
-        public ManuallyCreatedStatisticMessageConsumer(IRoomsStatisticsRepository statisticsRepository, ILogger<ManuallyCreatedStatisticMessageConsumer> logger)
+        private readonly ILogger<ManuallyCreatedRoomsServiceStatisticMessageConsumer> _logger;
+        public ManuallyCreatedRoomsServiceStatisticMessageConsumer(IRoomsStatisticsRepository statisticsRepository, ILogger<ManuallyCreatedRoomsServiceStatisticMessageConsumer> logger)
         {
             _statisticsRepository = statisticsRepository;
             _logger = logger;

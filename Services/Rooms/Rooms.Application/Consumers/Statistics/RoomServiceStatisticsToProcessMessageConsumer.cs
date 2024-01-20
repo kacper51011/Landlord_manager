@@ -5,12 +5,12 @@ using Rooms.Domain.Interfaces;
 
 namespace Rooms.Application.Consumers.Statistics
 {
-    public class RoomStatisticsToProcessMessageConsumer : IConsumer<RoomStatisticToProcessMessage>
+    public class RoomServiceStatisticsToProcessMessageConsumer : IConsumer<RoomStatisticToProcessMessage>
     {
         private readonly IRoomsRepository _roomsReposistory;
         private readonly IRoomsStatisticsRepository _statisticsRepository;
-        private readonly ILogger<RoomStatisticsToProcessMessageConsumer> _logger;
-        public RoomStatisticsToProcessMessageConsumer(IRoomsRepository roomsRepository, IRoomsStatisticsRepository statisticsRepository, ILogger<RoomStatisticsToProcessMessageConsumer> logger)
+        private readonly ILogger<RoomServiceStatisticsToProcessMessageConsumer> _logger;
+        public RoomServiceStatisticsToProcessMessageConsumer(IRoomsRepository roomsRepository, IRoomsStatisticsRepository statisticsRepository, ILogger<RoomServiceStatisticsToProcessMessageConsumer> logger)
         {
             _roomsReposistory = roomsRepository;
             _statisticsRepository = statisticsRepository;

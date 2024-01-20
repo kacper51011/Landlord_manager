@@ -46,6 +46,7 @@ namespace Apartments.Domain
                 
             };
             apartmentStatistic.SetCreationDate();
+            apartmentStatistic.SetLastModifiedDate();
             apartmentStatistic.IncrementVersion();
             return apartmentStatistic;
 
@@ -63,6 +64,7 @@ namespace Apartments.Domain
                 StatisticsEnd = new StatisticsEnd(new DateTime(year, month, day).AddDays(1))
             };
             apartmentStatistic.SetCreationDate();
+            apartmentStatistic.SetLastModifiedDate();
             apartmentStatistic.IncrementVersion();
             return apartmentStatistic;
         }
@@ -80,6 +82,7 @@ namespace Apartments.Domain
                 StatisticsEnd = new StatisticsEnd(new DateTime(year, month, 1).AddMonths(1))
             };
             apartmentStatistic.SetCreationDate();
+            apartmentStatistic.SetLastModifiedDate();
             apartmentStatistic.IncrementVersion();
             return apartmentStatistic;
         }
@@ -97,6 +100,7 @@ namespace Apartments.Domain
                 StatisticsEnd = new StatisticsEnd(new DateTime(year, 1, 1).AddYears(1))
             };
             apartmentStatistic.SetCreationDate();
+            apartmentStatistic.SetLastModifiedDate();
             apartmentStatistic.IncrementVersion();
             return apartmentStatistic;
         }

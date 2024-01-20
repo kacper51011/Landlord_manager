@@ -57,7 +57,7 @@ namespace Statistics.Application.Consumers.Tenants
 
                     tenantsStatistics.SetStatistics(context.Message.TenantsCreated, context.Message.TenantsUpdated, context.Message.MostTenantsInRoom, context.Message.HighestRent);
                     await _tenantsStatisticsRepository.CreateOrUpdateTenantsStatistics(statistic);
-                    _logger.LogInformation($"created new statistic from consumer, statistic with id {statistic.TenantsStatisticsId}");
+                    _logger.LogInformation($"created new statistic from consumer, statistic with id {statistic.TenantStatisticId}");
                     return;
 
                 }
@@ -65,7 +65,7 @@ namespace Statistics.Application.Consumers.Tenants
 
                 statistic.SetStatistics(context.Message.TenantsCreated, context.Message.TenantsUpdated, context.Message.MostTenantsInRoom, context.Message.HighestRent);
                 await _tenantsStatisticsRepository.CreateOrUpdateTenantsStatistics(statistic);
-                _logger.LogInformation($"updated statistic with id {statistic.TenantsStatisticsId}");
+                _logger.LogInformation($"updated statistic with id {statistic.TenantStatisticId}");
             }
 
             catch (Exception ex)

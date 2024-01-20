@@ -66,13 +66,13 @@ builder.Services.AddMassTransit(cfg =>
     cfg.AddConsumer<TenantCheckedConsumer>();
     cfg.AddConsumer<ApartmentDeletedConsumer>();
 
-    cfg.AddConsumer<ManuallyCreatedStatisticMessageConsumer>();
-    cfg.AddConsumer<RoomStatisticsToProcessMessageConsumer>();
+    cfg.AddConsumer<ManuallyCreatedRoomsServiceStatisticMessageConsumer>();
+    cfg.AddConsumer<RoomServiceStatisticsToProcessMessageConsumer>();
 
-    cfg.AddConsumer<RoomHourStatisticsMessageConsumer>();
-    cfg.AddConsumer<RoomDayStatisticsMessageConsumer>();
-    cfg.AddConsumer<RoomMonthStatisticsMessageConsumer>();
-    cfg.AddConsumer<RoomYearStatisticsMessageConsumer>();
+    cfg.AddConsumer<RoomsServiceHourStatisticsMessageConsumer>();
+    cfg.AddConsumer<RoomsServiceDayStatisticsMessageConsumer>();
+    cfg.AddConsumer<RoomsServiceMonthStatisticsMessageConsumer>();
+    cfg.AddConsumer<RoomsServiceYearStatisticsMessageConsumer>();
 
     cfg.UsingRabbitMq((context, configuration) =>
     {

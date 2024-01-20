@@ -11,12 +11,12 @@ using System.Threading.Tasks;
 
 namespace Apartments.Application.Consumers.Statistics
 {
-    public class ApartmentStatisticsToProcessMessageConsumer : IConsumer<ApartmentStatisticToProcessMessage>
+    public class ApartmentsServiceStatisticsToProcessMessageConsumer : IConsumer<ApartmentStatisticToProcessMessage>
     {
         private readonly IApartmentsRepository _apartmentsReposistory;
         private readonly IApartmentsStatisticsRepository _statisticsRepository;
-        private readonly ILogger<ApartmentStatisticsToProcessMessageConsumer> _logger;
-        public ApartmentStatisticsToProcessMessageConsumer(IApartmentsRepository apartmentsRepository, IApartmentsStatisticsRepository statisticsRepository, ILogger<ApartmentStatisticsToProcessMessageConsumer> logger)
+        private readonly ILogger<ApartmentsServiceStatisticsToProcessMessageConsumer> _logger;
+        public ApartmentsServiceStatisticsToProcessMessageConsumer(IApartmentsRepository apartmentsRepository, IApartmentsStatisticsRepository statisticsRepository, ILogger<ApartmentsServiceStatisticsToProcessMessageConsumer> logger)
         {
             _apartmentsReposistory = apartmentsRepository;
             _statisticsRepository = statisticsRepository;

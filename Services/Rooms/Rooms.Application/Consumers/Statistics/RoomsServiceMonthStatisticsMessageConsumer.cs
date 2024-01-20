@@ -12,28 +12,28 @@ using System.Threading.Tasks;
 
 namespace Rooms.Application.Consumers.Statistics
 {
-    public class RoomDayStatisticsMessageConsumer : IConsumer<StatisticDayMessage>
+    public class RoomsServiceMonthStatisticsMessageConsumer : IConsumer<StatisticMonthMessage>
     {
-        private readonly ILogger<RoomDayStatisticsMessageConsumer> _logger;
+        private readonly ILogger<RoomsServiceMonthStatisticsMessageConsumer> _logger;
         private readonly IRoomsStatisticsRepository _roomsStatisticsRepository;
-        public RoomDayStatisticsMessageConsumer(ILogger<RoomDayStatisticsMessageConsumer> logger, IRoomsStatisticsRepository roomsStatisticsRepository)
+        public RoomsServiceMonthStatisticsMessageConsumer(ILogger<RoomsServiceMonthStatisticsMessageConsumer> logger, IRoomsStatisticsRepository roomsStatisticsRepository)
         {
             _logger = logger;
             _roomsStatisticsRepository = roomsStatisticsRepository;
 
         }
-        public async Task Consume(ConsumeContext<StatisticDayMessage> context)
+        public async Task Consume(ConsumeContext<StatisticMonthMessage> context)
         {
             try
             {
-                var response = await _roomsStatisticsRepository.GetRoomAnyStatistics(context.Message.Year, context.Message.Month, context.Message.Day, null);
+                var response = await _roomsStatisticsRepository.GetRoomAnyStatistics(context.Message.Year, context.Message.Month, null, null);
                 if (response != null)
                 {
                     throw new DuplicateNameException("Statistic already created");
                 }
-                RoomsStatistics roomStatistic = RoomsStatistics.CreateAsDayStatisticsInformations(context.Message.Year, context.Message.Month, context.Message.Day);
+                RoomsStatistics roomStatistic = RoomsStatistics.CreateAsMonthStatisticsInformations(context.Message.Year, context.Message.Month);
                 await _roomsStatisticsRepository.CreateOrUpdateRoomStatistics(roomStatistic);
-                _logger.LogInformation($"Day room statistic created with Id {roomStatistic.RoomsStatisticsId}");
+                _logger.LogInformation($"Month room statistic created with Id {roomStatistic.RoomsStatisticsId}");
                 return;
             }
             catch (DuplicateNameException ex)
@@ -43,7 +43,7 @@ namespace Rooms.Application.Consumers.Statistics
             catch (Exception ex)
             {
 
-                _logger.LogWarning(500, ex, "RoomDayStatisticsMessageConsumer failed");
+                _logger.LogWarning(500, ex, "RoomMonthStatisticsMessageConsumer failed");
             }
         }
     }

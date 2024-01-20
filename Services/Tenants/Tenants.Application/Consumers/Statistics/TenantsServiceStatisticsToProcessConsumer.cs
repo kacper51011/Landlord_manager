@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Tenants.Application.Consumers.Statistics
 {
-    internal class TenantStatisticsToProcessConsumer
+    internal class TenantsServiceStatisticsToProcessConsumer
     {
     }
 }

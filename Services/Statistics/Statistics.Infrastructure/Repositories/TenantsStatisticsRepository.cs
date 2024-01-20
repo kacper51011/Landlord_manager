@@ -28,16 +28,16 @@ namespace Statistics.Infrastructure.Repositories
         }
         public async Task CreateOrUpdateTenantsStatistics(TenantsStatistics tenantsStatistics)
         {
-            var result = await _tenantsStatisticsCollection.ReplaceOneAsync(x => x.TenantsStatisticsId == tenantsStatistics.TenantsStatisticsId, tenantsStatistics, new ReplaceOptions()
+            var result = await _tenantsStatisticsCollection.ReplaceOneAsync(x => x.TenantStatisticId == tenantsStatistics.TenantStatisticId, tenantsStatistics, new ReplaceOptions()
             {
                 IsUpsert = true
             });
 
         }
 
-        public async Task<TenantsStatistics> GetTenantsStatisticsById(string apartmentStatisticsId)
+        public async Task<TenantsStatistics> GetTenantsStatisticsById(string tenantStatisticsId)
         {
-            return await _tenantsStatisticsCollection.Find(x => x.TenantsStatisticsId == apartmentStatisticsId).FirstOrDefaultAsync();
+            return await _tenantsStatisticsCollection.Find(x => x.TenantStatisticId == tenantStatisticsId).FirstOrDefaultAsync();
 
         }
         public async Task<TenantsStatistics> GetTenantsYearStatistics(int year)
