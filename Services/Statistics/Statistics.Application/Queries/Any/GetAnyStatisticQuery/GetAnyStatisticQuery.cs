@@ -6,9 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Statistics.Application.Commands.Tenants.CreateHourStatistics
+namespace Statistics.Application.Queries.Any.GetAnyStatisticQuery
 {
-    public record CreateTenantHourStatisticsCommand(CreateHourStatisticsRequestDto RequestDto) : IRequest
+    public record GetAnyStatisticQuery(GetAnyStatisticDto dto): IRequest<object>
     {
     }
 }

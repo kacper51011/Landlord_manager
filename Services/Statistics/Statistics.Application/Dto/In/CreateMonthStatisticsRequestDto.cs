@@ -4,10 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Statistics.Application.Dto
+namespace Statistics.Application.Dto.In
 {
-   public class CreateYearStatisticsRequestDto
+    public class CreateMonthStatisticsRequestDto
     {
         public int Year { get; set; }
+        public int Month { get; set; }
+
     }
 }

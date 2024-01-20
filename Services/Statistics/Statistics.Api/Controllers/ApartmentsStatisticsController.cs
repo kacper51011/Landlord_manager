@@ -5,7 +5,7 @@ using Statistics.Application.Commands.Apartments.CreateDayStatistics;
 using Statistics.Application.Commands.Apartments.CreateHourStatistics;
 using Statistics.Application.Commands.Apartments.CreateMonthStatistics;
 using Statistics.Application.Commands.Apartments.CreateYearStatistics;
-using Statistics.Application.Dto;
+using Statistics.Application.Dto.In;
 using System.Data;
 
 namespace Statistics.Api.Controllers

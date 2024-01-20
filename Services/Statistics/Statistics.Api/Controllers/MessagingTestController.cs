@@ -4,7 +4,7 @@ using Statistics.Application.Commands.MessagingTest.SendDayMessage;
 using Statistics.Application.Commands.MessagingTest.SendHourMessage;
 using Statistics.Application.Commands.MessagingTest.SendMonthMessage;
 using Statistics.Application.Commands.MessagingTest.SendYearMessage;
-using Statistics.Application.Dto;
+using Statistics.Application.Dto.In;
 
 namespace Statistics.Api.Controllers
 {

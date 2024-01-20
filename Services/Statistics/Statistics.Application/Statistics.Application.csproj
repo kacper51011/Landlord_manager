@@ -7,7 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Queries\" />
+    <Folder Include="Queries\Apartments\" />
+    <Folder Include="Queries\Rooms\" />
+    <Folder Include="Queries\Tenants\" />
   </ItemGroup>
 
   <ItemGroup>

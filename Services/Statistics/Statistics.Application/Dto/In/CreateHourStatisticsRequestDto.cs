@@ -1,4 +1,4 @@
-﻿namespace Statistics.Application.Dto
+﻿namespace Statistics.Application.Dto.In
 {
     public class CreateHourStatisticsRequestDto
     {

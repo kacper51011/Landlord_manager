@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using Statistics.Application.Dto;
+using Statistics.Application.Dto.In;
 using System;
 using System.Collections.Generic;
 using System.Linq;
