@@ -4,6 +4,7 @@ using Quartz;
 using System.Reflection;
 using Tenants.Application.Commands.CreateOrUpdateTenant;
 using Tenants.Application.Consumers;
+using Tenants.Application.Consumers.Statistics;
 using Tenants.Application.Settings;
 using Tenants.Application.Workers;
 using Tenants.Domain.Interfaces;
@@ -38,8 +39,21 @@ builder.Services.AddQuartz(options =>
 
 
 builder.Services.AddMassTransit(cfg =>
-{
+{ 
+    
     cfg.SetDefaultEndpointNameFormatter();
+
+
+    cfg.AddConsumer<TenantsServiceHourStatisticMessageConsumer>();
+    cfg.AddConsumer<TenantsServiceDayStatisticMessageConsumer>();
+    cfg.AddConsumer<TenantsServiceMonthStatisticsMessageConsumer>();
+    cfg.AddConsumer<TenantsServiceYearStatisticsMessageConsumer>();
+
+
+    cfg.AddConsumer<ManuallyCreatedTenantsServiceStatisticMessageConsumer>();
+    cfg.AddConsumer<TenantsServiceStatisticsToProcessMessageConsumer>();
+
+
     cfg.AddConsumer<RoomDeletedConsumer>();
 
 

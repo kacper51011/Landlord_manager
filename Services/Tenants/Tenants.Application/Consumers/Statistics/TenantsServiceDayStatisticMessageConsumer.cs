@@ -12,11 +12,11 @@ using Tenants.Domain.Interfaces;
 
 namespace Tenants.Application.Consumers.Statistics
 {
-    public class TenantsDayStatisticsMessageConsumer : IConsumer<StatisticDayMessage>
+    public class TenantsServiceDayStatisticMessageConsumer : IConsumer<StatisticDayMessage>
     {
-        private readonly ILogger<TenantsDayStatisticsMessageConsumer> _logger;
+        private readonly ILogger<TenantsServiceDayStatisticMessageConsumer> _logger;
         private readonly ITenantsStatisticsRepository _tenantsStatisticsRepository;
-        public TenantsDayStatisticsMessageConsumer(ILogger<TenantsDayStatisticsMessageConsumer> logger, ITenantsStatisticsRepository tenantsStatisticsRepository)
+        public TenantsServiceDayStatisticMessageConsumer(ILogger<TenantsServiceDayStatisticMessageConsumer> logger, ITenantsStatisticsRepository tenantsStatisticsRepository)
         {
             _logger = logger;
             _tenantsStatisticsRepository = tenantsStatisticsRepository;
@@ -43,7 +43,7 @@ namespace Tenants.Application.Consumers.Statistics
             catch (Exception ex)
             {
 
-                _logger.LogWarning(500, ex, "TenantsDayStatisticsMessageConsumer failed");
+                _logger.LogWarning(500, ex, "TenantsServiceDayStatisticMessageConsumer failed");
             }
         }
     }

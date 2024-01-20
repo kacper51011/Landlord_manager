@@ -32,7 +32,6 @@ namespace Tenants.Domain
         public int MostTenantsInRoom { get; private set; }
         public bool IsSendToStatisticsService { get; private set; }
         public bool AreInformationsSubmitted { get; private set; }
-        public string Scope { get; private set; }
 
         public static TenantsStatistics CreateAsHourStatisticsInformations(int year, int month, int day, int hour)
         {
