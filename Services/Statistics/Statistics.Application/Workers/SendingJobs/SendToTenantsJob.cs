@@ -37,7 +37,7 @@ namespace Statistics.Application.Workers.SendingJobs
                 await _publisher.Publish(new ManuallyCreatedTenantStatisticsMessage { Hour = notSentStatistic.Hour.Value, Day = notSentStatistic.Day.Value, Month = notSentStatistic.Month.Value, Year = notSentStatistic.Year.Value });
                 notSentStatistic.SetIsSent(true);
                 await _repository.CreateOrUpdateTenantsStatistics(notSentStatistic);
-                _logger.LogInformation($"Sent ManuallyCreatedTenantStatisticsMessage for statistic with Id {notSentStatistic.TenantsStatisticsId}");
+                _logger.LogInformation($"Sent ManuallyCreatedTenantStatisticsMessage for statistic with Id {notSentStatistic.TenantStatisticId}");
 
             }
             catch (Exception)

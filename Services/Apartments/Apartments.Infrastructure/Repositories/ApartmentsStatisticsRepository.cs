@@ -37,7 +37,7 @@ namespace Apartments.Infrastructure.Repositories
 
         public async Task<ApartmentsStatistics> GetApartmentStatisticsById(string apartmentStatisticsId)
         {
-            return await _apartmentsStatisticsCollection.FindAsync(x => x.ApartmentsStatisticsId == apartmentStatisticsId).Result.FirstAsync();
+            return await _apartmentsStatisticsCollection.Find(x => x.ApartmentsStatisticsId == apartmentStatisticsId).FirstOrDefaultAsync();
 
         }
         public async Task<ApartmentsStatistics> GetUnproccessedApartmentStatistics()
@@ -70,7 +70,7 @@ namespace Apartments.Infrastructure.Repositories
             var anyFilter = builder.Eq(a => a.Year.Value, year) & builder.Eq(a => a.Month.Value, month) & builder.Eq(a => a.Day.Value, day) & builder.Eq(a => a.Hour.Value, hour);
             var combinedFilter = anyFilter;
 
-            var result = await _apartmentsStatisticsCollection.FindAsync(combinedFilter).Result.FirstAsync();
+            var result = await _apartmentsStatisticsCollection.Find(combinedFilter).FirstOrDefaultAsync();
 
             return result;
         }

@@ -18,7 +18,7 @@ namespace Rooms.Domain.Entities
         public List<DateTime> UpdateDates { get; private set; }
         public DateTime LastCheckedDate { get; private set; }
 
-        public static Room CreateRoom(string apartmentId, string landlordId, string name, int surface, string anglesCoordinates, int maxTenantsNumber, int currentTenantsNumber, int monthlyRent)
+        public static Room CreateRoom(string apartmentId, string landlordId, string name, int surface, string anglesCoordinates)
         {
             Room room = new Room()
             {
@@ -36,7 +36,7 @@ namespace Rooms.Domain.Entities
             room.IncrementVersion();
             return room;
         }
-        public void UpdateRoom(string name, int surface, string anglesCoordinates, int maxTenantsNumber, int currentTenantsNumber, int monthlyRent)
+        public void UpdateRoom(string name, int surface, string anglesCoordinates)
         {
             Name = name;
             Surface = surface;
