@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Statistics.Application.Dto.Out;
+using Statistics.Domain.Entities;
 using Statistics.Domain.Interfaces;
 
 namespace Statistics.Application.Queries.Apartments.GetApartmentsStatisticQuery
@@ -21,6 +22,10 @@ namespace Statistics.Application.Queries.Apartments.GetApartmentsStatisticQuery
                 if (apartmentStatistic == null)
                 {
                     throw new FileNotFoundException();
+                }
+                if (apartmentStatistic.IsFullyProcessed != true)
+                {
+                    throw new FileLoadException("Statistic exists but data is not ready yet");
                 }
                 return new GetApartmentsStatisticResponse() { StatisticsEnd = apartmentStatistic.StatisticsEnd.Value, StatisticsStart = apartmentStatistic.StatisticsStart.Value, ApartmentsCreated = apartmentStatistic.ApartmentsCreated, ApartmentsStatisticsId = apartmentStatistic.ApartmentsStatisticsId, ApartmentsUpdated = apartmentStatistic.ApartmentsUpdated, MostApartmentsOwnedByUser = apartmentStatistic.MostApartmentsOwnedByUser };
 
