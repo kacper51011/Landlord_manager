@@ -34,7 +34,7 @@ namespace Statistics.Domain.Entities
 
         public static ApartmentsStatistics CreateAsHourStatisticsInformations(int year, int month, int day, int hour, bool isSent)
         {
-            return new ApartmentsStatistics()
+            var apartmentStatistic = new ApartmentsStatistics()
             {
                 Year = new Year(year),
                 Month = new Month(month),
@@ -45,11 +45,15 @@ namespace Statistics.Domain.Entities
                 StatisticsEnd = new StatisticsEnd(new DateTime(year, month, day, hour, 1, 1).AddHours(1)),
                 IsSent = isSent
             };
+            apartmentStatistic.SetCreationDate();
+            apartmentStatistic.SetLastModifiedDate();
+            apartmentStatistic.IncrementVersion();
+            return apartmentStatistic;
 
         }
         public static ApartmentsStatistics CreateAsDayStatisticsInformations(int year, int month, int day, bool isSent)
         {
-            return new ApartmentsStatistics()
+            var apartmentStatistic = new ApartmentsStatistics()
             {
                 Year = new Year(year),
                 Month = new Month(month),
@@ -60,11 +64,15 @@ namespace Statistics.Domain.Entities
                 StatisticsEnd = new StatisticsEnd(new DateTime(year, month, day).AddDays(1)),
                 IsSent = isSent
             };
+            apartmentStatistic.SetCreationDate();
+            apartmentStatistic.SetLastModifiedDate();
+            apartmentStatistic.IncrementVersion();
+            return apartmentStatistic;
         }
 
         public static ApartmentsStatistics CreateAsMonthStatisticsInformations(int year, int month, bool isSent )
         {
-            return new ApartmentsStatistics()
+            var apartmentStatistic = new ApartmentsStatistics()
             {
                 Year = new Year(year),
                 Month = new Month(month),
@@ -75,11 +83,15 @@ namespace Statistics.Domain.Entities
                 StatisticsEnd = new StatisticsEnd(new DateTime(year, month, 1).AddMonths(1)),
                 IsSent = isSent
             };
+            apartmentStatistic.SetCreationDate();
+            apartmentStatistic.SetLastModifiedDate();
+            apartmentStatistic.IncrementVersion();
+            return apartmentStatistic;
         }
 
         public static ApartmentsStatistics CreateAsYearStatisticsInformations(int year, bool isSent)
         {
-            return new ApartmentsStatistics()
+            var apartmentStatistic = new ApartmentsStatistics()
             {
                 Year = new Year(year),
                 Month = null,
@@ -91,7 +103,11 @@ namespace Statistics.Domain.Entities
                 IsSent = isSent
 
             };
-        
+            apartmentStatistic.SetCreationDate();
+            apartmentStatistic.SetLastModifiedDate();
+            apartmentStatistic.IncrementVersion();
+            return apartmentStatistic;
+
         }
 
         public void SetStatistics(int apartmentsCreated, int apartmentsUpdated, int mostOwned)

@@ -31,7 +31,7 @@ namespace Statistics.Domain.Entities
 
         public static RoomsStatistics CreateAsHourStatisticsInformations(int year, int month, int day, int hour, bool isSent)
         {
-            return new RoomsStatistics()
+            var roomsStatistic = new RoomsStatistics()
             {
                 Year = new Year(year),
                 Month = new Month(month),
@@ -42,11 +42,16 @@ namespace Statistics.Domain.Entities
                 StatisticsEnd = new StatisticsEnd(new DateTime(year, month, day, hour, 1, 1).AddHours(1)),
                 IsSent = isSent
             };
+            roomsStatistic.SetCreationDate();
+            roomsStatistic.SetLastModifiedDate();
+
+            roomsStatistic.IncrementVersion();
+            return roomsStatistic;
 
         }
         public static RoomsStatistics CreateAsDayStatisticsInformations(int year, int month, int day, bool isSent)
         {
-            return new RoomsStatistics()
+            var roomsStatistic = new RoomsStatistics()
             {
                 Year = new Year(year),
                 Month = new Month(month),
@@ -57,11 +62,16 @@ namespace Statistics.Domain.Entities
                 StatisticsEnd = new StatisticsEnd(new DateTime(year, month, day).AddDays(1)),
                 IsSent = isSent
             };
+            roomsStatistic.SetCreationDate();
+            roomsStatistic.SetLastModifiedDate();
+
+            roomsStatistic.IncrementVersion();
+            return roomsStatistic;
         }
 
         public static RoomsStatistics CreateAsMonthStatisticsInformations(int year, int month, bool isSent)
         {
-            return new RoomsStatistics()
+            var roomsStatistic = new RoomsStatistics()
             {
                 Year = new Year(year),
                 Month = new Month(month),
@@ -72,11 +82,16 @@ namespace Statistics.Domain.Entities
                 StatisticsEnd = new StatisticsEnd(new DateTime(year, month, 1).AddMonths(1)),
                 IsSent = isSent
             };
+            roomsStatistic.SetCreationDate();
+            roomsStatistic.SetLastModifiedDate();
+
+            roomsStatistic.IncrementVersion();
+            return roomsStatistic;
         }
 
         public static RoomsStatistics CreateAsYearStatisticsInformations(int year, bool isSent)
         {
-            return new RoomsStatistics()
+            var roomsStatistic = new RoomsStatistics()
             {
                 Year = new Year(year),
                 Month = null,
@@ -87,6 +102,11 @@ namespace Statistics.Domain.Entities
                 StatisticsEnd = new StatisticsEnd(new DateTime(year, 1, 1).AddYears(1)),
                 IsSent = isSent
             };
+            roomsStatistic.SetCreationDate();
+            roomsStatistic.SetLastModifiedDate();
+
+            roomsStatistic.IncrementVersion();
+            return roomsStatistic;
 
         }
 

@@ -36,7 +36,7 @@ namespace Statistics.Domain.Entities
 
         public static TenantsStatistics CreateAsHourStatisticsInformations(int year, int month, int day, int hour, bool isSent)
         {
-            return new TenantsStatistics()
+            var tenantStatistic = new TenantsStatistics()
             {
                 Year = new Year(year),
                 Month = new Month(month),
@@ -47,11 +47,15 @@ namespace Statistics.Domain.Entities
                 StatisticsEnd = new StatisticsEnd(new DateTime(year, month, day, hour, 1, 1).AddHours(1)),
                 IsSent = isSent
             };
+            tenantStatistic.SetCreationDate();
+            tenantStatistic.SetLastModifiedDate();
+            tenantStatistic.IncrementVersion();
+            return tenantStatistic;
 
         }
         public static TenantsStatistics CreateAsDayStatisticsInformations(int year, int month, int day, bool isSent )
         {
-            return new TenantsStatistics()
+            var tenantStatistic = new TenantsStatistics()
             {
                 Year = new Year(year),
                 Month = new Month(month),
@@ -62,11 +66,15 @@ namespace Statistics.Domain.Entities
                 StatisticsEnd = new StatisticsEnd(new DateTime(year, month, day).AddDays(1)),
                 IsSent = isSent
             };
+            tenantStatistic.SetCreationDate();
+            tenantStatistic.SetLastModifiedDate();
+            tenantStatistic.IncrementVersion();
+            return tenantStatistic;
         }
 
         public static TenantsStatistics CreateAsMonthStatisticsInformations(int year, int month, bool isSent)
         {
-            return new TenantsStatistics()
+            var tenantStatistic = new TenantsStatistics()
             {
                 Year = new Year(year),
                 Month = new Month(month),
@@ -77,11 +85,15 @@ namespace Statistics.Domain.Entities
                 StatisticsEnd = new StatisticsEnd(new DateTime(year, month, 1).AddMonths(1)),
                 IsSent = isSent
             };
+            tenantStatistic.SetCreationDate();
+            tenantStatistic.SetLastModifiedDate();
+            tenantStatistic.IncrementVersion();
+            return tenantStatistic;
         }
 
         public static TenantsStatistics CreateAsYearStatisticsInformations(int year, bool isSent)
         {
-            return new TenantsStatistics()
+            var tenantStatistic = new TenantsStatistics()
             {
                 Year = new Year(year),
                 Month = null,
@@ -92,6 +104,10 @@ namespace Statistics.Domain.Entities
                 StatisticsEnd = new StatisticsEnd(new DateTime(year, 1, 1).AddYears(1)),
                 IsSent = isSent
             };
+            tenantStatistic.SetCreationDate();
+            tenantStatistic.SetLastModifiedDate();
+            tenantStatistic.IncrementVersion();
+            return tenantStatistic;
 
         }
 

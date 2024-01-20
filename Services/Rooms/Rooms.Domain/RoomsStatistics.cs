@@ -43,6 +43,7 @@ namespace Rooms.Domain
             };
             roomsStatistics.SetCreationDate();
             roomsStatistics.SetLastModifiedDate();
+            roomsStatistics.IncrementVersion();
             return roomsStatistics;
         }
         public static RoomsStatistics CreateAsDayStatisticsInformations(int year, int month, int day)
@@ -58,6 +59,7 @@ namespace Rooms.Domain
                 StatisticsEnd = new StatisticsEnd(new DateTime(year, month, day).AddDays(1))
             };
             roomsStatistic.SetCreationDate();
+            roomsStatistic.SetLastModifiedDate();
             roomsStatistic.IncrementVersion();
             return roomsStatistic;
         }
@@ -76,6 +78,8 @@ namespace Rooms.Domain
 
             };
             roomsStatistic.SetCreationDate();
+            roomsStatistic.SetLastModifiedDate();
+
             roomsStatistic.IncrementVersion();
             return roomsStatistic;
         }
@@ -93,6 +97,8 @@ namespace Rooms.Domain
                 StatisticsEnd = new StatisticsEnd(new DateTime(year, 1, 1).AddYears(1))
             };
             roomsStatistic.SetCreationDate();
+            roomsStatistic.SetLastModifiedDate();
+
             roomsStatistic.IncrementVersion();
             return roomsStatistic;
         }
