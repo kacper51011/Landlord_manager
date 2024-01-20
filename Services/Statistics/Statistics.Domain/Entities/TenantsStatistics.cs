@@ -12,14 +12,14 @@ namespace Statistics.Domain.Entities
     {
         private TenantsStatistics()
         {
-            TenantsStatisticsId = Guid.NewGuid().ToString();
+            TenantStatisticId = Guid.NewGuid().ToString();
             TenantsCreated = 0;
             TenantsUpdated = 0;
             HighestRent = 0;
             MostTenantsInRoom = 0;
             IsFullyProcessed = false;
         }
-        public string TenantsStatisticsId { get; private set; }   
+        public string TenantStatisticId { get; private set; }   
         public Year Year { get; private set; }
         public Month? Month { get; private set; }
         public Day? Day { get; private set; }
