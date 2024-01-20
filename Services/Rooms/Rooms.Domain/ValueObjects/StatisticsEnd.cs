@@ -17,7 +17,7 @@ namespace Rooms.Domain.ValueObjects
         }
         private void Validate(DateTime value)
         {
-            if (value > DateTime.UtcNow)
+            if (value > DateTime.UtcNow.AddHours(1))
             {
                 throw new ArgumentOutOfRangeException(nameof(value), "You can`t request that Date yet ");
             }
